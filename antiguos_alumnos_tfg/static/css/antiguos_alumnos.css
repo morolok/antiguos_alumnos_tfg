@@ -1,0 +1,38 @@
+#cabecera{
+    background-color: burlywood;
+    text-align: center;
+    align-items: center;
+}
+
+#logoCabecera{
+    vertical-align: bottom;
+    display: inline;
+}
+
+#parrafoNombre{
+    vertical-align: bottom;
+    color: red;
+    font-size: 1.2em;
+    display: inline;
+    margin: 0;
+}
+
+#menu{
+    list-style: none;
+}
+
+#menu li{
+    display: inline;
+    margin: 0 20px;
+}
+
+
+
+
+
+#pie{
+    background-color: burlywood;
+    text-align: center;
+}
+
+

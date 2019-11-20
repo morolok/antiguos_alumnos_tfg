@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="{% static 'images/antalumnos_icono.ico' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/antiguos_alumnos.css' %}" />
+    <title>
+        {% block title%}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+
+    <div id="cabecera">
+        <img id="logoCabecera" src="{% static 'images/antalumnos_icono.ico' %}">
+        <p id="parrafoNombre">Asociación de antiguos alumnos de la Escuela Superior de Ingenieros de Sevilla</p>
+        <ul id="menu">
+            <li>La Asociación</li>
+            <li>Actividades</li>
+            <li>Noticias</li>
+            <li>Empleo</li>
+            <li>Revista Ingenio</li>
+            <li>Multimedia</li>
+        </ul>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <div id="pie">
+        <p>Esto es el pie</p>
+    </div>
+
+</body>
+
+</html>
