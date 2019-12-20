@@ -19,11 +19,13 @@
 
     <div id="cabecera">
         <img id="logoCabecera" src="{% static 'images/antalumnos_icono.ico' %}">
-        <p id="parrafoNombre">Asociación de antiguos alumnos de la Escuela Superior de Ingenieros de Sevilla</p>
+        {#  <strong><p id="parrafoNombre">Asociación de antiguos alumnos de la Escuela Superior de Ingenieros de Sevilla</p></strong> #}
+        <h3 id="parrafoNombre">Asociación de antiguos alumnos de la Escuela Superior de Ingenieros de Sevilla</h3>
         <ul id="menu">
-            <li>La Asociación</li>
-            <li>Actividades</li>
-            <li>Noticias</li>
+            <a href="{% url 'inicio' %}"><li>Inicio</li></a>
+            <a href="{% url 'asociacion' %}"><li>La Asociación</li></a>
+            <a href="{% url 'actividades' %}"><li>Actividades</li></a>
+            <a href="{% url 'noticias' %}"><li>Noticias</li></a>
             <li>Empleo</li>
             <li>Revista Ingenio</li>
             <li>Multimedia</li>

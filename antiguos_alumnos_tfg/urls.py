@@ -19,10 +19,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from antiguos_alumnos_tfg.views import saludo, inicio
+from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo/', saludo),
-    path('index/', inicio),
+    path('index/', inicio, name='inicio'),
+    path('asociacion/', asociacion, name='asociacion'),
+    path('actividades/', actividades, name='actividades'),
+    path('noticias/', noticias, name='noticias'),
 ]

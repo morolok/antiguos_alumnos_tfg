@@ -12,3 +12,18 @@ def saludo(request):
 def inicio(request):
 
 	return render(request, "index.html")
+
+
+def asociacion(request):
+
+    return render(request, "asociacion.html")
+
+
+def actividades(request):
+
+    return render(request, "actividades.html")
+
+
+def noticias(request):
+
+    return render(request, "noticias.html")
