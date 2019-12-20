@@ -27,3 +27,18 @@ def actividades(request):
 def noticias(request):
 
     return render(request, "noticias.html")
+
+
+def empleo(request):
+
+    return render(request, "empleo.html")
+
+
+def revistaIngenio(request):
+
+    return render(request, "revistaIngenio.html")
+
+
+def multimedia(request):
+
+    return render(request, "multimedia.html")

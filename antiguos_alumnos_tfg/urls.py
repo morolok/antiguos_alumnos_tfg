@@ -19,7 +19,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias
+from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias, empleo, revistaIngenio, multimedia
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +28,7 @@ urlpatterns = [
     path('asociacion/', asociacion, name='asociacion'),
     path('actividades/', actividades, name='actividades'),
     path('noticias/', noticias, name='noticias'),
+    path('empleo/', empleo, name='empleo'),
+    path('revistaIngenio/', revistaIngenio, name='revistaIngenio'),
+    path('multimedia/', multimedia, name='multimedia'),
 ]
