@@ -1,13 +1,33 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block title %}
     Web Asociación Antiguos Alumnos de la ETSI
 {% endblock %}
 
 
-{% block content %}  
+{% block content %}
 
-    <h1>Esta es la página de la junta rectora.</h1>
+    <div id="miembrosJuntaRectora">
+        <p><strong>Presidente: </strong>D. Francisco Campos García</p>
+        <p><strong>Vicepresidente: </strong>D. Rafael Estepa Alonso</p>
+        <p><strong>Secretario: </strong>D. Guillermo Retamar Gentil</p>
+        <p><strong>Tesorero: </strong>D. Alejandro Escudero Santana</p>
+        <p><strong>Vocales: </strong></p>
+        <ul>
+            <li>D. José Luis Martínez Ramos</li>
+            <li>D. Miguel de la Torre Lucena</li>
+            <li>D. José Mariano González Romano</li>
+            <li>D. Miguel Ángel Iglesias López</li>
+            <li>D. Manuel López Casero</li>
+            <li>D. José María Díaz-Pintado</li>
+            <li>D. Manuel Moreno Retortillo</li>
+            <li>D. Francisco Muñoz López</li>
+            <li>D. Rafael Pérez Rubio</li>
+            <li>D. Jorge Ángel Santamaría Mifsut</li>
+        </ul>
+    </div>
+
+    <img id="imagenJuntaRectora" src="{% static 'images/junta_rectora.png' %}" alt="Imagen de los miembros de la Junta Rectora" title="Imagen de los miembros de la Junta Rectora"/>
 
 {% endblock %}

@@ -36,4 +36,4 @@ def multimedia(request):
     return render(request, "multimedia.html")
 
 def juntaRectora(request):
-    return render(request, "juntaRectora.hmtl")
+    return render(request, "juntaRectora.html")
