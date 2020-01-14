@@ -5,7 +5,7 @@ body{
 #cabecera{
     padding-top: 10px;
     padding-bottom: 1px;
-    background-color: burlywood;
+    background-color: #F3D9B1;
     text-align: center;
     align-items: center;
 }
@@ -19,7 +19,7 @@ body{
 
 #parrafoNombre{
     vertical-align: bottom;
-    color: red;
+    color: #B80C1C;
     font-size: 1.2em;
     display: inline;
     margin: 0;
@@ -47,7 +47,7 @@ body{
 
 
 #pie{
-    background-color: burlywood;
+    background-color: #F3D9B1;
     text-align: center;
     padding-top: 1px;
     padding-bottom: 1px;
