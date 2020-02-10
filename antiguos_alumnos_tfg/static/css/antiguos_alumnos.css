@@ -37,6 +37,11 @@ body{
 }
 
 
+#miembrosJuntaRectora{
+    margin-top: 20px;
+    margin-left: 40%;
+}
+
 #imagenJuntaRectora{
     display: block;
     margin-left: auto;
