@@ -28,12 +28,26 @@ body{
 
 #menu{
     list-style: none;
+    margin-top: 25px;
+    margin-bottom: 6px;
 }
 
 
 #menu li{
+    border-style: solid;
+    border-radius: 0.5em;
+    border-color: #303B89;
+    background-color: #303B89;
+    color: white;
+    padding: 5px;
     display: inline;
-    margin: 0 20px;
+    margin-left: 15px;
+    font-weight: bold;
+}
+
+#enlaceInicioCabecera, #enlaceAsociacionCabecera, #enlaceActividadesCabecera, #enlaceNoticiasCabecera, #enlaceEmpleoCabecera, 
+#enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceDireccion{
+    text-decoration: none;
 }
 
 
