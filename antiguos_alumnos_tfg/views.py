@@ -37,3 +37,6 @@ def multimedia(request):
 
 def juntaRectora(request):
     return render(request, "juntaRectora.html")
+
+def formularioAltaUsuario(request):
+    return render(request, "formularioAltaUsuario.html")

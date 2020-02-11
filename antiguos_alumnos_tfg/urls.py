@@ -19,17 +19,19 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias, empleo, revistaIngenio, multimedia, juntaRectora
+#from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias, empleo, revistaIngenio, multimedia, juntaRectora
+import antiguos_alumnos_tfg.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('saludo/', saludo),
-    path('index/', inicio, name='inicio'),
-    path('asociacion/', asociacion, name='asociacion'),
-    path('actividades/', actividades, name='actividades'),
-    path('noticias/', noticias, name='noticias'),
-    path('empleo/', empleo, name='empleo'),
-    path('revistaIngenio/', revistaIngenio, name='revistaIngenio'),
-    path('multimedia/', multimedia, name='multimedia'),
-    path('juntaRectora/', juntaRectora, name='juntaRectora')
+    path('saludo/', views.saludo),
+    path('index/', views.inicio, name='inicio'),
+    path('asociacion/', views.asociacion, name='asociacion'),
+    path('actividades/', views.actividades, name='actividades'),
+    path('noticias/', views.noticias, name='noticias'),
+    path('empleo/', views.empleo, name='empleo'),
+    path('revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),
+    path('multimedia/', views.multimedia, name='multimedia'),
+    path('juntaRectora/', views.juntaRectora, name='juntaRectora'),
+    path('formularioAltaUsuario/', views.formularioAltaUsuario, name='formularioAltaUsuario'),
 ]

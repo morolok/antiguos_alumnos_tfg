@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+{% block content %}  
+
+    <h1>Alta de usuario:</h1>
+    <form method="POST">
+        Nombre: <input type="text">
+        <br>
+        Apellidos: <input type="text">
+        <br>
+        Email: <input type="email">
+        <br>
+        Teléfono: <input type="text">
+        <br>
+        Dirección postal: <input type="text">
+        <br>
+        Usuario: <input type="text">
+        <br>
+        Contraseña: <input type="password">
+        <br>
+        Tipo: 
+        <select>
+            <option value="Anónimo">Anónimo</option>
+            <option value="Asociado">Asociado</option>
+            <option value="Gestor">Gestor</option>
+            <option value="Administrador">Administrador</option>
+        </select>
+    </form>
+
+{% endblock %}
