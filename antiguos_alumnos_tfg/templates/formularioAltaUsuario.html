@@ -8,28 +8,56 @@
 {% block content %}  
 
     <h1>Alta de usuario:</h1>
-    <form method="POST">
-        Nombre: <input type="text">
+    <form id="formularioAltaUsuario" method="POST">
+
+        <label for="nombre">Nombre: </label> 
+        <input type="text">
+
         <br>
-        Apellidos: <input type="text">
+
+        <label for="apellidos">Apellidos: </label>
+        <input type="text">
+
         <br>
-        Email: <input type="email">
+
+        <label for="email">Email: </label>
+        <input type="email">
+
         <br>
-        Teléfono: <input type="text">
+
+        <label for="telefono">Teléfono: </label>
+        <input type="text">
+        
         <br>
-        Dirección postal: <input type="text">
+
+        <label for="direccionPostal">Dirección postal: </label>
+        <input type="text">
+
         <br>
-        Usuario: <input type="text">
+
+        <label for="usuario">Usuario: </label>
+        <input type="text">
+
         <br>
-        Contraseña: <input type="password">
+
+        <label for="contrasenya">Contraseña: </label>
+        <input type="password">
+
         <br>
-        Tipo: 
+
+        <label for="confirmContrasenya">Confirmación de la contraseña: </label>
+        <input type="password">
+
+        <br>
+
+        <label for="tipo">Tipo: </label>
         <select>
             <option value="Anónimo">Anónimo</option>
             <option value="Asociado">Asociado</option>
             <option value="Gestor">Gestor</option>
             <option value="Administrador">Administrador</option>
         </select>
+        
     </form>
 
 {% endblock %}

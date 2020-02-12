@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+{% block content %}
+
+    <h1>Alta de actividad:</h1>
+
+    <form id="formularioAltaActividad" method="POST">
+
+        <label for="textoReseña">Texto de reseña: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="foto">Foto: </label>
+        <input type="file" accept="image/*">
+
+        <br>
+        
+        <label for="enlaceAlbum">Enlace al album de fotos: </label>
+        <input type="text">
+
+
+    </form>
+
+{% endblock %}

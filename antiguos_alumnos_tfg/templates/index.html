@@ -6,9 +6,19 @@
 {% endblock %}
 
 
-{% block content %}  
+{% block content %}
 
     <h1>Esta es la página de inicio.</h1>
-    <a href="{% url 'formularioAltaUsuario' %}">Formulario alta usuario</a>
+    <div id="enlacesAuxiliares">
+        <a href="{% url 'formularioAltaUsuario' %}">Formulario alta usuario</a>
+        <br>
+        <a href="{% url 'formularioAltaActividad' %}">Formulario alta actividad</a>
+        <br>
+        <a href="{% url 'formularioAltaNoticia' %}">Formulario alta noticia</a>
+        <br>
+        <a href="{% url 'formularioAltaOfertaEmpleo' %}">Formulario alta oferta de empleo</a>
+        <br>
+        <a href="{% url 'formularioAltaDatosDeContacto' %}">Formulario alta datos de contacto</a>
+    </div>
 
 {% endblock %}

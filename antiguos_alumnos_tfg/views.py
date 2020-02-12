@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.template import Template, Context
-from django.template import loader
+#from django.template import Template, Context
+#from django.template import loader
 from django.shortcuts import render
 
 
@@ -40,3 +40,15 @@ def juntaRectora(request):
 
 def formularioAltaUsuario(request):
     return render(request, "formularioAltaUsuario.html")
+
+def formularioAltaActividad(request):
+    return render(request, "formularioAltaActividad.html")
+
+def formularioAltaNoticia(request):
+    return render(request, "formularioAltaNoticia.html")
+
+def formularioAltaOfertaEmpleo(request):
+    return render(request, "formularioAltaOfertaEmpleo.html")
+
+def formularioAltaDatosDeContacto(request):
+    return render(request, "formularioAltaDatosDeContacto.html")

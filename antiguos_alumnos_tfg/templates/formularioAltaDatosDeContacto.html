@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>Alta de datos de contacto:</h1>
+    
+    <form id="formularioAltaDatosDeContacto" method="POST">
+
+        <label for="telefono">Teléfono: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="horario">Horario</label>
+        <input type="text">
+
+        <br>
+
+        <label for="horarioEspecial">Horario especial:</label>
+        <input type="text">
+
+        <br>
+
+        <label for="ubicacion">Ubicación: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="facebook">Facebook: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="twitter">Twitter: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="instagram">Instagram: </label>
+        <input type="text">
+
+    </form>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+{% block content %}
+
+    <h1>Alta de noticia:</h1>
+
+    <form id="formularioAltaNoticia" method="POST">
+
+        <label for="titulo">Título: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="texto">Texto: </label>
+        <input type="text">
+
+
+    </form>
+
+{% endblock %}

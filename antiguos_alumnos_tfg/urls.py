@@ -34,4 +34,8 @@ urlpatterns = [
     path('multimedia/', views.multimedia, name='multimedia'),
     path('juntaRectora/', views.juntaRectora, name='juntaRectora'),
     path('formularioAltaUsuario/', views.formularioAltaUsuario, name='formularioAltaUsuario'),
+    path('formularioAltaActividad/', views.formularioAltaActividad, name='formularioAltaActividad'),
+    path('formularioAltaNoticia/', views.formularioAltaNoticia, name='formularioAltaNoticia'),
+    path('formularioAltaOfertaEmpleo/', views.formularioAltaOfertaEmpleo, name='formularioAltaOfertaEmpleo'),
+    path('formularioAltaDatosDeContacto/', views.formularioAltaDatosDeContacto, name='formularioAltaDatosDeContacto'),
 ]
