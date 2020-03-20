@@ -19,6 +19,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 #from antiguos_alumnos_tfg.views import saludo, inicio, asociacion, actividades, noticias, empleo, revistaIngenio, multimedia, juntaRectora
 import antiguos_alumnos_tfg.views as views
 
@@ -39,3 +40,5 @@ urlpatterns = [
     path('formularioAltaOfertaEmpleo/', views.formularioAltaOfertaEmpleo, name='formularioAltaOfertaEmpleo'),
     path('formularioAltaDatosDeContacto/', views.formularioAltaDatosDeContacto, name='formularioAltaDatosDeContacto'),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gestionBD',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,14 @@ USE_TZ = True
 #C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/
 #<link rel="shortcut icon" href="{% static 'images/antalumnos_icono.ico' %}" />
 
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ["C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/"]
+STATIC_URL = '/static/'
+#STATIC_ROOT = 'static'
+#STATICFILES_DIRS = ["C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/"]
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,'antiguos_alumnos_tfg/static'),
+    #"C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/",
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
