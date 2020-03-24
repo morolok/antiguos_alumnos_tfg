@@ -26,7 +26,7 @@ import antiguos_alumnos_tfg.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('saludo/', views.saludo),
-    path('index/', views.inicio, name='inicio'),
+    path('antalumnos/', views.inicio, name='inicio'),
     path('asociacion/', views.asociacion, name='asociacion'),
     path('actividades/', views.actividades, name='actividades'),
     path('noticias/', views.noticias, name='noticias'),
