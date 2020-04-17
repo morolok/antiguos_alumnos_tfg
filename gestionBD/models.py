@@ -77,82 +77,13 @@ class AcuerdosEmpresas(models.Model):
     text0 = models.TextField(null=True)
 
 class JuntaRectora(models.Model):
-    NO = 'NO'
-    PRESIDENTE = 'PRESIDENTE'
-    VICEPRESIDENTE = 'VICEPRESIDENTE'
-    SECRETARIO = 'SECRETARIO'
-    TESORERO = 'TESORERO'
-    VOCAL = 'VOCAL'
-    PUESTO_JUNTA_RECTORA = (
-        (NO, u'No'),
-        (PRESIDENTE, u'Presidente'),
-        (VICEPRESIDENTE, u'Vicepresidente'),
-        (SECRETARIO, u'Secretario'),
-        (TESORERO, u'Tesorero'),
-        (VOCAL, u'Vocal')
-    )
-
-    puesto = models.CharField(max_length=20, choices=PUESTO_JUNTA_RECTORA)
+    puesto = models.CharField(max_length=20, primary_key=True)
 
 class Titulacion(models.Model):
-    AEROESPACIAL = 'AEROESPACIAL'
-    CIVIL = 'CIVIL'
-    TECNOLOGIAS_INDUSTRIALES = 'TECNOLOGIAS_INDUSTRIALES'
-    QUIMICA = 'QUIMICA'
-    TELECOMUNICACION = 'TELECOMUNICACION'
-    ELECTRONICA_ROBOTICA_MECATRONICA = 'ELECTRONICA_ROBOTICA_MECATRONICA'
-    ENERGIA = 'ENERGIA'
-    ORGANIZACION_INDUSTRIAL = 'ORGANIZACION_INDUSTRIAL'
-    NOMBRE_TITULACION = (
-        (AEROESPACIAL, u'Ingeniería Aeroespacial'),
-        (CIVIL, u'Ingeniería Civil'),
-        (TECNOLOGIAS_INDUSTRIALES, u'Ingeniería de las Tecnologías Industriales'),
-        (QUIMICA, u'Ingeniería Química'),
-        (TELECOMUNICACION, u'Ingeniería de las Tecnologías de la Telecomunicación'),
-        (ELECTRONICA_ROBOTICA_MECATRONICA, u'Ingeniería Electrónica, Robótica y Mecatrónica'),
-        (ENERGIA, u'Ingeniería de la Energía'),
-        (ORGANIZACION_INDUSTRIAL, u'Ingeniería de Organización Industrial')
-    )
-
-    nombre = models.CharField(max_length=100, choices=NOMBRE_TITULACION)
+    nombre = models.CharField(max_length=100, primary_key=True)
 
 class TipoActividad(models.Model):
-    VISITA_TECNICA = 'VISITA_TECNICA'
-    VISITA_CULTURAL = 'VISITA_CULTURAL'
-    CONFERENCIA = 'CONFERENCIA'
-    EXPOSICION = 'EXPOSICION'
-    PADEL = 'PADEL'
-    TENIS = 'TENIS'
-    GOLF = 'GOLF'
-    SENDERISMO = 'SENDERISMO'
-    BICICLETA = 'BICICLETA'
-    REUNION_PROMOCION = 'REUNION_PROMOCION'
-    CONCURSO = 'CONCURSO'
-    ENCUENTRO_ASOCIADOS = 'ENCUENTRO_ASOCIADOS'
-    CONCIERTO = 'CONCIERTO'
-    ACTIVIDAD_FAMILIAR = 'ACTIVIDAD_FAMILIAR'
-    CURSO = 'CURSO'
-    OTRA = 'OTRA'
-    TIPO_ACTIVIDAD = (
-        (VISITA_TECNICA, u'Visita técnica'),
-        (VISITA_CULTURAL, u'Visita cultural'),
-        (CONFERENCIA, u'Conferencia'),
-        (EXPOSICION, u'Exposición'),
-        (PADEL, u'Pádel'),
-        (TENIS, u'Tenis'),
-        (GOLF, u'Golf'),
-        (SENDERISMO, u'Senderismo'),
-        (BICICLETA, u'Bicicleta'),
-        (REUNION_PROMOCION, u'Reunión de promoción'),
-        (CONCURSO, u'Concurso'),
-        (ENCUENTRO_ASOCIADOS, u'Encuentro de asociados'),
-        (CONCIERTO, u'Concierto'),
-        (ACTIVIDAD_FAMILIAR, u'Actividad familiar'),
-        (CURSO, u'Curso'),
-        (OTRA, u'Otra')
-    )
-
-    tipo = models.CharField(max_length=30, choices=TIPO_ACTIVIDAD)
+    tipo = models.CharField(max_length=30)
 
 class UsuarioActividad(models.Model):
     dniUsuario = models.CharField(max_length=9, null=False)
