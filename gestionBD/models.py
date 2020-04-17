@@ -83,7 +83,7 @@ class Titulacion(models.Model):
     nombre = models.CharField(max_length=100, primary_key=True)
 
 class TipoActividad(models.Model):
-    tipo = models.CharField(max_length=30)
+    tipo = models.CharField(max_length=30, primary_key=True)
 
 class UsuarioActividad(models.Model):
     dniUsuario = models.CharField(max_length=9, null=False)
