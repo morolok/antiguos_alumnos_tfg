@@ -12,21 +12,6 @@ class Usuario(models.Model):
         (ADMINISTRADOR, u'Administrador')
     )
 
-    NO = 'NO'
-    PRESIDENTE = 'PRESIDENTE'
-    VICEPRESIDENTE = 'VICEPRESIDENTE'
-    SECRETARIO = 'SECRETARIO'
-    TESORERO = 'TESORERO'
-    VOCAL = 'VOCAL'
-    PUESTO_JUNTA_RECTORA = (
-        (NO, u'No'),
-        (PRESIDENTE, u'Presidente'),
-        (VICEPRESIDENTE, u'Vicepresidente'),
-        (SECRETARIO, u'Secretario'),
-        (TESORERO, u'Tesorero'),
-        (VOCAL, u'Vocal')
-    )
-
     nombre = models.CharField(max_length=30)
     apellidos = models.CharField(max_length=50)
     dni = models.CharField(max_length=9, primary_key=True)
@@ -43,32 +28,71 @@ class Usuario(models.Model):
     añoFinalizacion = models.CharField(max_length=4)
     empresa = models.CharField(max_length=150)
     comunicaciones = models.BooleanField()
-    juntaRectora = models.CharField(max_length=20, choices=PUESTO_JUNTA_RECTORA)
+    juntaRectora = models.CharField(max_length=20)
 
 class Noticia(models.Model):
     titulo = models.CharField(max_length=50)
-    texto = models.CharField(max_length=1024)
+    texto = models.TextField()
     fecha = models.DateTimeField()
-    enlace = models.CharField(max_length=256)
+    enlace = models.CharField(max_length=256, null=True)
 
 class Actividad(models.Model):
     titulo = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=1024)
-    textoReseña = models.CharField(max_length=1024)
+    textoReseña = models.TextField()
     imagen = models.ImageField(upload_to='images', max_length=256)
+    fecha = models.DateField()
+    hora = models.CharField(max_length=5)
+    enlaceAlbum = models.CharField(max_length=256, null=True)
+    tipoActividad = models.CharField(max_length=30)
 
 class DatosDeContacto(models.Model):
     telefono = models.CharField(max_length=9)
     email = models.EmailField()
-    horario = models.CharField(max_length=100)
-    horarioEspecial = models.CharField(max_length=100)
-    ubicacion = models.CharField(max_length=100)
+    horario = models.TextField()
+    horarioEspecial = models.TextField()
+    ubicacion = models.CharField(max_length=100, null=True)
     facebook = models.CharField(max_length=256, null=True)
     twitter = models.CharField(max_length=256, null=True)
     instagram = models.CharField(max_length=256, null=True)
 
+class OfertaEmpleo(models.Model):
+    titulo = models.CharField(max_length=200)
+    texto = models.TextField()
+    contacto = models.CharField(max_length=100, null=True)
+    perfil = models.CharField(max_length=100)
+    fecha = models.DateField()
+    titulaciones = models.CharField(max_length=24)
+
+class RevistaIngenio(models.Model):
+    numero = models.IntegerField(primary_key=True)
+    imagen = models.ImageField(upload_to='images', max_length=256)
+    fichero = models.FileField(upload_to='files')
+    fecha = models.DateField()
+    tablaContenido = models.TextField(null=True)
+
+class AcuerdosEmpresas(models.Model):
+    nombre = models.CharField(max_length=100)
+    fichero = models.FileField(upload_to='files')
+    text0 = models.TextField(null=True)
+
 class JuntaRectora(models.Model):
-    dniUsuario = models.CharField(max_length=9, primary_key=True)
+    NO = 'NO'
+    PRESIDENTE = 'PRESIDENTE'
+    VICEPRESIDENTE = 'VICEPRESIDENTE'
+    SECRETARIO = 'SECRETARIO'
+    TESORERO = 'TESORERO'
+    VOCAL = 'VOCAL'
+    PUESTO_JUNTA_RECTORA = (
+        (NO, u'No'),
+        (PRESIDENTE, u'Presidente'),
+        (VICEPRESIDENTE, u'Vicepresidente'),
+        (SECRETARIO, u'Secretario'),
+        (TESORERO, u'Tesorero'),
+        (VOCAL, u'Vocal')
+    )
+
+    puesto = models.CharField(max_length=20, choices=PUESTO_JUNTA_RECTORA)
 
 class Titulacion(models.Model):
     AEROESPACIAL = 'AEROESPACIAL'
@@ -130,19 +154,10 @@ class TipoActividad(models.Model):
 
     tipo = models.CharField(max_length=30, choices=TIPO_ACTIVIDAD)
 
-class OfertaEmpleo(models.Model):
-    texto = models.CharField(max_length=1024)
-    contacto = models.CharField(max_length=100)
-    perfil = models.CharField(max_length=100)
-    fecha = models.DateField()
-    titulaciones = models.CharField(max_length=24)
+class UsuarioActividad(models.Model):
+    dniUsuario = models.CharField(max_length=9, null=False)
+    actividad = models.CharField(max_length=50, null=False)
 
-class RevistaIngenio(models.Model):
-    numero = models.IntegerField()
-    imagen = models.ImageField(upload_to='images', max_length=256)
-    fichero = models.FileField(upload_to='files')
-    fecha = models.DateField()
-
-class AcuerdosEmpresas(models.Model):
-    nombre = models.CharField(max_length=100)
-    fichero = models.FileField(upload_to='files')
+class OfertaEmpleoTitulacion(models.Model):
+    ofertaEmpleo = models.CharField(max_length=200, null=False)
+    titulacion = models.CharField(max_length=100, null=False)
