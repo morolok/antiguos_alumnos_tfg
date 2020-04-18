@@ -79,11 +79,20 @@ class AcuerdosEmpresas(models.Model):
 class JuntaRectora(models.Model):
     puesto = models.CharField(max_length=20, primary_key=True)
 
+    def __str__(self):
+        return self.puesto
+
 class Titulacion(models.Model):
     nombre = models.CharField(max_length=100, primary_key=True)
 
+    def __str__(self):
+        return self.nombre
+
 class TipoActividad(models.Model):
     tipo = models.CharField(max_length=30, primary_key=True)
+
+    def __str__(self):
+        return self.tipo
 
 class UsuarioActividad(models.Model):
     dniUsuario = models.CharField(max_length=9, null=False)
