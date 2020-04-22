@@ -132,10 +132,10 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = 'static'
 #STATICFILES_DIRS = ["C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/"]
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR,'antiguos_alumnos_tfg/static'),
+    os.path.join(BASE_DIR, 'static'),
     #"C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/",
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'antiguos_alumnos_tfg/multimedia')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'antiguos_alumnos_tfg/static')
