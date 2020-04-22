@@ -74,7 +74,7 @@ class RevistaIngenio(models.Model):
 class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=100)
     fichero = models.FileField(upload_to='files')
-    text0 = models.TextField(null=True)
+    texto = models.TextField(null=True)
 
 class JuntaRectora(models.Model):
     puesto = models.CharField(max_length=20, primary_key=True)

@@ -39,6 +39,7 @@ urlpatterns = [
     path('formularioAltaNoticia/', views.formularioAltaNoticia, name='formularioAltaNoticia'),
     path('formularioAltaOfertaEmpleo/', views.formularioAltaOfertaEmpleo, name='formularioAltaOfertaEmpleo'),
     path('formularioAltaDatosDeContacto/', views.formularioAltaDatosDeContacto, name='formularioAltaDatosDeContacto'),
+    path('formularioAltaRevistaIngenio/', views.formularioAltaRevistaIngenio, name='formularioAltaRevistaIngenio'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

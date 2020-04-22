@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from gestionBD.models import Titulacion, JuntaRectora, TipoActividad
 
 # Create your views here.
 
@@ -41,16 +42,23 @@ def juntaRectora(request):
     return render(request, "juntaRectora.html")
 
 def formularioAltaUsuario(request):
-    return render(request, "formularioAltaUsuario.html")
+    titulaciones = Titulacion.objects.all()
+    puestosJuntaRectora = JuntaRectora.objects.all()
+    return render(request, "formularioAltaUsuario.html", {'titulaciones': titulaciones, 'puestosJuntaRectora': puestosJuntaRectora})
 
 def formularioAltaActividad(request):
-    return render(request, "formularioAltaActividad.html")
+    tiposDeActividad = TipoActividad.objects.all()
+    return render(request, "formularioAltaActividad.html", {'tiposDeActividad': tiposDeActividad})
 
 def formularioAltaNoticia(request):
     return render(request, "formularioAltaNoticia.html")
 
 def formularioAltaOfertaEmpleo(request):
-    return render(request, "formularioAltaOfertaEmpleo.html")
+    titulaciones = Titulacion.objects.all()
+    return render(request, "formularioAltaOfertaEmpleo.html", {'titulaciones': titulaciones})
 
 def formularioAltaDatosDeContacto(request):
     return render(request, "formularioAltaDatosDeContacto.html")
+
+def formularioAltaRevistaIngenio(request):
+    return render(request, "formularioAltaRevistaIngenio.html")

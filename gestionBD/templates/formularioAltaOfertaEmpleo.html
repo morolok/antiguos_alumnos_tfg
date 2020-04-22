@@ -11,7 +11,12 @@
 
     <form id="formularioAltaOfertaEmpleo" method="POST">
 
-        <label for="toxto">Texto: </label>
+        <label for="titulo">Título: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="texto">Texto: </label>
         <input type="text">
 
         <br>
@@ -23,6 +28,15 @@
 
         <label for="perfil">Perfil: </label>
         <input type="text">
+
+        <br>
+
+        <label for="titulaciones">Titulaciones: </label>
+
+        {% for titulacion in titulaciones %}
+            <br><input type="checkbox" value="{{titulacion.nombre}}">
+            <label for="{{titulacion.nombre}}">{{titulacion.nombre}}</label>
+        {% endfor %}
 
 
     </form>

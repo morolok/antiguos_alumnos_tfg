@@ -5,7 +5,7 @@
     Web Asociación Antiguos Alumnos de la ETSI
 {% endblock %}
 
-{% block content %}  
+{% block content %}
 
     <h1>Alta de usuario:</h1>
     <form id="formularioAltaUsuario" method="POST">
@@ -16,6 +16,21 @@
         <br>
 
         <label for="apellidos">Apellidos: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="dni">Dni: </label>
+        <input type="text">
+
+        <br>
+
+        <label for="fechaNacimiento">Fecha de nacimiento: </label>
+        <input type="date">
+
+        <br>
+
+        <label for="cuentaBancaria">Cuenta bancaria: </label>
         <input type="text">
 
         <br>
@@ -56,6 +71,47 @@
             <option value="Asociado">Asociado</option>
             <option value="Gestor">Gestor</option>
             <option value="Administrador">Administrador</option>
+        </select>
+
+        <br>
+
+        <label for="titulacion">Titulación: </label>
+        <select>
+            {% for titulacion in titulaciones %}
+                <option value="{{titulacion.nombre}}">{{titulacion.nombre}}</option>
+            {% endfor %}
+        </select>
+
+        <br>
+
+        <label for="promocion">Promoción: </label>
+        <input type="text">
+        
+        <br>
+
+        <label for="anyoFinalizacion">Año de finalización: </label>
+        <input type="text">
+        
+        <br>
+
+        <label for="empresa">Empresa: </label>
+        <input type="text">
+        
+        <br>
+
+        <label for="comunicaciones">Desea recibir información: </label>
+        <select>
+            <option value="True">Si</option>
+            <option value="False">No</option>
+        </select>
+        
+        <br>
+
+        <label for="juntaRectora">Puesto en la junta rectora: </label>
+        <select>
+            {% for puestoJuntaRectora in puestosJuntaRectora %}
+                <option value="{{puestoJuntaRectora.puesto}}">{{puestoJuntaRectora.puesto}}</option>
+            {% endfor %}
         </select>
         
     </form>
