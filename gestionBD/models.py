@@ -66,10 +66,13 @@ class OfertaEmpleo(models.Model):
 
 class RevistaIngenio(models.Model):
     numero = models.IntegerField(primary_key=True)
-    imagen = models.ImageField(upload_to='images', max_length=256)
+    imagen = models.ImageField(upload_to='images', max_length=256, null=True, blank=True)
     fichero = models.FileField(upload_to='files')
     fecha = models.DateField()
-    tablaContenido = models.TextField(null=True)
+    tablaContenido = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return "Revista número " + str(self.numero)
 
 class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=100)

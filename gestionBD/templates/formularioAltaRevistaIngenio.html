@@ -7,38 +7,39 @@
 
 {% block content %}
 
-<h1>Alta de revista ingenio:</h1>
+<div id="cuerpo">
 
-<form id="formularioAltaRevistaIngenio" method="POST">
+    <h1>Alta de revista ingenio:</h1>
 
-    <label>Número: </label>
-    <input type="number" min="1">
+    <form id="formularioAltaRevistaIngenio" method="POST">
 
-    <br>
+        <label>Número: </label>
+        <input type="number" min="1">
 
-    <label>Imagen: </label>
-    <input type="file" accept="image/*">
+        <br>
 
-    <br>
+        <label>Imagen: </label>
+        <input type="file" accept="image/*">
 
-    <label>Fichero: </label>
-    <input type="file" accept="application/pdf">
+        <br>
 
-    <br>
+        <label>Fichero: </label>
+        <input type="file" accept="application/pdf">
 
-    <label>Fecha: </label>
-    <input type="date">
+        <br>
 
-    <br>
+        <label>Fecha: </label>
+        <input type="date">
 
-    <label>Tabla de contenidos: </label><br>
-    <textarea form="formularioAltaNoticia" cols="20" rows="5"></textarea>
+        <br>
 
-    <br>
+        <label>Tabla de contenidos: </label><br>
+        <textarea form="formularioAltaNoticia" cols="20" rows="5"></textarea>
 
+        <br>
 
-</form>
+    </form>
 
-
+</div>
 
 {% endblock %}

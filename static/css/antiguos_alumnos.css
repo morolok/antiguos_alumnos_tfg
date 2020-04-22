@@ -2,6 +2,13 @@ body{
     margin: 0px;
 }
 
+#cuerpo{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 #cabecera{
     padding-top: 10px;
     padding-bottom: 1px;
@@ -68,6 +75,6 @@ body{
 #pie{
     background-color: #F3D9B1;
     text-align: center;
-    padding-top: 1px;
+    padding-top: 5px;
     padding-bottom: 1px;
 }

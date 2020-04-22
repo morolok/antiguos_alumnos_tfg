@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import render
-from gestionBD.models import Titulacion, JuntaRectora, TipoActividad
+from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
+import os
+from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio
 
 # Create your views here.
 
@@ -32,7 +34,8 @@ def empleo(request):
 
 
 def revistaIngenio(request):
-    return render(request, "revistaIngenio.html")
+    revistas = RevistaIngenio.objects.all()
+    return render(request, "revistaIngenio.html", {'revistas': revistas, 'MEDIA_URL': MEDIA_URL})
 
 
 def multimedia(request):
@@ -62,3 +65,4 @@ def formularioAltaDatosDeContacto(request):
 
 def formularioAltaRevistaIngenio(request):
     return render(request, "formularioAltaRevistaIngenio.html")
+

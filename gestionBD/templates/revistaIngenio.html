@@ -2,12 +2,24 @@
 
 
 {% block title %}
-    Web Asociación Antiguos Alumnos de la ETSI
+    Revista Ingenio
 {% endblock %}
 
 
 {% block content %}  
 
+<div id="cuerpo">
+
     <h1>Esta es la página de la Revista Ingenio de la asociación.</h1>
+
+    {% for revista in revistas %}
+        
+        <p>Revista número {{revista.numero}} del día {{revista.fecha}}</p>
+        <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank">Revista Ingenio {{revista.numero}}</a>
+        <br>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
