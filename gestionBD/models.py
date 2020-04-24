@@ -34,16 +34,16 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=50)
     texto = models.TextField()
     fecha = models.DateTimeField()
-    enlace = models.CharField(max_length=256, null=True)
+    enlace = models.CharField(max_length=256, null=True, blank=True)
 
 class Actividad(models.Model):
-    titulo = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=50, primary_key=True)
     descripcion = models.CharField(max_length=1024)
     textoReseña = models.TextField()
     imagen = models.ImageField(upload_to='images', max_length=256)
     fecha = models.DateField()
     hora = models.CharField(max_length=5)
-    enlaceAlbum = models.CharField(max_length=256, null=True)
+    enlaceAlbum = models.CharField(max_length=256, null=True, blank=True)
     tipoActividad = models.CharField(max_length=30)
 
 class DatosDeContacto(models.Model):
@@ -51,15 +51,15 @@ class DatosDeContacto(models.Model):
     email = models.EmailField()
     horario = models.TextField()
     horarioEspecial = models.TextField()
-    ubicacion = models.CharField(max_length=100, null=True)
-    facebook = models.CharField(max_length=256, null=True)
-    twitter = models.CharField(max_length=256, null=True)
-    instagram = models.CharField(max_length=256, null=True)
+    ubicacion = models.CharField(max_length=100, null=True, blank=True)
+    facebook = models.CharField(max_length=256, null=True, blank=True)
+    twitter = models.CharField(max_length=256, null=True, blank=True)
+    instagram = models.CharField(max_length=256, null=True, blank=True)
 
 class OfertaEmpleo(models.Model):
-    titulo = models.CharField(max_length=200)
+    titulo = models.CharField(max_length=200, primary_key=True)
     texto = models.TextField()
-    contacto = models.CharField(max_length=100, null=True)
+    contacto = models.CharField(max_length=100, null=True, blank=True)
     perfil = models.CharField(max_length=100)
     fecha = models.DateField()
     titulaciones = models.CharField(max_length=24)
@@ -77,7 +77,7 @@ class RevistaIngenio(models.Model):
 class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=100)
     fichero = models.FileField(upload_to='files')
-    texto = models.TextField(null=True)
+    texto = models.TextField(null=True, blank=True)
 
 class JuntaRectora(models.Model):
     puesto = models.CharField(max_length=20, primary_key=True)
@@ -98,9 +98,12 @@ class TipoActividad(models.Model):
         return self.tipo
 
 class UsuarioActividad(models.Model):
-    dniUsuario = models.CharField(max_length=9, null=False)
-    actividad = models.CharField(max_length=50, null=False)
+    dniUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE)
+    #dniUsuario = models.CharField(max_length=9, null=False)
+    #actividad = models.CharField(max_length=50, null=False)
 
 class OfertaEmpleoTitulacion(models.Model):
-    ofertaEmpleo = models.CharField(max_length=200, null=False)
+    #ofertaEmpleo = models.CharField(max_length=200, null=False)
+    ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE)
     titulacion = models.CharField(max_length=100, null=False)

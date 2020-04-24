@@ -17,12 +17,10 @@ body{
     align-items: center;
 }
 
-
 #logoCabecera{
     vertical-align: bottom;
     display: inline;
 }
-
 
 #parrafoNombre{
     vertical-align: bottom;
@@ -32,13 +30,11 @@ body{
     margin: 0;
 }
 
-
 #menu{
     list-style: none;
     margin-top: 25px;
     margin-bottom: 6px;
 }
-
 
 #menu li{
     border-style: solid;
@@ -57,6 +53,24 @@ body{
     text-decoration: none;
 }
 
+#tablaRevistaIngenio{
+    width: 40%;
+}
+
+.cabeceraTablaRI{
+    padding: 5px;
+}
+
+.elementoTablaRI{
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+#logoPdfTablaRI{
+    width: 20px;
+    height: 20px;
+    vertical-align: center;
+}
 
 #miembrosJuntaRectora{
     margin-top: 20px;
