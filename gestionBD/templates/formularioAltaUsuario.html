@@ -14,62 +14,62 @@
     <form id="formularioAltaUsuario" method="POST">
 
         <label for="nombre">Nombre: </label> 
-        <input type="text">
+        <input id="nombre" name="nombre" type="text">
 
         <br>
 
         <label for="apellidos">Apellidos: </label>
-        <input type="text">
+        <input id="apellidos" name="apellidos" type="text">
 
         <br>
 
         <label for="dni">Dni: </label>
-        <input type="text">
+        <input id="dni" name="dni" type="text" placeholder="12345678X" maxlength="9" pattern="^[0-9]{8}[A-Z]" title="8 dígitos y una letra mayúscula">
 
         <br>
 
         <label for="fechaNacimiento">Fecha de nacimiento: </label>
-        <input type="date">
+        <input id="fechaNacimiento" name="fechaNacimiento" type="date">
 
         <br>
 
         <label for="cuentaBancaria">Cuenta bancaria: </label>
-        <input type="text">
+        <input id="cuentaBancaria" name="cuentaBancaria" type="text" placeholder="ES2144445555667777777777" maxlength="24">
 
         <br>
 
         <label for="email">Email: </label>
-        <input type="email">
+        <input id="email" name="email" type="email" placeholder="usuario@dominio.extension">
 
         <br>
 
         <label for="telefono">Teléfono: </label>
-        <input type="text">
+        <input id="telefono" name="telefono" type="text" pattern="^[6-7]{1}[0-9]{8}" placeholder="654732897">
         
         <br>
 
-        <label for="direccionPostal">Dirección postal: </label>
-        <input type="text">
+        <label for="direccionPostal">Dirección postal: </label><br>
+        <textarea form="formularioAltaUsuario" id="direccionPostal" name="telefono" cols="30" rows="5"></textarea>
 
         <br>
 
         <label for="usuario">Usuario: </label>
-        <input type="text">
+        <input id="usuario" name="usuario" type="text">
 
         <br>
 
-        <label for="contrasenya">Contraseña: </label>
-        <input type="password">
+        <label for="contraseña">Contraseña: </label>
+        <input id="contraseña" name="contraseña" type="password">
 
         <br>
 
-        <label for="confirmContrasenya">Confirmación de la contraseña: </label>
-        <input type="password">
+        <label for="confirmacionContraseña">Confirmación de la contraseña: </label>
+        <input id="confirmacionContraseña" name="confirmacionContraseña" type="password">
 
         <br>
 
         <label for="tipo">Tipo: </label>
-        <select>
+        <select id="tipo" name="tipo">
             <option value="Anónimo">Anónimo</option>
             <option value="Asociado">Asociado</option>
             <option value="Gestor">Gestor</option>
@@ -79,7 +79,7 @@
         <br>
 
         <label for="titulacion">Titulación: </label>
-        <select>
+        <select id="titulacion" name="titulacion">
             {% for titulacion in titulaciones %}
                 <option value="{{titulacion.nombre}}">{{titulacion.nombre}}</option>
             {% endfor %}
@@ -88,22 +88,22 @@
         <br>
 
         <label for="promocion">Promoción: </label>
-        <input type="text">
+        <input id="promocion" name="promocion" type="text">
         
         <br>
 
-        <label for="anyoFinalizacion">Año de finalización: </label>
-        <input type="text">
+        <label for="añoFinalizacion">Año de finalización: </label>
+        <input id="añoFinalizacion" name="añoFinalizacion" type="text">
         
         <br>
 
         <label for="empresa">Empresa: </label>
-        <input type="text">
+        <input id="empresa" name="empresa" type="text">
         
         <br>
 
         <label for="comunicaciones">Desea recibir información: </label>
-        <select>
+        <select id="comunicaciones" name="comunicaciones">
             <option value="True">Si</option>
             <option value="False">No</option>
         </select>
@@ -111,7 +111,7 @@
         <br>
 
         <label for="juntaRectora">Puesto en la junta rectora: </label>
-        <select>
+        <select id="juntaRectora" name="juntaRectora">
             {% for puestoJuntaRectora in puestosJuntaRectora %}
                 <option value="{{puestoJuntaRectora.puesto}}">{{puestoJuntaRectora.puesto}}</option>
             {% endfor %}
