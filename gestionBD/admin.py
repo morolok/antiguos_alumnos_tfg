@@ -1,18 +1,18 @@
 from django.contrib import admin
-
-from gestionBD.models import Usuario, Noticia, Actividad, DatosDeContacto, OfertaEmpleo, RevistaIngenio, AcuerdosEmpresas, JuntaRectora, Titulacion, TipoActividad, UsuarioActividad, OfertaEmpleoTitulacion
+import gestionBD.models as modelos
 
 # Register your models here.
 
-admin.site.register(Usuario)
-admin.site.register(Noticia)
-admin.site.register(Actividad)
-admin.site.register(DatosDeContacto)
-admin.site.register(OfertaEmpleo)
-admin.site.register(RevistaIngenio)
-admin.site.register(AcuerdosEmpresas)
-admin.site.register(JuntaRectora)
-admin.site.register(Titulacion)
-admin.site.register(TipoActividad)
-admin.site.register(UsuarioActividad)
-admin.site.register(OfertaEmpleoTitulacion)
+admin.site.register(modelos.JuntaRectora)
+admin.site.register(modelos.Titulacion)
+admin.site.register(modelos.TipoActividad)
+admin.site.register(modelos.TipoUsuario)
+admin.site.register(modelos.Usuario)
+admin.site.register(modelos.Noticia)
+admin.site.register(modelos.Actividad)
+admin.site.register(modelos.DatosDeContacto)
+admin.site.register(modelos.OfertaEmpleo)
+admin.site.register(modelos.RevistaIngenio)
+admin.site.register(modelos.AcuerdosEmpresas)
+admin.site.register(modelos.UsuarioActividad)
+admin.site.register(modelos.OfertaEmpleoTitulacion)
