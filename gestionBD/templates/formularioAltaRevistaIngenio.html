@@ -11,30 +11,10 @@
 
     <h1>Alta de revista ingenio:</h1>
 
-    <form id="formularioAltaRevistaIngenio" method="POST">
+    <form id="formularioAltaRevistaIngenio" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
-        <label>Número: </label>
-        <input type="number" min="1">
-
-        <br>
-
-        <label>Imagen: </label>
-        <input type="file" accept="image/*">
-
-        <br>
-
-        <label>Fichero: </label>
-        <input type="file" accept="application/pdf">
-
-        <br>
-
-        <label>Fecha: </label>
-        <input type="date">
-
-        <br>
-
-        <label>Tabla de contenidos: </label><br>
-        <textarea form="formularioAltaNoticia" cols="20" rows="5"></textarea>
+        {{ formRevistaIngenio.as_p }}
+        <button type="submit">Enviar</button>
 
         <br>
 

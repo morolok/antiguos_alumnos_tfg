@@ -1,10 +1,11 @@
 from django.http import HttpResponse, FileResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
 import os
 #from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 import gestionBD.models as modelos
 import gestionBD.forms as formularios
+from datetime import datetime
 
 # Create your views here.
 
@@ -69,5 +70,18 @@ def formularioAltaDatosDeContacto(request):
     return render(request, "formularioAltaDatosDeContacto.html")
 
 def formularioAltaRevistaIngenio(request):
-    return render(request, "formularioAltaRevistaIngenio.html")
+    formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
+    if(request.method == 'POST'):
+        formRevistaIngenio = formularios.FormularioAltaRevistaIngenio(request.POST, request.FILES)
+        if(formRevistaIngenio.is_valid()):
+            revista = formRevistaIngenio.save(commit=False)
+            numero = revista.numero
+            formRevistaIngenio.save()
+            formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
+            return redirect('exitoAltaRevistaIngenio', numero = numero)
+    contexto = {'formRevistaIngenio': formRevistaIngenio}
+    return render(request, "formularioAltaRevistaIngenio.html", contexto)
 
+def exitoAltaRevistaIngenio(request, numero):
+    contexto = {'numero': numero}
+    return render(request, "exitoAltaRevistaIngenio.html", contexto)

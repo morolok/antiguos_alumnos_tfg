@@ -127,6 +127,7 @@ USE_TZ = True
 #C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/
 #<link rel="shortcut icon" href="{% static 'images/antalumnos_icono.ico' %}" />
 
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
