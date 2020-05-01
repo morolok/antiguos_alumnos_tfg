@@ -9,13 +9,6 @@ from datetime import datetime
 
 # Create your views here.
 
-from django.shortcuts import render
-
-
-def saludo(request):
-    return HttpResponse("Pagina del TFG")
-
-
 def inicio(request):
 	return render(request, "index.html")
 
@@ -48,11 +41,12 @@ def juntaRectora(request):
     return render(request, "juntaRectora.html")
 
 def formularioAltaUsuario(request):
-    tiposUsuario = modelos.TipoUsuario.objects.all()
-    titulaciones = modelos.Titulacion.objects.all()
-    puestosJuntaRectora = modelos.JuntaRectora.objects.all()
     formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
-    contexto = {'titulaciones': titulaciones, 'puestosJuntaRectora': puestosJuntaRectora, 'tiposUsuario': tiposUsuario, 'formUsuario': formUsuario}
+    if(request.method == 'POST'):
+        print(formUsuario.is_valid())
+        print(formUsuario.data)
+        formUsuario = formularios.FormularioAltaUsuario()
+    contexto = {'formUsuario': formUsuario}
     return render(request, "formularioAltaUsuario.html", contexto)
 
 def formularioAltaActividad(request):
