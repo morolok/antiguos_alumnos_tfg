@@ -42,11 +42,16 @@ def juntaRectora(request):
 
 def formularioAltaUsuario(request):
     formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
+    contexto = {'formUsuario': formUsuario}
     if(request.method == 'POST'):
         print(formUsuario.is_valid())
+        if(formUsuario.is_valid()):
+            pass
+        else:
+            errores = [error for error in formUsuario.errors['__all__']]
+            contexto['errores'] = errores
         print(formUsuario.data)
-        formUsuario = formularios.FormularioAltaUsuario()
-    contexto = {'formUsuario': formUsuario}
+    
     return render(request, "formularioAltaUsuario.html", contexto)
 
 def formularioAltaActividad(request):

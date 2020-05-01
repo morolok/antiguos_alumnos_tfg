@@ -85,6 +85,9 @@ body{
     margin-bottom: 5px;
 }
 
+#direccionPostal{
+    clear: right;
+}
 
 #pie{
     background-color: #F3D9B1;

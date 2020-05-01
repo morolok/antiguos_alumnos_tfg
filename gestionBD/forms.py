@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.safestring import mark_safe
 import antiguos_alumnos_tfg.settings as settings
 import gestionBD.models as modelos
 from datetime import datetime
@@ -23,6 +24,13 @@ class FormularioAltaUsuario(forms.ModelForm):
 
     def clean(self):
         usuario = self.cleaned_data
+
+        contraseña = usuario.get('contraseña')
+        confirmacionContraseña = usuario.get('confirmacionContraseña')
+        if(contraseña != confirmacionContraseña):
+            raise forms.ValidationError("La confirmación de la contraseña debe ser igual a la contraseña")
+
+        return usuario
 
 
 

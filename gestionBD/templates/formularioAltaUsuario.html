@@ -13,7 +13,25 @@
 
     <form id="formularioAltaUsuario" method="POST" action="."> {% csrf_token %}
 
-        {{ formUsuario.as_p }}
+        {% if errores %}
+            {% for error in errores %}
+                <p style="color: red;">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% for campo in formUsuario %}
+
+            {% if campo.id_for_label == 'id_direccionPostal' %}
+                <label for="formularioAltaUsuario">{{ campo.label }}: </label><br>
+                {{ campo }}
+                <br>
+            {% else %}
+                <label for="formularioAltaUsuario">{{ campo.label }}: </label>
+                {{ campo }}
+                <br>
+            {% endif %}
+        
+        {% endfor %}
         <button type="submit">Enviar</button>
         
     </form>
