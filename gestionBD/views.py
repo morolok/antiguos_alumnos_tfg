@@ -46,10 +46,11 @@ def formularioAltaUsuario(request):
     if(request.method == 'POST'):
         print(formUsuario.is_valid())
         if(formUsuario.is_valid()):
-            pass
-        else:
-            errores = [error for error in formUsuario.errors['__all__']]
-            contexto['errores'] = errores
+            print(formUsuario.data)
+        #else:
+            #if(formUsuario.errors):
+                #errores = [error for error in formUsuario.errors['__all__']]
+                #contexto['errores'] = errores
         print(formUsuario.data)
     
     return render(request, "formularioAltaUsuario.html", contexto)
