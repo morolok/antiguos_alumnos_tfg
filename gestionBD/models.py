@@ -45,6 +45,9 @@ class Usuario(models.Model):
     comunicaciones = models.BooleanField()
     juntaRectora = models.ForeignKey(JuntaRectora, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.nombre + " " + self.apellidos + " - " + self.dni
+
 class Noticia(models.Model):
     titulo = models.CharField(max_length=50)
     texto = models.TextField()

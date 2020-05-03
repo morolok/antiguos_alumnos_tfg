@@ -13,7 +13,25 @@
 
     <form id="formularioAltaRevistaIngenio" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
-        {{ formRevistaIngenio.as_p }}
+        {% if errores %}
+            {% for error in errores %}
+                <p style="color: red;">{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% for campo in formRevistaIngenio %}
+
+            {% if campo.id_for_label == 'id_tablaContenido' %}
+                <label for="formularioAltaRevistaIngenio">{{ campo.label }}: </label><br>
+                {{ campo }}
+                <br>
+            {% else %}
+                <label for="formularioAltaRevistaIngenio">{{ campo.label }}: </label>
+                {{ campo }}
+                <br>
+            {% endif %}
+        
+        {% endfor %}
         <button type="submit">Enviar</button>
 
         <br>
