@@ -37,13 +37,13 @@ class Usuario(models.Model):
     direccionPostal = models.TextField(verbose_name='Dirección postal')
     usuario = models.CharField(max_length=20, verbose_name='Usuario')
     contraseña = models.CharField(max_length=256, verbose_name='Contraseña')
-    tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE)
-    titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE)
+    tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE, verbose_name='Tipo de usuario')
+    titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
     promocion = models.CharField(max_length=11, verbose_name='Promoción')
     añoFinalizacion = models.CharField(max_length=4, verbose_name='Año de finalización')
     empresa = models.CharField(max_length=150, verbose_name='Empresa')
     comunicaciones = models.BooleanField(verbose_name='Comunicaciones')
-    juntaRectora = models.ForeignKey(JuntaRectora, on_delete=models.CASCADE)
+    juntaRectora = models.ForeignKey(JuntaRectora, on_delete=models.CASCADE, verbose_name='Junta rectora')
 
     def __str__(self):
         return self.nombre + " " + self.apellidos + " - " + self.dni
@@ -62,7 +62,7 @@ class Actividad(models.Model):
     fecha = models.DateField(verbose_name='Fecha')
     hora = models.CharField(max_length=5, verbose_name='Hora')
     enlaceAlbum = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace al album')
-    tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE)
+    tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
 class DatosDeContacto(models.Model):
     telefono = models.CharField(max_length=9, verbose_name='Teléfono')
@@ -98,12 +98,12 @@ class AcuerdosEmpresas(models.Model):
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
 
 class UsuarioActividad(models.Model):
-    dniUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE)
+    dniUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Dni')
+    actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, verbose_name='Actividad')
     #dniUsuario = models.CharField(max_length=9, null=False)
     #actividad = models.CharField(max_length=50, null=False)
 
 class OfertaEmpleoTitulacion(models.Model):
     #ofertaEmpleo = models.CharField(max_length=200, null=False)
-    ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE)
-    titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE)
+    ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE, verbose_name='Oferta de empleo')
+    titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
