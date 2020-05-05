@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ actividad.titulo }}
+{% endblock %}
+
+
+{% block content %}  
+
+<div id="cuerpo">
+
+    <h5>{{ actividad.titulo }}</h5><br>
+
+    <p>Inicio: {{ actividad.fecha }} a las {{ actividad.hora }}</p>
+    
+    <p>{{ actividad.descripcion }}</p><br>
+    
+    <strong><p>Número de plazas: </p></strong>
+    <p>{{ actividad.numeroPlazas }}</p>
+    
+    <strong><p>Fecha de solicitudes: </p></strong>
+    {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
+        <p>{{ actividad.fechaSolicitudesInicio }}</p>
+    {% else %}
+        <p>Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p>
+    {% endif %}
+    
+    {% if actividad.fichero %}
+        <strong><p>Adjuntos: </p></strong>
+        <a href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">Fichero adjunto</a>
+    {% endif %}
+
+</div>
+
+{% endblock %} 

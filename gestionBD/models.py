@@ -65,7 +65,7 @@ class Actividad(models.Model):
     numeroPlazas = models.IntegerField(null=True, blank=False, verbose_name='Número de plazas')
     fechaSolicitudesInicio = models.DateField(null=True, blank=False, verbose_name='Fecha de inicio de las solicitudes')
     fechaSolicitudesFin = models.DateField(null=True, blank=False, verbose_name='Fecha de fin de las solicitudes')
-    fichero = models.FileField(null=True, blank=True, upload_to='files', verbose_name='Fichero')
+    fichero = models.FileField(upload_to='files', verbose_name='Fichero')
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
     def __str__(self):

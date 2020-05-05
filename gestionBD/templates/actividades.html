@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load mathfilters %}
 
 
 {% block title %}
@@ -13,7 +14,9 @@
     <h5>Actividades de la asociación: </h5><br>
 
     {% for actividad in actividades %}
-        <strong><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></strong>
+        <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}"><strong><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></strong></a>
+        <p>{{ actividad.descripcion|slice:"0:75" }}...</p>
+        <br>
     {% endfor %}
 
 </div>

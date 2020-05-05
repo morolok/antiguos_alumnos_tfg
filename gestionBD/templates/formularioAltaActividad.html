@@ -11,7 +11,7 @@
 
     <h1>Alta de actividad:</h1>
 
-    <form id="formularioAltaActividad" method="POST" action="."> {% csrf_token %}
+    <form id="formularioAltaActividad" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
         {% if errores %}
             {% for error in errores %}

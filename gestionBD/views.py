@@ -24,6 +24,12 @@ def actividades(request):
     return render(request, "actividades.html", contexto)
 
 
+def actividad(request, titulo):
+    actividad = modelos.Actividad.objects.get(titulo=titulo)
+    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL}
+    return render(request, "actividad.html", contexto)
+
+
 def noticias(request):
     return render(request, "noticias.html")
 
@@ -134,6 +140,7 @@ def exitoAltaRevistaIngenio(request, numero):
 def exitoAltaUsuario(request, nombre, apellidos):
     contexto = {'nombre': nombre, 'apellidos': apellidos}
     return render(request, "exitoAltaUsuario.html", contexto)
+
 
 def exitoAltaActividad(request, titulo):
     contexto = {'titulo': titulo}

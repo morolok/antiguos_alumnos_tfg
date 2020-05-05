@@ -78,6 +78,7 @@ class FormularioAltaActividad(forms.ModelForm):
     fecha = forms.DateField(label='Fecha de la actividad', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
     fechaSolicitudesInicio = forms.DateField(label='Fecha de inicio de las solicitudes', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
     fechaSolicitudesFin = forms.DateField(label='Fecha de fin de las solicitudes', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
+    fichero = forms.FileField(label='Fichero', required=True)
     hora = forms.TimeField(label='Hola de la actividad', widget=forms.TimeInput(attrs={'placeholder': 'HH:mm', 'pattern': '([01]?[0-9]|2[0-3]):[0-5][0-9]', 'maxlength': '5'}))
     numeroPlazas = forms.IntegerField(label='Número de plazas', min_value=1)
 

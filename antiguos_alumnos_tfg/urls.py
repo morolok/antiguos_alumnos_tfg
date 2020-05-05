@@ -20,6 +20,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
+from django.views import static as static2
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -28,9 +29,11 @@ from gestionBD import views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('media/<path>', static2.serve, {'document_root': settings.MEDIA_ROOT,}),
     path('antalumnos/', views.inicio, name='inicio'),
     path('antalumnos/asociacion/', views.asociacion, name='asociacion'),
     path('antalumnos/actividades/', views.actividades, name='actividades'),
+    path('antalumnos/actividad/<titulo>/', views.actividad, name='actividad'),
     path('antalumnos/noticias/', views.noticias, name='noticias'),
     path('antalumnos/empleo/', views.empleo, name='empleo'),
     path('antalumnos/revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),

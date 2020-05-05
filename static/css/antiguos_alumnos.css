@@ -49,7 +49,7 @@ body{
 }
 
 #enlaceInicioCabecera, #enlaceAsociacionCabecera, #enlaceActividadesCabecera, #enlaceNoticiasCabecera, #enlaceEmpleoCabecera, 
-#enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceDireccion{
+#enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceDireccion, #enlaceActividades{
     text-decoration: none;
 }
 
