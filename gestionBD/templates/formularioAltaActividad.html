@@ -11,49 +11,29 @@
 
     <h1>Alta de actividad:</h1>
 
-    <form id="formularioAltaActividad" method="POST">
+    <form id="formularioAltaActividad" method="POST" action="."> {% csrf_token %}
 
-        <label for="titulo">Título: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="descripcion">Descripción: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="textoReseña">Texto de reseña: </label><br>
-        <textarea form="formularioAltaActividad" cols="20" rows="5"></textarea>
-
-        <br>
-
-        <label for="imagen">Imagen: </label>
-        <input type="file" accept="image/*">
-
-        <br>
-
-        <label for="fecha">Fecha: </label>
-        <input type="date">
-
-        <br>
-
-        <label for="hora">Hora: </label>
-        <input type="time">
-
-        <br>
-        
-        <label for="enlaceAlbum">Enlace al album de fotos: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="tipoActividad">Tipo de la actividad: </label>
-        <select>
-            {% for tipoDeActividad in tiposDeActividad %}
-                <option value="{{tipoDeActividad.tipo}}">{{tipoDeActividad.tipo}}</option>
+        {% if errores %}
+            {% for error in errores %}
+                <p style="color: red;">{{ error }}</p>
             {% endfor %}
-        </select>
+        {% endif %}
+
+        {% for campo in formActividad %}
+
+            {% if campo.id_for_label == 'id_descripcion' %}
+                <label for="formularioAltaActividad">{{ campo.label }}: </label><br>
+                {{ campo }}
+                <br>
+            {% else %}
+                <label for="formularioAltaActividad">{{ campo.label }}: </label>
+                {{ campo }}
+                <br>
+            {% endif %}
+        
+        {% endfor %}
+
+        <button type="submit">Enviar</button>
 
     </form>
 

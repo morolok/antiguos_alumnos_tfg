@@ -8,9 +8,13 @@
 
 {% block content %}  
 
-<div id="cuerpo">
+<div id="cuerpo" class="cuerpoActividades">
 
-    <h1>Esta es la página de las actividades de la asociación.</h1>
+    <h5>Actividades de la asociación: </h5><br>
+
+    {% for actividad in actividades %}
+        <strong><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></strong>
+    {% endfor %}
 
 </div>
 

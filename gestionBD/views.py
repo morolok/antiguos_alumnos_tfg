@@ -19,7 +19,9 @@ def asociacion(request):
 
 
 def actividades(request):
-    return render(request, "actividades.html")
+    actividades = modelos.Actividad.objects.all()
+    contexto = {'actividades': actividades}
+    return render(request, "actividades.html", contexto)
 
 
 def noticias(request):
@@ -53,6 +55,7 @@ def formularioAltaUsuario(request):
             usuario.contraseña = hashlib.pbkdf2_hmac('sha256', usuario.contraseña.encode('utf-8'), salt, 1, dklen=128).hex()
             nombre = usuario.nombre
             apellidos = usuario.apellidos
+            formUsuario = formularios.FormularioAltaUsuario()
             formUsuario.save()
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
         else:
@@ -67,8 +70,25 @@ def formularioAltaUsuario(request):
 
 
 def formularioAltaActividad(request):
-    tiposDeActividad = modelos.TipoActividad.objects.all()
-    return render(request, "formularioAltaActividad.html", {'tiposDeActividad': tiposDeActividad})
+    formActividad = formularios.FormularioAltaActividad()
+    contexto = {'formActividad': formActividad}
+    if(request.method == 'POST'):
+        formActividad = formularios.FormularioAltaActividad(request.POST, request.FILES)
+        if(formActividad.is_valid()):
+            actividad = formActividad.save(commit=False)
+            titulo = actividad.titulo
+            formActividad.save()
+            formActividad = formularios.FormularioAltaActividad()
+            return redirect('exitoAltaActividad', titulo = titulo)
+        else:
+            if('__all__' in formActividad.errors.keys()):
+                errores = [error for error in formActividad.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formActividad.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
+    
+    return render(request, "formularioAltaActividad.html", contexto)
 
 
 def formularioAltaNoticia(request):
@@ -114,3 +134,7 @@ def exitoAltaRevistaIngenio(request, numero):
 def exitoAltaUsuario(request, nombre, apellidos):
     contexto = {'nombre': nombre, 'apellidos': apellidos}
     return render(request, "exitoAltaUsuario.html", contexto)
+
+def exitoAltaActividad(request, titulo):
+    contexto = {'titulo': titulo}
+    return render(request, "exitoAltaActividad.html", contexto)

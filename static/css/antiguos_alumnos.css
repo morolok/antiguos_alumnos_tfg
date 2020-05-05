@@ -89,6 +89,10 @@ body{
     clear: right;
 }
 
+#mostrandoTituloActividad{
+    color: #B80C1C;
+}
+
 #pie{
     background-color: #F3D9B1;
     text-align: center;

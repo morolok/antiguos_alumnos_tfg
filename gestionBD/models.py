@@ -55,14 +55,21 @@ class Noticia(models.Model):
     enlace = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace')
 
 class Actividad(models.Model):
-    titulo = models.CharField(max_length=50, primary_key=True, verbose_name='Título')
-    descripcion = models.CharField(max_length=1024, verbose_name='Descripción')
-    textoReseña = models.TextField(verbose_name='Texto de reseña')
-    imagen = models.ImageField(upload_to='images', max_length=256, verbose_name='Imagen')
-    fecha = models.DateField(verbose_name='Fecha')
-    hora = models.CharField(max_length=5, verbose_name='Hora')
+    titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
+    descripcion = models.TextField(verbose_name='Descripción')  #Se envia a los usuarios que esten inscritos
+    textoReseña = models.TextField(null=True, blank=True, verbose_name='Texto de reseña')
+    imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
+    fecha = models.DateField(verbose_name='Fecha de la actividad')
+    hora = models.TimeField(null=True, blank=True, verbose_name='Hora de la actividad')
     enlaceAlbum = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace al album')
+    numeroPlazas = models.IntegerField(null=True, blank=False, verbose_name='Número de plazas')
+    fechaSolicitudesInicio = models.DateField(null=True, blank=False, verbose_name='Fecha de inicio de las solicitudes')
+    fechaSolicitudesFin = models.DateField(null=True, blank=False, verbose_name='Fecha de fin de las solicitudes')
+    fichero = models.FileField(null=True, blank=True, upload_to='files', verbose_name='Fichero')
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
+
+    def __str__(self):
+        return self.titulo
 
 class DatosDeContacto(models.Model):
     telefono = models.CharField(max_length=9, verbose_name='Teléfono')

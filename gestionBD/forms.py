@@ -71,3 +71,32 @@ class FormularioAltaRevistaIngenio(forms.ModelForm):
             raise forms.ValidationError(errores)
         
         return revista
+
+
+class FormularioAltaActividad(forms.ModelForm):
+
+    fecha = forms.DateField(label='Fecha de la actividad', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
+    fechaSolicitudesInicio = forms.DateField(label='Fecha de inicio de las solicitudes', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
+    fechaSolicitudesFin = forms.DateField(label='Fecha de fin de las solicitudes', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}))
+    hora = forms.TimeField(label='Hola de la actividad', widget=forms.TimeInput(attrs={'placeholder': 'HH:mm', 'pattern': '([01]?[0-9]|2[0-3]):[0-5][0-9]', 'maxlength': '5'}))
+    numeroPlazas = forms.IntegerField(label='Número de plazas', min_value=1)
+
+    class Meta:
+        model = modelos.Actividad
+        fields = ['titulo', 'descripcion', 'imagen', 'fecha', 'hora', 'numeroPlazas', 'fechaSolicitudesInicio', 
+            'fechaSolicitudesFin', 'fichero', 'tipoActividad']
+
+    def clean(self):
+        actividad = self.cleaned_data
+        errores = []
+
+        tituloActividad = actividad.get('titulo')
+        actividades = modelos.Actividad.objects.filter(titulo=tituloActividad)
+        if(actividades.exists()):
+            errores.append('Ya hay una actividad con ese título')
+        
+        if(len(errores) != 0):
+            raise forms.ValidationError(errores)
+        
+        return actividad
+
