@@ -32,7 +32,16 @@ def actividad(request, titulo):
 
 
 def noticias(request):
-    return render(request, "noticias.html")
+    noticias = modelos.Noticia.objects.all()
+    contexto = {'noticias': noticias}
+    return render(request, "noticias.html", contexto)
+
+
+def noticia(request, titulo):
+    noticia = modelos.Noticia.objects.get(titulo = titulo)
+    lineas = noticia.texto.splitlines()
+    contexto = {'noticia': noticia, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    return render(request, "noticia.html", contexto)
 
 
 def empleo(request):
@@ -103,9 +112,19 @@ def formularioAltaNoticia(request):
     contexto = {'formNoticia': formNoticia}
     if(request.method == 'POST'):
         formNoticia = formularios.FormularioAltaNoticia(request.POST, request.FILES)
-        print(formNoticia.is_valid())
         if(formNoticia.is_valid()):
-            print(formNoticia.data)
+            noticia = formNoticia.save(commit=False)
+            titulo = noticia.titulo
+            formNoticia.save()
+            formNoticia = formularios.FormularioAltaNoticia()
+            return redirect('exitoAltaNoticia', titulo = titulo)
+        else:
+            if('__all__' in formNoticia.errors.keys()):
+                errores = [error for error in formNoticia.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formNoticia.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
     return render(request, "formularioAltaNoticia.html", contexto)
 
 
@@ -153,3 +172,8 @@ def exitoAltaUsuario(request, nombre, apellidos):
 def exitoAltaActividad(request, titulo):
     contexto = {'titulo': titulo}
     return render(request, "exitoAltaActividad.html", contexto)
+
+
+def exitoAltaNoticia(request, titulo):
+    contexto = {'titulo': titulo}
+    return render(request, "exitoAltaNoticia.html", contexto)

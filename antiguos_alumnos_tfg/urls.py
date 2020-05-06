@@ -35,6 +35,7 @@ urlpatterns = [
     path('antalumnos/actividades/', views.actividades, name='actividades'),
     path('antalumnos/actividad/<titulo>/', views.actividad, name='actividad'),
     path('antalumnos/noticias/', views.noticias, name='noticias'),
+    path('antalumnos/noticia/<titulo>', views.noticia, name='noticia'),
     path('antalumnos/empleo/', views.empleo, name='empleo'),
     path('antalumnos/revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),
     path('antalumnos/multimedia/', views.multimedia, name='multimedia'),
@@ -48,6 +49,7 @@ urlpatterns = [
     path('antalumnos/exitoAltaRevistaIngenio/<numero>/', views.exitoAltaRevistaIngenio, name='exitoAltaRevistaIngenio'),
     path('antalumnos/exitoAltaUsuario/<nombre>/<apellidos>/', views.exitoAltaUsuario, name='exitoAltaUsuario'),
     path('antalumnos/exitoAltaActividad/<titulo>', views.exitoAltaActividad, name='exitoAltaActividad'),
+    path('antalumnos/exitoAltaNoticia/<titulo>', views.exitoAltaNoticia, name='exitoAltaNoticia'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

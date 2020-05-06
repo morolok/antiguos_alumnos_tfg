@@ -51,7 +51,7 @@ class Usuario(models.Model):
 class Noticia(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
     texto = models.TextField(verbose_name='Texto')
-    fecha = models.DateTimeField(verbose_name='Fecha')
+    fecha = models.DateField(verbose_name='Fecha')
     enlace = models.CharField(max_length=1024, null=True, blank=True, verbose_name='Enlace')
     fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
     imagen = models.ImageField(upload_to='images', blank=True, verbose_name='Imagen')

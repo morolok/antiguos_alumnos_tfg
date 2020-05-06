@@ -26,7 +26,7 @@
                 <td class="elementoTablaRI">{{revista.fecha}}</td>
                 <td class="elementoTablaRI">
                     <img id="logoPdfTablaRI" src="{% static 'images/pdf_ico.ico' %}">
-                    <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank">Revista Ingenio {{revista.numero}}</a>
+                    <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">Revista Ingenio {{revista.numero}}</a>
                 </td>
             </tr>
         {% endfor %}

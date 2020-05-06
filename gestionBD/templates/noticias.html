@@ -10,7 +10,13 @@
 
 <div id="cuerpo">
 
-    <h1>Esta es la página de noticias.</h1>
+    <h5>Últimas noticias</h5><br>
+
+    {% for noticia in noticias %}
+        <a id="enlaceActividades" href="{% url 'noticia' titulo=noticia.titulo %}"><strong><p id="mostrandoTituloActividad">{{ noticia.titulo }}</p></strong></a>
+        <p>{{ noticia.texto|slice:"0:75" }}...</p>
+        <br>
+    {% endfor %}
 
 </div>
 
