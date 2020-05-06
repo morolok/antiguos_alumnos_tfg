@@ -49,10 +49,15 @@ class Usuario(models.Model):
         return self.nombre + " " + self.apellidos + " - " + self.dni
 
 class Noticia(models.Model):
-    titulo = models.CharField(max_length=50, verbose_name='Título')
+    titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
     texto = models.TextField(verbose_name='Texto')
     fecha = models.DateTimeField(verbose_name='Fecha')
-    enlace = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace')
+    enlace = models.CharField(max_length=1024, null=True, blank=True, verbose_name='Enlace')
+    fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
+    imagen = models.ImageField(upload_to='images', blank=True, verbose_name='Imagen')
+
+    def __str__(self):
+        return self.titulo
 
 class Actividad(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
@@ -62,10 +67,10 @@ class Actividad(models.Model):
     fecha = models.DateField(verbose_name='Fecha de la actividad')
     hora = models.TimeField(null=True, blank=True, verbose_name='Hora de la actividad')
     enlaceAlbum = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace al album')
-    numeroPlazas = models.IntegerField(null=True, blank=False, verbose_name='Número de plazas')
-    fechaSolicitudesInicio = models.DateField(null=True, blank=False, verbose_name='Fecha de inicio de las solicitudes')
-    fechaSolicitudesFin = models.DateField(null=True, blank=False, verbose_name='Fecha de fin de las solicitudes')
-    fichero = models.FileField(upload_to='files', verbose_name='Fichero')
+    numeroPlazas = models.IntegerField(verbose_name='Número de plazas')
+    fechaSolicitudesInicio = models.DateField(verbose_name='Fecha de inicio de las solicitudes')
+    fechaSolicitudesFin = models.DateField(verbose_name='Fecha de fin de las solicitudes')
+    fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
     def __str__(self):

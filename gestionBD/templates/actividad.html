@@ -10,25 +10,31 @@
 
 <div id="cuerpo">
 
-    <h5>{{ actividad.titulo }}</h5><br>
+    <h4>{{ actividad.titulo }}</h4><br>
 
-    <p>Inicio: {{ actividad.fecha }} a las {{ actividad.hora }}</p>
-    
-    <p>{{ actividad.descripcion }}</p><br>
+    <p><i>Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}</i></p>
+
+    {% for linea in lineas %}
+        <p>{{ linea }}</p>
+    {% endfor %}
+    <br>
+
+    <strong><p>Tipo de actividad: </p></strong>
+    <p>{{ actividad.tipoActividad }}</p><br>
     
     <strong><p>Número de plazas: </p></strong>
-    <p>{{ actividad.numeroPlazas }}</p>
+    <p>{{ actividad.numeroPlazas }}</p><br>
     
     <strong><p>Fecha de solicitudes: </p></strong>
     {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
-        <p>{{ actividad.fechaSolicitudesInicio }}</p>
+        <p>{{ actividad.fechaSolicitudesInicio }}</p><br>
     {% else %}
-        <p>Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p>
+        <p>Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p><br>
     {% endif %}
     
     {% if actividad.fichero %}
         <strong><p>Adjuntos: </p></strong>
-        <a href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">Fichero adjunto</a>
+        <a href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">Fichero adjunto</a><br>
     {% endif %}
 
 </div>

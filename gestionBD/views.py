@@ -26,7 +26,8 @@ def actividades(request):
 
 def actividad(request, titulo):
     actividad = modelos.Actividad.objects.get(titulo=titulo)
-    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL}
+    lineas = actividad.descripcion.splitlines()
+    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
     return render(request, "actividad.html", contexto)
 
 
@@ -98,7 +99,14 @@ def formularioAltaActividad(request):
 
 
 def formularioAltaNoticia(request):
-    return render(request, "formularioAltaNoticia.html")
+    formNoticia = formularios.FormularioAltaNoticia()
+    contexto = {'formNoticia': formNoticia}
+    if(request.method == 'POST'):
+        formNoticia = formularios.FormularioAltaNoticia(request.POST, request.FILES)
+        print(formNoticia.is_valid())
+        if(formNoticia.is_valid()):
+            print(formNoticia.data)
+    return render(request, "formularioAltaNoticia.html", contexto)
 
 
 def formularioAltaOfertaEmpleo(request):
