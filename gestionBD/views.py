@@ -50,6 +50,13 @@ def empleo(request):
     return render(request, "empleo.html", contexto)
 
 
+def ofertaEmpleo(request, titulo):
+    ofertaEmpleo = modelos.OfertaEmpleo.objects.get(titulo = titulo)
+    lineas = ofertaEmpleo.texto.splitlines()
+    contexto = {'ofertaEmpleo': ofertaEmpleo, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    return render(request, "ofertaEmpleo.html", contexto)
+
+
 def revistaIngenio(request):
     revistas = modelos.RevistaIngenio.objects.all()
     return render(request, "revistaIngenio.html", {'revistas': revistas, 'MEDIA_URL': MEDIA_URL})

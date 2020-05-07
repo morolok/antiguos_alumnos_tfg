@@ -13,7 +13,7 @@
     <h5>Esta es la página de empleo.</h5><br>
 
     {% for ofertaEmpleo in ofertasEmpleo %}
-        <a id="enlaceOfertasEmpleo" ><p id="mostrandoTituloOfertaEmpleo">{{ ofertaEmpleo.titulo }}</p></a>
+        <a id="enlaceOfertasEmpleo" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}"><p id="mostrandoTituloOfertaEmpleo">{{ ofertaEmpleo.titulo }}</p></a>
         <p>{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
         <br>
     {% endfor %}

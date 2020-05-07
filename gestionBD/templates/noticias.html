@@ -13,7 +13,7 @@
     <h5>Últimas noticias</h5><br>
 
     {% for noticia in noticias %}
-        <a id="enlaceActividades" href="{% url 'noticia' titulo=noticia.titulo %}"><p id="mostrandoTituloNoticia">{{ noticia.titulo }}</p></a>
+        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}"><p id="mostrandoTituloNoticia">{{ noticia.titulo }}</p></a>
         <p>{{ noticia.texto|slice:"0:75" }}...</p>
         <br>
     {% endfor %}

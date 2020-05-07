@@ -37,6 +37,7 @@ urlpatterns = [
     path('antalumnos/noticias/', views.noticias, name='noticias'),
     path('antalumnos/noticia/<titulo>', views.noticia, name='noticia'),
     path('antalumnos/empleo/', views.empleo, name='empleo'),
+    path('antalumnos/ofertaEmpleo/<titulo>/', views.ofertaEmpleo, name='ofertaEmpleo'),
     path('antalumnos/revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),
     path('antalumnos/multimedia/', views.multimedia, name='multimedia'),
     path('antalumnos/juntaRectora/', views.juntaRectora, name='juntaRectora'),

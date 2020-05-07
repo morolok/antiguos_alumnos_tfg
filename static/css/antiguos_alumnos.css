@@ -52,7 +52,7 @@ body{
 }
 
 #enlaceInicioCabecera, #enlaceAsociacionCabecera, #enlaceActividadesCabecera, #enlaceNoticiasCabecera, #enlaceEmpleoCabecera, 
-#enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceActividades{
+#enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo{
     text-decoration: none;
 }
 
@@ -62,7 +62,7 @@ body{
     color: #303B89;
 }
 
-#mostrandoTituloNoticia, #mostrandoTituloActividad, #mostrandoTituloOfertaEmpleo{
+#mostrandoTituloActividad, #mostrandoTituloNoticia, #mostrandoTituloOfertaEmpleo{
     font-weight: bold;
     color: #B80C1C;
 }

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ ofertaEmpleo.titulo }}
+{% endblock %}
+
+
+{% block content %}  
+
+<div id="cuerpo">
+
+    <h4>{{ ofertaEmpleo.titulo }}</h4><br>
+
+    {% if ofertaEmpleo.fecha %}
+        <p><i>Fecha de la oferta: {{ ofertaEmpleo.fecha }}</i></p>
+    {% endif %}
+
+    {% for linea in lineas %}
+        <p>{{ linea }}</p>
+    {% endfor %}
+
+    {% if ofertaEmpleo.contacto %}
+        <p>Envía en C. V. a: {{ ofertaEmpleo.contacto }}</p>
+    {% endif %}
+
+    {% if ofertaEmpleo.fichero %}
+        <strong><p>Adjuntos: </p></strong>
+        <a href="{{MEDIA_URL}}{{ofertaEmpleo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a><br>
+    {% endif %}
+
+    
+
+</div>
+
+{% endblock %} 
