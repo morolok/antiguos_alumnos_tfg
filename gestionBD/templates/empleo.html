@@ -10,7 +10,13 @@
 
 <div id="cuerpo">
 
-    <h1>Esta es la página de empleo.</h1>
+    <h5>Esta es la página de empleo.</h5><br>
+
+    {% for ofertaEmpleo in ofertasEmpleo %}
+        <a id="enlaceOfertasEmpleo" ><p id="mostrandoTituloOfertaEmpleo">{{ ofertaEmpleo.titulo }}</p></a>
+        <p>{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
+        <br>
+    {% endfor %}
 
 </div>
 

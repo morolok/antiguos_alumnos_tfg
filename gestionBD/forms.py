@@ -124,6 +124,30 @@ class FormularioAltaNoticia(forms.ModelForm):
         return noticia
 
 
+class FormularioAltaOfertaEmpleto(forms.ModelForm):
+
+    lsTitulaciones = modelos.Titulacion.objects.all().values_list("nombre", "nombre")
+    fecha = forms.DateField(label='Fecha de la oferta', widget=forms.DateInput(attrs={'placeholder': 'dd/mm/aaaa', 'maxlength': '10', 'pattern': '(0[1-9]|[12][0-9]|3[01])[/](0[1-9]|1[012])[/](19|20)\d\d'}), required=False)
+    titulaciones = forms.MultipleChoiceField(label='Titulaciones', choices=lsTitulaciones, widget=forms.CheckboxSelectMultiple(), required=False)
+    contacto = forms.EmailField(label='Contacto', widget=forms.EmailInput(attrs={'placeholder': 'usuario@dominio.extension'}), required=False)
+
+    class Meta:
+        model = modelos.OfertaEmpleo
+        fields = ['titulo', 'texto', 'contacto', 'perfil', 'fecha', 'titulaciones', 'fichero']
+
+    def clean(self):
+        ofertaEmpleo = self.cleaned_data
+        errores = []
+
+        tituloOferta = ofertaEmpleo.get('titulo')
+        ofertasEmpleo = modelos.OfertaEmpleo.objects.filter(titulo = tituloOferta)
+        if(ofertasEmpleo.exists()):
+            errores.append('Ya hay una oferta de empleo con ese título')
+
+        if(len(errores) != 0):
+            raise forms.ValidationError(errores)
+
+        return ofertaEmpleo
 
 
 

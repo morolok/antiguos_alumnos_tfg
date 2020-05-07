@@ -62,6 +62,11 @@ body{
     color: #303B89;
 }
 
+#mostrandoTituloNoticia, #mostrandoTituloActividad, #mostrandoTituloOfertaEmpleo{
+    font-weight: bold;
+    color: #B80C1C;
+}
+
 #tablaRevistaIngenio{
     width: 40%;
 }
@@ -96,10 +101,6 @@ body{
 
 #direccionPostal{
     clear: right;
-}
-
-#mostrandoTituloActividad{
-    color: #B80C1C;
 }
 
 #pie{

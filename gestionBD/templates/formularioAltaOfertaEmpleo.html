@@ -11,34 +11,24 @@
 
     <h1>Alta de oferta de empleo:</h1>
 
-    <form id="formularioAltaOfertaEmpleo" method="POST">
+    <form id="formularioAltaOfertaEmpleo" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
-        <label for="titulo">Título: </label>
-        <input type="text">
+        {% for campo in formOfertaEmpleo %}
 
-        <br>
+            {% if campo.id_for_label == 'id_texto' %}
+                <label for="formularioAltaOfertaEmpleo">{{ campo.label }}: </label><br>
+                {{ campo }}
+                <br>
+            {% else %}
+                <label for="formularioAltaOfertaEmpleo">{{ campo.label }}: </label>
+                {{ campo }}
+                <br>
+            {% endif %}
 
-        <label for="texto">Texto: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="contacto">Contacto: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="perfil">Perfil: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="titulaciones">Titulaciones: </label>
-
-        {% for titulacion in titulaciones %}
-            <br><input type="checkbox" value="{{titulacion.nombre}}">
-            <label for="{{titulacion.nombre}}">{{titulacion.nombre}}</label>
         {% endfor %}
+
+        <br>
+        <button type="submit">Enviar</button>
 
 
     </form>

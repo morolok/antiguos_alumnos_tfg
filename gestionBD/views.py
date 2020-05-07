@@ -45,7 +45,9 @@ def noticia(request, titulo):
 
 
 def empleo(request):
-    return render(request, "empleo.html")
+    ofertasEmpleo = modelos.OfertaEmpleo.objects.all()
+    contexto = {'ofertasEmpleo': ofertasEmpleo}
+    return render(request, "empleo.html", contexto)
 
 
 def revistaIngenio(request):
@@ -129,8 +131,24 @@ def formularioAltaNoticia(request):
 
 
 def formularioAltaOfertaEmpleo(request):
-    titulaciones = modelos.Titulacion.objects.all()
-    return render(request, "formularioAltaOfertaEmpleo.html", {'titulaciones': titulaciones})
+    formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
+    contexto = {'formOfertaEmpleo': formOfertaEmpleo}
+    if(request.method == 'POST'):
+        formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto(request.POST, request.FILES)
+        if(formOfertaEmpleo.is_valid()):
+            ofertaEmpleo = formOfertaEmpleo.save(commit=False)
+            titulo = ofertaEmpleo.titulo
+            formOfertaEmpleo.save()
+            formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
+            return redirect('exitoAltaOfertaEmpleo', titulo = titulo)
+        else:
+            if('__all__' in formOfertaEmpleo.errors.keys()):
+                errores = [error for error in formOfertaEmpleo.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formOfertaEmpleo.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
+    return render(request, "formularioAltaOfertaEmpleo.html", contexto)
 
 
 def formularioAltaDatosDeContacto(request):
@@ -177,3 +195,16 @@ def exitoAltaActividad(request, titulo):
 def exitoAltaNoticia(request, titulo):
     contexto = {'titulo': titulo}
     return render(request, "exitoAltaNoticia.html", contexto)
+
+
+def exitoAltaOfertaEmpleo(request, titulo):
+    contexto = {'titulo': titulo}
+    return render(request, "exitoAltaOfertaEmpleo.html", contexto)
+
+
+
+
+
+
+
+

@@ -50,6 +50,7 @@ urlpatterns = [
     path('antalumnos/exitoAltaUsuario/<nombre>/<apellidos>/', views.exitoAltaUsuario, name='exitoAltaUsuario'),
     path('antalumnos/exitoAltaActividad/<titulo>', views.exitoAltaActividad, name='exitoAltaActividad'),
     path('antalumnos/exitoAltaNoticia/<titulo>', views.exitoAltaNoticia, name='exitoAltaNoticia'),
+    path('antalumnos/exitoAltaOfertaEmpleo/<titulo>', views.exitoAltaOfertaEmpleo, name='exitoAltaOfertaEmpleo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

@@ -8,11 +8,13 @@ class JuntaRectora(models.Model):
     def __str__(self):
         return self.puesto
 
+
 class Titulacion(models.Model):
     nombre = models.CharField(max_length=100, primary_key=True, verbose_name='Titulación')
 
     def __str__(self):
         return self.nombre
+
 
 class TipoActividad(models.Model):
     tipo = models.CharField(max_length=30, primary_key=True, verbose_name='Tipo de actividad')
@@ -20,11 +22,13 @@ class TipoActividad(models.Model):
     def __str__(self):
         return self.tipo
 
+
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, primary_key=True, verbose_name='Tipo de usuario')
 
     def __str__(self):
         return self.tipo
+
 
 class Usuario(models.Model):
     nombre = models.CharField(max_length=30, verbose_name='Nombre')
@@ -48,6 +52,7 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nombre + " " + self.apellidos + " - " + self.dni
 
+
 class Noticia(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
     texto = models.TextField(verbose_name='Texto')
@@ -58,6 +63,7 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
+
 
 class Actividad(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
@@ -76,6 +82,7 @@ class Actividad(models.Model):
     def __str__(self):
         return self.titulo
 
+
 class DatosDeContacto(models.Model):
     telefono = models.CharField(max_length=9, verbose_name='Teléfono')
     email = models.EmailField(verbose_name='Email')
@@ -86,13 +93,19 @@ class DatosDeContacto(models.Model):
     twitter = models.CharField(max_length=256, null=True, blank=True, verbose_name='Twitter')
     instagram = models.CharField(max_length=256, null=True, blank=True, verbose_name='Instagram')
 
+
 class OfertaEmpleo(models.Model):
-    titulo = models.CharField(max_length=200, primary_key=True, verbose_name='Título')
-    texto = models.TextField(verbose_name='Texto')
-    contacto = models.CharField(max_length=100, null=True, blank=True, verbose_name='Contacto')
-    perfil = models.CharField(max_length=100, verbose_name='Perfil')
-    fecha = models.DateField(verbose_name='Fecha')
-    titulaciones = models.CharField(max_length=24, verbose_name='Titulaciones')
+    titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
+    texto = models.TextField(null=True, blank=True, verbose_name='Texto')
+    contacto = models.EmailField(null=True, blank=True, verbose_name='Contacto')
+    perfil = models.CharField(max_length=1024, null=True, blank=True, verbose_name='Perfil')
+    fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
+    titulaciones = models.ManyToManyField(Titulacion, blank=True, verbose_name='Titulaciones')
+    fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
+
+    def __str__(self):
+        return self.titulo
+
 
 class RevistaIngenio(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Número')
@@ -104,16 +117,19 @@ class RevistaIngenio(models.Model):
     def __str__(self):
         return "Revista número " + str(self.numero)
 
+
 class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=100, verbose_name='Nombre')
     fichero = models.FileField(upload_to='files', verbose_name='Fichero')
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
+
 
 class UsuarioActividad(models.Model):
     dniUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Dni')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, verbose_name='Actividad')
     #dniUsuario = models.CharField(max_length=9, null=False)
     #actividad = models.CharField(max_length=50, null=False)
+
 
 class OfertaEmpleoTitulacion(models.Model):
     #ofertaEmpleo = models.CharField(max_length=200, null=False)
