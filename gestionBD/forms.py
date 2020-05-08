@@ -150,6 +150,25 @@ class FormularioAltaOfertaEmpleto(forms.ModelForm):
         return ofertaEmpleo
 
 
+class FormularioAltaAcuerdoEmpresa(forms.ModelForm):
+
+    class Meta:
+        model = modelos.AcuerdosEmpresas
+        fields = ['nombre', 'texto', 'fichero']
+
+    def clean(self):
+        acuerdoEmpresa = self.cleaned_data
+        errores = []
+
+        nombreAcuerdo = acuerdoEmpresa.get('nombre')
+        acuerdos = modelos.AcuerdosEmpresas.objects.filter(nombre = nombreAcuerdo)
+        if(acuerdos.exists()):
+            errores.append('Ya existe un acuerdo con ese nombre')
+        
+        if(len(errores) != 0):
+            raise forms.ValidationError(errores)
+
+        return acuerdoEmpresa
 
 
 

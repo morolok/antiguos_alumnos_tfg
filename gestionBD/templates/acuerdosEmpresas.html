@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Acuerdos
+{% endblock %}
+
+
+{% block content %}  
+
+<div id="cuerpo">
+
+    <h5>Acuerdos con empresas </h5><br>
+
+    <p>Actualmente la Asociación tiene firmados los siguientes acuerdos:</p><br>
+
+    {% for acuerdo in acuerdos %}
+
+        {% if not acuerdo.texto and acuerdo.fichero %}
+            <a href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAcuerdos"><p id="mostrandoNombreAcuerdoEmpresa">{{ acuerdo.nombre }}</p></a>
+        {% elif acuerdo.texto %}
+            <a id="enlaceAcuerdos"  href="{% url 'acuerdoEmpresa' nombre=acuerdo.nombre %}"><p id="mostrandoNombreAcuerdoEmpresa">{{ acuerdo.nombre }}</p></a>
+        {% endif %}
+        <br>
+
+    {% endfor %}
+
+    <p>A partir de este momento ya puedes beneficiarte de estos acuerdos, haciendo uso de ellos mediante la presentación de la tarjeta de asociado, posteriormente iremos añadido nuevos acuerdos que se vayan firmando.</p>
+
+    <p>Si estás interesado en conconer más en detalle aspectos del acuerdo firmado te rogamos que contactes con nosotros mediante correo electrónico.</p>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+
+{% block content %}
+
+<div id="cuerpo">
+
+    <h1>Alta de acuerdo con empresa:</h1>
+
+    <form id="formularioAltaAcuerdoEmpresa" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+
+        {% for campo in formAcuerdo %}
+
+            {% if campo.id_for_label == 'id_texto' %}
+                <label for="formularioAltaAcuerdoEmpresa">{{ campo.label }}: </label><br>
+                {{ campo }}
+                <br>
+            {% else %}
+                <label for="formularioAltaAcuerdoEmpresa">{{ campo.label }}: </label>
+                {{ campo }}
+                <br>
+            {% endif %}
+
+        {% endfor %}
+        <br>
+        <button type="submit">Enviar</button>
+
+    </form>
+
+
+
+</div>
+
+{% endblock %}

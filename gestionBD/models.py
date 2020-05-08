@@ -119,9 +119,12 @@ class RevistaIngenio(models.Model):
 
 
 class AcuerdosEmpresas(models.Model):
-    nombre = models.CharField(max_length=100, verbose_name='Nombre')
-    fichero = models.FileField(upload_to='files', verbose_name='Fichero')
+    nombre = models.CharField(max_length=1024, primary_key=True, verbose_name='Nombre')
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
+    fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
+    
+    def __str__(self):
+        return self.nombre
 
 
 class UsuarioActividad(models.Model):

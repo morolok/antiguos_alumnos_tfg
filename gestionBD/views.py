@@ -57,6 +57,19 @@ def ofertaEmpleo(request, titulo):
     return render(request, "ofertaEmpleo.html", contexto)
 
 
+def acuerdosEmpresas(request):
+    acuerdos = modelos.AcuerdosEmpresas.objects.all()
+    contexto = {'acuerdos': acuerdos, 'MEDIA_URL': MEDIA_URL}
+    return render(request, "acuerdosEmpresas.html", contexto)
+
+
+def acuerdoEmpresa(request, nombre):
+    acuerdo = modelos.AcuerdosEmpresas.objects.get(nombre = nombre)
+    lineas = acuerdo.texto.splitlines()
+    contexto = {'acuerdo': acuerdo, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    return render(request, "acuerdoEmpresa.html", contexto)
+
+
 def revistaIngenio(request):
     revistas = modelos.RevistaIngenio.objects.all()
     return render(request, "revistaIngenio.html", {'revistas': revistas, 'MEDIA_URL': MEDIA_URL})
@@ -174,7 +187,6 @@ def formularioAltaRevistaIngenio(request):
             formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
             return redirect('exitoAltaRevistaIngenio', numero = numero)
         else:
-            print(formRevistaIngenio.errors)
             if('__all__' in formRevistaIngenio.errors.keys()):
                 errores = [error for error in formRevistaIngenio.errors['__all__']]
                 contexto['errores'] = errores
@@ -182,6 +194,27 @@ def formularioAltaRevistaIngenio(request):
                 errores = [error for lsErrores in formRevistaIngenio.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
     return render(request, "formularioAltaRevistaIngenio.html", contexto)
+
+
+def formularioAltaAcuerdoEmpresa(request):
+    formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
+    contexto = {'formAcuerdo': formAcuerdo}
+    if(request.method == 'POST'):
+        formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa(request.POST, request.FILES)
+        if(formAcuerdo.is_valid()):
+            acuerdoEmpresa = formAcuerdo.save(commit=False)
+            nombre = acuerdoEmpresa.nombre
+            formAcuerdo.save()
+            formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
+            return redirect('exitoAltaAcuerdoEmpresa', nombre = nombre)
+        else:
+            if('__all__' in formAcuerdo.errors.keys()):
+                errores = [error for error in formAcuerdo.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formAcuerdo.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
+    return render(request, "formularioAltaAcuerdoEmpresa.html", contexto)
 
 
 def exitoAltaRevistaIngenio(request, numero):
@@ -209,7 +242,9 @@ def exitoAltaOfertaEmpleo(request, titulo):
     return render(request, "exitoAltaOfertaEmpleo.html", contexto)
 
 
-
+def exitoAltaAcuerdoEmpresa(request, nombre):
+    contexto = {'nombre': nombre}
+    return render(request, "exitoAltaAcuerdoEmpresa.html", contexto)
 
 
 

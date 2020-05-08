@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ actividad.titulo }}
+{% endblock %}
+
+
+{% block content %}
+
+<div id="cuerpo">
+
+    <h4>Acuerdo {{ acuerdo.nombre }}</h4><br>
+
+    {% for linea in lineas %}
+        <p>{{ linea }}</p>
+    {% endfor %}
+    <br>
+
+    {% if acuerdo.fichero %}
+        <strong><p>Adjuntos: </p></strong>
+        <a href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a><br>
+    {% endif %}
+
+</div>
+
+{% endblock %} 
