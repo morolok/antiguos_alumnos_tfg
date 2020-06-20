@@ -39,7 +39,7 @@ class Usuario(models.Model):
     email = models.EmailField(verbose_name='Email')
     telefono = models.CharField(max_length=9, verbose_name='Teléfono')
     direccionPostal = models.TextField(verbose_name='Dirección postal')
-    usuario = models.CharField(max_length=20, verbose_name='Usuario')
+    usuario = models.CharField(max_length=20, unique=True, verbose_name='Usuario')
     contraseña = models.CharField(max_length=256, verbose_name='Contraseña')
     tipo = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE, verbose_name='Tipo de usuario')
     titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
@@ -138,3 +138,11 @@ class OfertaEmpleoTitulacion(models.Model):
     #ofertaEmpleo = models.CharField(max_length=200, null=False)
     ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE, verbose_name='Oferta de empleo')
     titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
+
+
+class Salt(models.Model):
+    usuarioUsuario = models.CharField(max_length=20, unique=True, verbose_name='Usuario')
+    salt = models.CharField(max_length=128, verbose_name='Salt')
+
+    def __str__(self):
+        return self.usuarioUsuario + " - " + self.salt

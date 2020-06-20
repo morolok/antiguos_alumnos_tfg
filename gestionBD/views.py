@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect, reverse
 from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
 import os
 import hashlib
+import base64
 #from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 import gestionBD.models as modelos
 import gestionBD.forms as formularios
-from datetime import datetime
+#from datetime import datetime
 
 # Create your views here.
 
@@ -89,12 +90,15 @@ def formularioAltaUsuario(request):
     if(request.method == 'POST'):
         if(formUsuario.is_valid()):
             usuario = formUsuario.save(commit=False)
-            salt = os.urandom(32)
+            salt = os.urandom(64)
             usuario.contraseña = hashlib.pbkdf2_hmac('sha256', usuario.contraseña.encode('utf-8'), salt, 1, dklen=128).hex()
             nombre = usuario.nombre
             apellidos = usuario.apellidos
-            formUsuario = formularios.FormularioAltaUsuario()
+            saltSalt = base64.b64encode(salt).decode('utf-8')
+            usuarioSalt = usuario.usuario
             formUsuario.save()
+            modelos.Salt.objects.create(usuarioUsuario=usuarioSalt, salt=saltSalt)
+            formUsuario = formularios.FormularioAltaUsuario()
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
         else:
             if('__all__' in formUsuario.errors.keys()):
@@ -247,6 +251,18 @@ def exitoAltaAcuerdoEmpresa(request, nombre):
     return render(request, "exitoAltaAcuerdoEmpresa.html", contexto)
 
 
+def login(request):
+    if(request.method == 'POST'):
+        formulario = request.POST
+        usuario = formulario['usuario']
+        fila = modelos.Salt.objects.get(usuarioUsuario=usuario)
+        token = fila.salt
+        salt = base64.b64decode(token)
+        contraseña = hashlib.pbkdf2_hmac('sha256', formulario['contraseña'].encode('utf-8'), salt, 1, dklen=128).hex()
+        print("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        print(usuario)
+        print(contraseña)
 
+    return render(request, "login.html")
 
 

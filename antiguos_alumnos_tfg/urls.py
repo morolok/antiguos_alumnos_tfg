@@ -43,6 +43,7 @@ urlpatterns = [
     path('antalumnos/revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),
     path('antalumnos/multimedia/', views.multimedia, name='multimedia'),
     path('antalumnos/juntaRectora/', views.juntaRectora, name='juntaRectora'),
+    path('antalumnos/login/', views.login, name='login'),
     path('antalumnos/formularioAltaUsuario/', views.formularioAltaUsuario, name='formularioAltaUsuario'),
     path('antalumnos/formularioAltaActividad/', views.formularioAltaActividad, name='formularioAltaActividad'),
     path('antalumnos/formularioAltaNoticia/', views.formularioAltaNoticia, name='formularioAltaNoticia'),

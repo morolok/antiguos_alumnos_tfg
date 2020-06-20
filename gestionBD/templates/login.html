@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Web Asociación Antiguos Alumnos de la ETSI
+{% endblock %}
+
+
+{% block content %}
+
+<div id="cuerpo">
+
+    <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+        <label for="formularioLogin">Usuario:</label>
+        <input type="text" id="usuario" name="usuario"><br>
+        <label for="formularioLogin">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña"><br>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+
+</div>
+
+{% endblock %}

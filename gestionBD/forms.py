@@ -2,7 +2,7 @@ from django import forms
 from django.utils.safestring import mark_safe
 import antiguos_alumnos_tfg.settings as settings
 import gestionBD.models as modelos
-from datetime import datetime
+#from datetime import datetime
 
 
 class FormularioAltaUsuario(forms.ModelForm):
@@ -39,8 +39,13 @@ class FormularioAltaUsuario(forms.ModelForm):
             errores.append('La confirmación de la contraseña debe ser igual a la contraseña')
 
         cuentaBancaria = usuario.get('cuentaBancaria')
-        if(not cuentaBancaria.startswith('ES21')):
-            errores.append('La cuenta bancaria debe empezar por ES21')
+        if(not cuentaBancaria.startswith('ES')):
+            errores.append('La cuenta bancaria debe empezar por ES')
+
+        usuarioUsuario = usuario.get('usuario')
+        lsUsuarios = modelos.Usuario.objects.filter(usuario=usuarioUsuario)
+        if(lsUsuarios.exists()):
+            errores.append('Ya existe un usuario con el usuario ' + usuarioUsuario)
         
         if(len(errores) != 0):
             raise forms.ValidationError(errores)
