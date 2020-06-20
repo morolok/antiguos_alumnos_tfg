@@ -259,9 +259,7 @@ def login(request):
         token = fila.salt
         salt = base64.b64decode(token)
         contraseña = hashlib.pbkdf2_hmac('sha256', formulario['contraseña'].encode('utf-8'), salt, 1, dklen=128).hex()
-        print("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-        print(usuario)
-        print(contraseña)
+        
 
     return render(request, "login.html")
 
