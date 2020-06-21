@@ -11,6 +11,11 @@
 <div id="cuerpo">
 
     <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
         <label for="formularioLogin">Usuario:</label>
         <input type="text" id="usuario" name="usuario"><br>
         <label for="formularioLogin">Contraseña:</label>
