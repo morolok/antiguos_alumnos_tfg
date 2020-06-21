@@ -98,7 +98,10 @@ def formularioAltaUsuario(request):
             saltSalt = base64.b64encode(salt).decode('utf-8')
             usuarioSalt = usuario.usuario
             formUsuario.save()
-            modelos.Salt.objects.create(usuarioUsuario=usuarioSalt, salt=saltSalt)
+            obj, creado = modelos.Salt.objects.get_or_create(usuarioUsuario=usuarioSalt, salt=saltSalt)
+            if(not creado):
+                obj.delete()
+                modelos.Salt.objects.create(usuarioUsuario=usuarioSalt, salt=saltSalt)
             formUsuario = formularios.FormularioAltaUsuario()
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
         else:
