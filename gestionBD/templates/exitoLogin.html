@@ -10,7 +10,12 @@
 
 <div id="cuerpo">
 
-    <p>Ha iniciado sesión correctamente</p>
+    <p>Ha iniciado sesión correctamente como {{usuario}}</p>
+    {% if esAdministrador %}
+        <p>Eres administrador</p>
+    {% else %}
+        <p>No eres administrador</p>
+    {% endif %}
 
 </div>
 

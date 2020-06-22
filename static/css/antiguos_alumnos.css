@@ -12,7 +12,6 @@ body{
 #cabecera{
     padding-top: 10px;
     padding-bottom: 1px;
-    background-color: #F3D9B1;
     text-align: center;
     align-items: center;
 }
@@ -30,30 +29,21 @@ body{
 }
 
 #logoYParrafoCabecera{
-    margin-bottom: 40px;
+    margin-bottom: 1em;
 }
 
-#menu{
-    list-style: none;
-    margin-top: 25px;
-    margin-bottom: 4.25px;
-}
 
-#menu li{
-    border-style: solid;
-    border-radius: 0.5em;
-    border-color: #303B89;
+.buscarBarraNavegación{
     background-color: #303B89;
     color: white;
-    padding: 5px;
-    display: inline;
-    margin-left: 15px;
-    font-weight: bold;
+    height: 2.5em;
+    width: 4.5em;
+    border: none;
+    border-radius: 10%;
 }
 
-#enlaceInicioCabecera, #enlaceAsociacionCabecera, #enlaceActividadesCabecera, #enlaceNoticiasCabecera, #enlaceEmpleoCabecera, 
-#enlaceAcuerdosEmpresaCabecera, #enlaceRevistaCabecera, #enlaceMultimediaCabecera, #enlaceActividades, #enlaceNoticias, 
-#enlaceOfertasEmpleo, #enlaceAcuerdos{
+
+#enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos{
     text-decoration: none;
 }
 
@@ -105,7 +95,6 @@ body{
 }
 
 #pie{
-    background-color: #F3D9B1;
     text-align: center;
     padding-top: 5px;
     padding-bottom: 1px;

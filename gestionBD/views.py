@@ -274,8 +274,18 @@ def login(request):
             error = "La contraseña es incorrecta"
             contexto['error'] = error
         else:
-            return render(request, "exitoLogin.html")
+            request.session['usuario'] = usuarioBD.usuario
+            if(usuarioBD.tipo=='Administrador'):
+                request.session['esAdministrador'] = True
+            else:
+                request.session['esAdministrador'] = False
+            return redirect('exitoLogin')
 
     return render(request, "login.html", contexto)
 
 
+def exitoLogin(request):
+    contexto = {}
+    contexto['usuario'] = request.session.get('usuario')
+    contexto['esAdministrador'] = request.session.get('esAdministrador')
+    return render(request, "exitoLogin.html", contexto)
