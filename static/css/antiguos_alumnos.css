@@ -32,7 +32,6 @@ body{
     margin-bottom: 1em;
 }
 
-
 .buscarBarraNavegación{
     background-color: #303B89;
     color: white;
@@ -42,6 +41,9 @@ body{
     border-radius: 10%;
 }
 
+#enlaceBarraNavegacion{
+    font-weight: bold;
+}
 
 #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos{
     text-decoration: none;
@@ -53,9 +55,19 @@ body{
     color: #303B89;
 }
 
-#mostrandoTituloActividad, #mostrandoTituloNoticia, #mostrandoTituloOfertaEmpleo, #mostrandoNombreAcuerdoEmpresa{
+#mostrandoTituloNoticia, #mostrandoTituloOfertaEmpleo{
     font-weight: bold;
-    color: #B80C1C;
+    color: #980c17;
+}
+
+#mostrandoNombreAcuerdoEmpresa{
+    font-weight: bold;
+    color: #303B89;
+}
+
+#mostrandoTituloActividad{
+    font-weight: bold;
+    color: #ee7c1b;
 }
 
 #tablaRevistaIngenio{
