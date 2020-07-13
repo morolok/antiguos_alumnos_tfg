@@ -13,7 +13,9 @@ import gestionBD.forms as formularios
 # Create your views here.
 
 def inicio(request):
-	return render(request, "index.html")
+    noticias = modelos.Noticia.objects.all()
+    contexto = {'noticias': noticias}
+    return render(request, "index.html", contexto)
 
 
 def asociacion(request):

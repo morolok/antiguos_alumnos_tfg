@@ -45,6 +45,11 @@ body{
     font-weight: bold;
 }
 
+#myCarousel{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos{
     text-decoration: none;
 }
