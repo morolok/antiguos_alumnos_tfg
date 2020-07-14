@@ -71,8 +71,8 @@
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar">
+                <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'busqueda' %}">{% csrf_token %}
+                    <input id="buscar" name="buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar">
                     <button class="buscarBarraNavegación" type="submit">Buscar</button>
                 </form>
             </div>

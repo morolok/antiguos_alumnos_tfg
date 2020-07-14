@@ -5,12 +5,30 @@ from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
 import os
 import hashlib
 import base64
+
+from django.db.models import CharField
+from django.db.models.functions import Lower
+CharField.register_lookup(Lower)
+
 #from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 import gestionBD.models as modelos
 import gestionBD.forms as formularios
 #from datetime import datetime
 
 # Create your views here.
+
+
+def busqueda(request):
+    contexto = {}
+    if(request.method=='POST'):
+        palabra = request.POST.get('buscar')
+        noticias = modelos.Noticia.objects.filter(titulo__unaccent__icontains=palabra)
+        actividades = modelos.Actividad.objects.filter(titulo__unaccent__icontains=palabra)
+        contexto['palabra'] = palabra
+        contexto['noticias'] = noticias
+        contexto['actividades'] = actividades
+    return render(request, "busqueda.html", contexto)
+
 
 def inicio(request):
     noticias = modelos.Noticia.objects.all()

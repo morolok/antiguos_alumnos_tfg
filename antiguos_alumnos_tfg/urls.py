@@ -31,6 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('media/<path>', static2.serve, {'document_root': settings.MEDIA_ROOT,}),
     path('antalumnos/', views.inicio, name='inicio'),
+    path('antalumnos/busqueda/', views.busqueda, name='busqueda'),
     path('antalumnos/asociacion/', views.asociacion, name='asociacion'),
     path('antalumnos/actividades/', views.actividades, name='actividades'),
     path('antalumnos/actividad/<titulo>/', views.actividad, name='actividad'),
