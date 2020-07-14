@@ -111,8 +111,10 @@ body{
     clear: right;
 }
 
-#pie{
+footer{
     text-align: center;
-    padding-top: 5px;
-    padding-bottom: 1px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;
 }
