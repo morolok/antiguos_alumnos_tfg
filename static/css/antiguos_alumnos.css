@@ -1,7 +1,10 @@
+/* Que el body no tenga márgenes */
 body{
     margin: 0px;
 }
 
+
+/* Márgenes para el contenido de cada página */
 #cuerpo{
     margin-left: 5%;
     margin-right: 5%;
@@ -9,6 +12,8 @@ body{
     margin-bottom: 2%;
 }
 
+
+/* Cabecera con el parrafo y el logo */
 #cabecera{
     padding-top: 10px;
     padding-bottom: 1px;
@@ -16,11 +21,15 @@ body{
     align-items: center;
 }
 
+
+/* El logo al lado del párrafo de la cabecera */
 #logoCabecera{
     vertical-align: bottom;
     display: inline;
 }
 
+
+/* El parrafo de la cabecera con el nombre de la página */
 #parrafoNombre{
     vertical-align: bottom;
     color: #B80C1C;
@@ -28,10 +37,14 @@ body{
     display: inline;
 }
 
+
+/* Logo y parrafo de la cabecera */
 #logoYParrafoCabecera{
     margin-bottom: 1em;
 }
 
+
+/* Botón de buscar de la barra de navegación*/
 .buscarBarraNavegación{
     background-color: #303B89;
     color: white;
@@ -41,64 +54,90 @@ body{
     border-radius: 10%;
 }
 
+
+/* Los enlaces de la barra de navegación */
 #enlaceBarraNavegacion{
     font-weight: bold;
 }
 
+
+/* Carrusel de noticias */
 #myCarousel{
     margin-top: 2em;
     margin-bottom: 2em;
 }
 
+
+/* Que no aparezcan subrayados los enlaces */
 #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos{
     text-decoration: none;
 }
 
+
+/* Estilo para enlaces */
 #enlaceAColor{
     text-decoration: none;
     font-weight: bold;
     color: #303B89;
 }
 
+
+/**/
 #mostrandoTituloNoticia, #mostrandoTituloOfertaEmpleo{
     font-weight: bold;
     color: #980c17;
 }
 
+
+/**/
 #mostrandoNombreAcuerdoEmpresa{
     font-weight: bold;
     color: #303B89;
 }
 
+
+/**/
 #mostrandoTituloActividad{
     font-weight: bold;
     color: #ee7c1b;
 }
 
+
+/**/
 #tablaRevistaIngenio{
     width: 40%;
 }
 
+
+/**/
 .cabeceraTablaRI{
     padding: 5px;
 }
 
+
+/**/
 .elementoTablaRI{
     border-bottom: 1px solid black;
     padding: 5px;
 }
 
+
+/**/
 #logoPdfTablaRI{
     width: 20px;
     height: 20px;
     vertical-align: center;
 }
 
+
+/**/
 #miembrosJuntaRectora{
     margin-top: 20px;
     margin-left: 40%;
 }
 
+
+/**/
 #imagenJuntaRectora{
     display: block;
     margin-left: auto;
@@ -107,13 +146,43 @@ body{
     margin-bottom: 5px;
 }
 
+
+/**/
 #direccionPostal{
     clear: right;
 }
 
+
+/* Márgenes de elementos de las páginas "actividades" y "actividad" */
+#cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
+    margin-bottom: 1.5em;
+}
+
+
+/*
+#elementoDeActividad{
+    margin-bottom: 1.5em;
+}
+*/
+
+
+/* Márgenes de elementos de las páginas "acuerdosEmpresas" */
+#tituloPaginaAcuerdosEmpresas, #parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{
+    margin-bottom: 1.5em;
+}
+
+#cadaAcuerdoConEmpresaEnAcuerdosEmpresas{
+    margin-bottom: 0.5em;
+}
+
+#parrafoFinal1PaginaAcuerdosEmpresas{
+    margin-top: 1.5em;
+}
+
+
+/* Pie de página */
 footer{
     text-align: center;
-    position: absolute;
     bottom: 0;
     width: 100%;
     height: 2.5rem;

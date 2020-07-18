@@ -10,32 +10,55 @@
 
 <div id="cuerpo">
 
-    <h4>{{ actividad.titulo }}</h4><br>
-
-    <p><i>Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}</i></p>
-
-    {% for linea in lineas %}
-        <p>{{ linea }}</p>
-    {% endfor %}
-    <br>
-
-    <strong><p>Tipo de actividad: </p></strong>
-    <p>{{ actividad.tipoActividad }}</p><br>
     
-    <strong><p>Número de plazas: </p></strong>
-    <p>{{ actividad.numeroPlazas }}</p><br>
-    
-    <strong><p>Fecha de solicitudes: </p></strong>
-    {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
-        <p>{{ actividad.fechaSolicitudesInicio }}</p><br>
-    {% else %}
-        <p>Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p><br>
-    {% endif %}
-    
-    {% if actividad.fichero %}
-        <strong><p>Adjuntos: </p></strong>
-        <a href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a><br>
-    {% endif %}
+    <div id="elementoDeActividad" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</h4><br>
+    </div>
+
+
+    <div id="elementoDeActividad" class="row">
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><i>Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}</i></p>
+    </div>
+
+
+    <div id="elementoDeActividad">
+        {% for linea in lineas %}
+            <div class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div id="elementoDeActividad" class="row">
+        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Tipo de actividad: </p></strong>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.tipoActividad }}</p>
+    </div>
+
+
+    <div id="elementoDeActividad" class="row">
+        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Número de plazas: </p></strong>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.numeroPlazas }}</p>
+    </div>
+
+
+    <div id="elementoDeActividad" class="row">
+        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de solicitudes: </p></strong>
+        {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.fechaSolicitudesInicio }}</p>
+        {% else %}
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p>
+        {% endif %}
+    </div>
+
+
+    <div id="elementoDeActividad" class="row">
+        {% if actividad.fichero %}
+            <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
+            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a>
+        {% endif %}
+    </div>
+
 
 </div>
 

@@ -11,13 +11,18 @@
 
 <div id="cuerpo">
 
-    <h5>Actividades de la asociación </h5><br>
-
+    <div id="tituloPaginaActividades" class="row">
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Actividades de la asociación</h5>
+    </div>
+    
     {% for actividad in actividades %}
-        <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></a>
-        <p>{{ actividad.descripcion|slice:"0:75" }}...</p>
-        <br>
+        <div id="cadaActividadEnActividades" class="row">
+            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></a>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.descripcion|slice:"0:75" }}...</p>
+        </div>
     {% endfor %}
+    
+    
 
 </div>
 
