@@ -10,17 +10,28 @@
 
 <div id="cuerpo">
 
-    <h4>Acuerdo {{ acuerdo.nombre }}</h4><br>
+    
+    <div id="tituloAcuerdoEmpresa" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Acuerdo {{ acuerdo.nombre }}</h4>
+    </div>
+
 
     {% for linea in lineas %}
-        <p>{{ linea }}</p>
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
+        </div>
     {% endfor %}
-    <br>
+
 
     {% if acuerdo.fichero %}
-        <strong><p>Adjuntos: </p></strong>
-        <a href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a><br>
+        <div id="adjuntosAcuerdoEmpresa" class="row">
+            <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
+            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                <p>Fichero adjunto</p>
+            </a>
+        </div>
     {% endif %}
+
 
 </div>
 

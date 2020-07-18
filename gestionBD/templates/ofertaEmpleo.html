@@ -10,26 +10,44 @@
 
 <div id="cuerpo">
 
-    <h4>{{ ofertaEmpleo.titulo }}</h4><br>
+
+    <div id="tituloOfertaEmpleo" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.titulo }}</h4>
+    </div>
+
 
     {% if ofertaEmpleo.fecha %}
-        <p><i>Fecha de la oferta: {{ ofertaEmpleo.fecha }}</i></p>
+        <div id="cadaElementoOfertaEmpleo" class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><i>Fecha de la oferta: {{ ofertaEmpleo.fecha }}</i></p>
+        </div>
     {% endif %}
 
-    {% for linea in lineas %}
-        <p>{{ linea }}</p>
-    {% endfor %}
 
-    {% if ofertaEmpleo.contacto %}
-        <p>Envía en C. V. a: {{ ofertaEmpleo.contacto }}</p>
-    {% endif %}
-
-    {% if ofertaEmpleo.fichero %}
-        <strong><p>Adjuntos: </p></strong>
-        <a href="{{MEDIA_URL}}{{ofertaEmpleo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a><br>
-    {% endif %}
+    <div id="cadaElementoOfertaEmpleo">
+        {% for linea in lineas %}
+            <div class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
+            </div>
+        {% endfor %}
+    </div>
 
     
+    {% if ofertaEmpleo.contacto %}
+        <div id="cadaElementoOfertaEmpleo" class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Envía en C. V. a: {{ ofertaEmpleo.contacto }}</p>
+        </div>
+    {% endif %}
+
+
+    {% if ofertaEmpleo.fichero %}
+        <div id="cadaElementoOfertaEmpleo" class="row">
+            <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
+            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{ofertaEmpleo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                <p>Fichero adjunto</p>
+            </a>
+        </div>
+    {% endif %}
+
 
 </div>
 

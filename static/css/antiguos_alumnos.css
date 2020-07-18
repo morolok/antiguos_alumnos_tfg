@@ -166,7 +166,7 @@ body{
 */
 
 
-/* Márgenes de elementos de las páginas "acuerdosEmpresas" */
+/* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas, #parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{
     margin-bottom: 1.5em;
 }
@@ -177,6 +177,29 @@ body{
 
 #parrafoFinal1PaginaAcuerdosEmpresas{
     margin-top: 1.5em;
+}
+
+#tituloAcuerdoEmpresa{
+    margin-bottom: 1.5em;
+}
+
+#adjuntosAcuerdoEmpresa{
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+
+/* Márgenes de elementos de las páginas "empleo" y "ofertaEmpleo" */
+#tituloPaginaEmpleo, #tituloOfertaEmpleo{
+    margin-bottom: 1.5em;
+}
+
+#cadaElementoOfertaEmpleo{
+    margin-bottom: 0.5em;
+}
+
+#cadaOfertaEmpleo{
+    margin-bottom: 0.5em;
 }
 
 
