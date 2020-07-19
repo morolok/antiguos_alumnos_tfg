@@ -24,13 +24,13 @@
         {% for campo in formActividad %}
 
             {% if campo.id_for_label == 'id_descripcion' %}
-                <div id="campoDelFormularioActividad" class="row">
-                    <label for="formularioAltaActividad" id="etiquetaFormularioActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% else %}
-                <div id="campoDelFormularioActividad" class="row">
-                    <label for="formularioAltaActividad" id="etiquetaFormularioActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% endif %}

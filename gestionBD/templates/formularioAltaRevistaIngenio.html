@@ -9,31 +9,38 @@
 
 <div id="cuerpo">
 
-    <h1>Alta de revista ingenio:</h1>
+
+    <div id="tituloPaginaFormularioAltaRevistaIngenio" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de revista ingenio</h4>
+    </div>
 
     <form id="formularioAltaRevistaIngenio" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
         {% if errores %}
             {% for error in errores %}
-                <p style="color: red;">{{ error }}</p>
+                <p id="parrafoErroresFormulario">{{ error }}</p>
             {% endfor %}
         {% endif %}
 
         {% for campo in formRevistaIngenio %}
 
             {% if campo.id_for_label == 'id_tablaContenido' %}
-                <label for="formularioAltaRevistaIngenio">{{ campo.label }}: </label><br>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaRevistaIngenio" class="row">
+                    <label for="formularioAltaRevistaIngenio" id="etiquetaFormularioAltaRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
             {% else %}
-                <label for="formularioAltaRevistaIngenio">{{ campo.label }}: </label>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaRevistaIngenio" class="row">
+                    <label for="formularioAltaRevistaIngenio" id="etiquetaFormularioAltaRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
             {% endif %}
         
         {% endfor %}
-        <br>
-        <button type="submit">Enviar</button>
+        
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+        </div>
 
     </form>
 

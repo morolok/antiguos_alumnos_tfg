@@ -9,31 +9,39 @@
 
 <div id="cuerpo">
 
-    <h1>Alta de usuario:</h1>
+
+    <div id="tituloPaginaFormularioAltaUsuario" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de usuario</h14>
+    </div>
 
     <form id="formularioAltaUsuario" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
         {% if errores %}
             {% for error in errores %}
-                <p style="color: red;">{{ error }}</p>
+                <p id="parrafoErroresFormulario">{{ error }}</p>
             {% endfor %}
         {% endif %}
 
         {% for campo in formUsuario %}
 
             {% if campo.id_for_label == 'id_direccionPostal' %}
-                <label for="formularioAltaUsuario">{{ campo.label }}: </label><br>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaUsuario" class="row">
+                    <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
             {% else %}
-                <label for="formularioAltaUsuario">{{ campo.label }}: </label>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaUsuario" class="row">
+                    <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
+                
             {% endif %}
         
         {% endfor %}
-        <br>
-        <button type="submit">Enviar</button>
+        
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+        </div>
         
     </form>
 

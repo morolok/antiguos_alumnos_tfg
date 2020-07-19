@@ -201,13 +201,29 @@ body{
 }
 
 
+/* Visualización de la página "login" */
+#erroresLogin{
+    color: red;
+}
+
+#campoUsuarioLogin, #campoContraseñaLogin{
+    margin-bottom: 1em;
+}
+
+#etiquetaUsuarioLogin, #etiquetaContraseñaLogin{
+    font-weight: bold;
+}
+
+
+/* FORMULARIOS */
+
 /* Parrafo de los errores en los formularios en rojo */
 #parrafoErroresFormulario{
     color: red;
 }
 
 
-/* Formato del botón para enviar formularios */
+/* Formato del botón para enviar cada formulario de alta */
 #botonEnviarFormulario{
     background-color: #303B89;
     color: white;
@@ -221,12 +237,19 @@ body{
 }
 
 
-/* Visualización de la página "formularioAltaActividad" */
-#campoDelFormularioActividad, #tituloPaginaFormularioAltaActividad{
+/* Visualización de la página "formularioAltaActividad", "formularioAltaAcuerdoEmpresa", "formularioAltaNoticia",
+ "formularioAltaOfertaEmpleo" */
+#tituloPaginaFormularioAltaActividad, #campoDelFormularioAltaActividad,  
+#tituloPaginaFormularioAltaAcuerdoEmpresa, #campoDelFormularioAltaAcuerdoEmpresa,
+#tituloPaginaFormularioAltaNoticia, #campoDelFormularioAltaNoticia, 
+#tituloPaginaFormularioAltaAcuerdoEmpleo, #campoDelFormularioAltaOfertaEmpleo, 
+#tituloPaginaFormularioAltaRevistaIngenio, #campoDelFormularioAltaRevistaIngenio, 
+#tituloPaginaFormularioAltaUsuario, #campoDelFormularioAltaUsuario{
     margin-bottom: 1em;
 }
 
-#etiquetaFormularioActividad{
+#etiquetaFormularioAltaActividad, #etiquetaFormularioAltaAcuerdoEmpresa, #etiquetaFormularioAltaNoticia, 
+#etiquetaFormularioAltaOfertaEmpleo, #etiquetaFormularioAltaRevistaIngenio, #etiquetaFormularioAltaUsuario{
     font-weight: bold;
 }
 

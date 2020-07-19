@@ -10,25 +10,33 @@
 
 <div id="cuerpo">
 
-    <h1>Alta de acuerdo con empresa:</h1>
+
+    <div id="tituloPaginaFormularioAltaAcuerdoEmpresa" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de acuerdo con empresa</h4>
+    </div>
 
     <form id="formularioAltaAcuerdoEmpresa" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
         {% for campo in formAcuerdo %}
 
             {% if campo.id_for_label == 'id_texto' %}
-                <label for="formularioAltaAcuerdoEmpresa">{{ campo.label }}: </label><br>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaAcuerdoEmpresa" class="row">
+                    <label for="formularioAltaAcuerdoEmpresa" id="etiquetaFormularioAltaAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
             {% else %}
-                <label for="formularioAltaAcuerdoEmpresa">{{ campo.label }}: </label>
-                {{ campo }}
-                <br>
+                <div id="campoDelFormularioAltaAcuerdoEmpresa" class="row">
+                    <label for="formularioAltaAcuerdoEmpresa" id="etiquetaFormularioAltaAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
             {% endif %}
 
         {% endfor %}
-        <br>
-        <button type="submit">Enviar</button>
+
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+        </div>
+
 
     </form>
 

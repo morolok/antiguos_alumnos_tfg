@@ -13,15 +13,23 @@
     <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
         {% if error %}
-            <p style="color: red;">{{ error }}</p>
+            <p id="erroresLogin">{{ error }}</p>
         {% endif %}
 
-        <label for="formularioLogin">Usuario:</label>
-        <input type="text" id="usuario" name="usuario"><br>
-        <label for="formularioLogin">Contraseña:</label>
-        <input type="password" id="contraseña" name="contraseña"><br>
-        <br>
-        <button type="submit">Enviar</button>
+        <div id="campoUsuarioLogin" class="row">
+            <label for="formularioLogin" id="etiquetaUsuarioLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Usuario:</label>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="text" id="usuario" name="usuario"></p>
+        </div>
+        <div id="campoContraseñaLogin" class="row">
+            <label for="formularioLogin" id="etiquetaContraseñaLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Contraseña:</label>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="password" id="contraseña" name="contraseña"></p>
+        </div>
+        
+        
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+        </div>
+
     </form>
 
 </div>
