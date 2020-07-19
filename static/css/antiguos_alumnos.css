@@ -8,8 +8,8 @@ body{
 #cuerpo{
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
 
@@ -97,13 +97,6 @@ body{
 
 
 /**/
-#mostrandoTituloActividad{
-    font-weight: bold;
-    color: #ee7c1b;
-}
-
-
-/**/
 #tablaRevistaIngenio{
     width: 40%;
 }
@@ -153,9 +146,14 @@ body{
 }
 
 
-/* Márgenes de elementos de las páginas "actividades" y "actividad" */
+/* Visualización de las páginas "actividades" y "actividad" */
 #cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
     margin-bottom: 1.5em;
+}
+
+#mostrandoTituloActividad{
+    font-weight: bold;
+    color: #EE7C1B;
 }
 
 
@@ -200,6 +198,36 @@ body{
 
 #cadaOfertaEmpleo{
     margin-bottom: 0.5em;
+}
+
+
+/* Parrafo de los errores en los formularios en rojo */
+#parrafoErroresFormulario{
+    color: red;
+}
+
+
+/* Formato del botón para enviar formularios */
+#botonEnviarFormulario{
+    background-color: #303B89;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+}
+
+
+/* Visualización de la página "formularioAltaActividad" */
+#campoDelFormularioActividad, #tituloPaginaFormularioAltaActividad{
+    margin-bottom: 1em;
+}
+
+#etiquetaFormularioActividad{
+    font-weight: bold;
 }
 
 

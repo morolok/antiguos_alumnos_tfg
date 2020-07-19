@@ -10,12 +10,20 @@
 
 <div id="cuerpo">
 
-    <p>Ha iniciado sesión correctamente como {{usuario}}</p>
-    {% if esAdministrador %}
-        <p>Eres administrador</p>
-    {% else %}
-        <p>No eres administrador</p>
-    {% endif %}
+
+    <div class="row">
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ha iniciado sesión correctamente como {{usuario}}</p>
+    </div>
+
+
+    <div class="row">
+        {% if esAdministrador %}
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Eres administrador</p>
+        {% else %}
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">No eres administrador</p>
+        {% endif %}
+    </div>
+
 
 </div>
 
