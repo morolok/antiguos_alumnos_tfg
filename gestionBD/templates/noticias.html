@@ -10,12 +10,15 @@
 
 <div id="cuerpo">
 
-    <h5>Últimas noticias</h5><br>
+	<div id="tituloPaginaNoticias" class="row">
+	    <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Últimas noticias</h5>
+	</div>
 
     {% for noticia in noticias %}
-        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}"><p id="mostrandoTituloNoticia">{{ noticia.titulo }}</p></a>
-        <p>{{ noticia.texto|slice:"0:75" }}...</p>
-        <br>
+	    <div id="cadaNoticiaEnNoticias" class="row">
+	        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}" ><p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p></a>
+	        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
+	    </div>
     {% endfor %}
 
 </div>

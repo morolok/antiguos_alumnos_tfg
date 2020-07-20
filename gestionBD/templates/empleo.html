@@ -18,8 +18,8 @@
 
     {% for ofertaEmpleo in ofertasEmpleo %}
         <div id="cadaOfertaEmpleo" class="row">
-            <a id="enlaceOfertasEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}">
-                <p id="mostrandoTituloOfertaEmpleo">{{ ofertaEmpleo.titulo }}</p>
+            <a id="enlaceOfertasEmpleo" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}">
+                <p id="mostrandoTituloOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.titulo }}</p>
             </a>
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
         </div>

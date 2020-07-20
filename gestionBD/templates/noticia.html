@@ -10,27 +10,56 @@
 
 <div id="cuerpo">
 
-    <h4>{{ noticia.titulo }}</h4><br>
 
-    <p><i>Fecha de la noticia: {{ noticia.fecha }}</i></p>
+    <div id="tituloNoticia" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</h4>
+    </div>
 
-    {% for linea in lineas %}
-        <p>{{ linea }}</p>
-    {% endfor %}
-    <br>
 
-    {% if noticia.enlace %}
-        <a href="{{ noticia.enlace }}" target="_blank" id="enlaceAColor"><p>Enlace de la noticia</p></a><br>
-    {% endif %}
+    <div id="cadaElementoNoticia" class="row">
+        <p  id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la noticia: {{ noticia.fecha }}</p>
+    </div>
+
+
+    <div id="cadaElementoNoticia">
+        {% for linea in lineas %}
+            <div id="cadaParrafoTextoNoticia" class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
+            </div>
+        {% endfor %}
+    </div>
+        
+
+    <div id="cadaElementoNoticia">
+        {% if noticia.enlace %}
+            <div id="enlaceNoticia" class="row">
+                <a href="{{ noticia.enlace }}" target="_blank" id="enlaceAColor"><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Enlace de la noticia</p></a>
+            </div>
+        {% endif %}
+    </div>
+
 
     {% if noticia.fichero or noticia.imagen %}
-        <strong><p>Adjuntos: </p></strong>
+        <div id="cadaElementoNoticia">
+            <div id="parrafoAdjuntos" class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p>
+            </div>
+        </div>
+
         {% if noticia.fichero %}
-            <a href="{{MEDIA_URL}}{{noticia.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a>
+            <div id="cadaElementoNoticia">
+                <div id="enlaceFicheroNoticia" class="row">
+                    <a href="{{MEDIA_URL}}{{noticia.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fichero adjunto</p></a>
+                </div>
+            </div>
         {% endif %}
+
         {% if noticia.imagen %}
-            <a href="{{MEDIA_URL}}{{noticia.imagen}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Imagen adjunta</p></a>
-            <br>
+            <div id="cadaElementoNoticia">
+                <div id="enlaceImagenNoticia" class="row">
+                    <a href="{{MEDIA_URL}}{{noticia.imagen}}" type="application/pdf" target="_blank" id="enlaceAColor"><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Imagen adjunta</p></a>
+                </div>
+            </div>
         {% endif %}
     {% endif %}
 

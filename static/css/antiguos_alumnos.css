@@ -13,32 +13,29 @@ body{
 }
 
 
-/* Cabecera con el parrafo y el logo */
+/* Visiualización del logo y el nombre de la web en la página "base" */
 #cabecera{
-    padding-top: 10px;
-    padding-bottom: 1px;
-    text-align: center;
-    align-items: center;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
 }
 
-
-/* El logo al lado del párrafo de la cabecera */
 #logoCabecera{
     vertical-align: bottom;
     display: inline;
 }
 
-
-/* El parrafo de la cabecera con el nombre de la página */
 #parrafoNombre{
     vertical-align: bottom;
+    display: inline;
     color: #B80C1C;
     font-size: 1.2em;
-    display: inline;
+    padding-top: 0.7em;
 }
 
 
-/* Logo y parrafo de la cabecera */
+
+
+
 #logoYParrafoCabecera{
     margin-bottom: 1em;
 }
@@ -97,40 +94,13 @@ body{
 
 
 /**/
-#tablaRevistaIngenio{
-    width: 40%;
+#direccionPostal{
+    clear: right;
 }
 
 
-/**/
-.cabeceraTablaRI{
-    padding: 5px;
-}
+/* Visualización de la página "juntaRectora" */
 
-
-/**/
-.elementoTablaRI{
-    border-bottom: 1px solid black;
-    padding: 5px;
-}
-
-
-/**/
-#logoPdfTablaRI{
-    width: 20px;
-    height: 20px;
-    vertical-align: center;
-}
-
-
-/**/
-#miembrosJuntaRectora{
-    margin-top: 20px;
-    margin-left: 40%;
-}
-
-
-/**/
 #imagenJuntaRectora{
     display: block;
     margin-left: auto;
@@ -139,12 +109,13 @@ body{
     margin-bottom: 5px;
 }
 
-
-/**/
-#direccionPostal{
-    clear: right;
+#miembrosJuntaRectora{
+    margin-top: 2em;
 }
 
+#vocalJuntaRectora{
+    margin-left: 2.5em;
+}
 
 /* Visualización de las páginas "actividades" y "actividad" */
 #cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
@@ -157,20 +128,13 @@ body{
 }
 
 
-/*
-#elementoDeActividad{
-    margin-bottom: 1.5em;
-}
-*/
-
-
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas, #parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{
     margin-bottom: 1.5em;
 }
 
 #cadaAcuerdoConEmpresaEnAcuerdosEmpresas{
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
 }
 
 #parrafoFinal1PaginaAcuerdosEmpresas{
@@ -193,11 +157,41 @@ body{
 }
 
 #cadaElementoOfertaEmpleo{
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
 }
 
 #cadaOfertaEmpleo{
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
+}
+
+#parrafoFechaOfertaEmpleo{
+    font-style: italic;
+}
+
+#parrafoAdjuntosOfertaEmpleo{
+    font-weight: bold;
+}
+
+
+/* Visualización de las páginas "noticias" y "noticia" */
+#tituloPaginaNoticias, #tituloNoticia{
+    margin-bottom: 1.5em;
+}
+
+#cadaNoticiaEnNoticias{
+    margin-bottom: 1.5em;
+}
+
+#parrafoFechaNoticia{
+    font-style: italic;
+}
+
+#parrafoAdjuntos{
+    font-weight: bold;
+}
+
+#cadaElementoNoticia{
+    margin-bottom: 1.5em;
 }
 
 
@@ -212,6 +206,24 @@ body{
 
 #etiquetaUsuarioLogin, #etiquetaContraseñaLogin{
     font-weight: bold;
+}
+
+
+/* Visualización de la página "revistaIngenio" */
+#tituloPaginaRevistaIngenio{
+    margin-bottom: 1.5em;
+}
+
+#logoPdfTablaRI{
+    width: 20px;
+    height: 20px;
+    vertical-align: center;
+}
+
+#tablaPaginaRevistaIngenio{
+    width: 50%;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 

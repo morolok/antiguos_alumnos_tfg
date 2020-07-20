@@ -18,7 +18,7 @@
 
     {% if ofertaEmpleo.fecha %}
         <div id="cadaElementoOfertaEmpleo" class="row">
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><i>Fecha de la oferta: {{ ofertaEmpleo.fecha }}</i></p>
+            <p id="parrafoFechaOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la oferta: {{ ofertaEmpleo.fecha }}</p>
         </div>
     {% endif %}
 
@@ -41,9 +41,9 @@
 
     {% if ofertaEmpleo.fichero %}
         <div id="cadaElementoOfertaEmpleo" class="row">
-            <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
-            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{ofertaEmpleo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
-                <p>Fichero adjunto</p>
+            <p id="parrafoAdjuntosOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p>
+            <a href="{{MEDIA_URL}}{{ofertaEmpleo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fichero adjunto</p>
             </a>
         </div>
     {% endif %}

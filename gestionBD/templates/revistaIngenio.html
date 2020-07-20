@@ -10,27 +10,41 @@
 
 <div id="cuerpo">
 
-    <h2>Esta es la página de la Revista Ingenio de la asociación.</h2>
 
-    <p>Ingenio es una publicación periódica editada por la Asociación. En ella tienen cabida tanto las actividades desarrolladas por la Asociación como cualquier tema que resulte de interés para los asociados. Si deseas colaborar en Ingenio, escríbenos a la dirección de correo aa@esi.us.es. Tu aportación será bienvenida.</p>
+    <div id="tituloPaginaRevistaIngenio" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Revista Ingenio</h4>
+    </div>
 
-    <table id="tablaRevistaIngenio">
-        <tr>
-            <th class="cabeceraTablaRI">Número</th>
-            <th class="cabeceraTablaRI">Fecha</th>
-            <th class="cabeceraTablaRI">Revista</th>
-        </tr>
-        {% for revista in revistas %}
-            <tr>
-                <td class="elementoTablaRI">{{revista.numero}}</td>
-                <td class="elementoTablaRI">{{revista.fecha}}</td>
-                <td class="elementoTablaRI">
-                    <img id="logoPdfTablaRI" src="{% static 'images/pdf_ico.ico' %}">
-                    <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">Revista Ingenio {{revista.numero}}</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+
+    <div id="parrafoPaginaRevistaIngenio" class="row">
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ingenio es una publicación periódica editada por la Asociación. En ella tienen cabida tanto las actividades desarrolladas por la Asociación como cualquier tema que resulte de interés para los asociados. Si deseas colaborar en Ingenio, escríbenos a la dirección de correo aa@esi.us.es. Tu aportación será bienvenida.</p>
+    </div>
+
+
+    <div id="tablaPaginaRevistaIngenio">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Número</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Revista</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for revista in revistas %}
+                    <tr>
+                        <td>{{revista.numero}}</td>
+                        <td>{{revista.fecha}}</td>
+                        <td>
+                            <img id="logoPdfTablaRI" src="{% static 'images/pdf_icono.ico' %}">
+                            <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">Revista Ingenio {{revista.numero}}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
 </div>
 

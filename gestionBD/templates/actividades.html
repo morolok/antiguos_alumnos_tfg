@@ -17,7 +17,7 @@
     
     {% for actividad in actividades %}
         <div id="cadaActividadEnActividades" class="row">
-            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad">{{ actividad.titulo }}</p></a>
+            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</p></a>
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.descripcion|slice:"0:75" }}...</p>
         </div>
     {% endfor %}
