@@ -1,6 +1,6 @@
 /* Que el body no tenga márgenes */
 body{
-    margin: 0px;
+    margin: 0;
 }
 
 
@@ -75,27 +75,12 @@ body{
 
 
 /**/
-#mostrandoTituloNoticia, #mostrandoTituloOfertaEmpleo{
-    font-weight: bold;
-    color: #980c17;
-}
-
-
-/**/
-#mostrandoNombreAcuerdoEmpresa{
-    font-weight: bold;
-    color: #303B89;
-}
-
-
-/**/
 #direccionPostal{
     clear: right;
 }
 
 
 /* Visualización de la página "juntaRectora" */
-
 #imagenJuntaRectora{
     display: block;
     margin-left: auto;
@@ -111,6 +96,7 @@ body{
 #vocalJuntaRectora{
     margin-left: 2.5em;
 }
+
 
 /* Visualización de las páginas "actividades" y "actividad" */
 #cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
@@ -145,6 +131,11 @@ body{
     margin-bottom: 1.5em;
 }
 
+#mostrandoNombreAcuerdoEmpresa{
+    font-weight: bold;
+    color: #303B89;
+}
+
 
 /* Márgenes de elementos de las páginas "empleo" y "ofertaEmpleo" */
 #tituloPaginaEmpleo, #tituloOfertaEmpleo{
@@ -167,6 +158,11 @@ body{
     font-weight: bold;
 }
 
+#mostrandoTituloOfertaEmpleo{
+    font-weight: bold;
+    color: #980c17;
+}
+
 
 /* Visualización de las páginas "noticias" y "noticia" */
 #tituloPaginaNoticias, #tituloNoticia{
@@ -187,6 +183,11 @@ body{
 
 #cadaElementoNoticia{
     margin-bottom: 1.5em;
+}
+
+#mostrandoTituloNoticia{
+    font-weight: bold;
+    color: #980c17;
 }
 
 
@@ -264,7 +265,4 @@ body{
 /* Pie de página */
 footer{
     text-align: center;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
 }
