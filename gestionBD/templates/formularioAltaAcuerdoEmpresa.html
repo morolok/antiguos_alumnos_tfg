@@ -17,6 +17,16 @@
 
     <form id="formularioAltaAcuerdoEmpresa" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
+
+        {% if errores %}
+            {% for error in errores %}
+                <div class="row">
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoErroresFormulario">{{ error }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
         {% for campo in formAcuerdo %}
 
             {% if campo.id_for_label == 'id_texto' %}

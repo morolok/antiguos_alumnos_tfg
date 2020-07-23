@@ -18,9 +18,12 @@
 
         {% if errores %}
             {% for error in errores %}
-                <p id="parrafoErroresFormulario">{{ error }}</p>
+                <div class="row">
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoErroresFormulario">{{ error }}</p>
+                </div>
             {% endfor %}
         {% endif %}
+        
 
         {% for campo in formUsuario %}
 
