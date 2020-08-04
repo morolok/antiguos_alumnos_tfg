@@ -230,6 +230,18 @@ body{
     color: red;
 }
 
+/* Asteriscos de los campos obligatorios del formulario en rojo */
+#asteriscoCampoOblogatorioFormulario{
+    color: red;
+}
+
+
+/* Parrafo aviso de los campos obligatorios en cursiva */
+#parrafoAvisoCamposObligatorios{
+    font-style: oblique;
+    margin-bottom: 1em;
+}
+
 
 /* Formato del botón para enviar cada formulario de alta */
 #botonEnviarFormulario{

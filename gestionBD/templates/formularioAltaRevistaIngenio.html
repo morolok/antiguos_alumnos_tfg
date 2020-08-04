@@ -27,19 +27,23 @@
 
         {% for campo in formRevistaIngenio %}
 
-            {% if campo.id_for_label == 'id_tablaContenido' %}
-                <div id="campoDelFormularioAltaRevistaIngenio" class="row">
-                    <label for="formularioAltaRevistaIngenio" id="etiquetaFormularioAltaRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+            {% if campo.id_for_label == 'id_numero' or campo.id_for_label == 'id_fichero' or campo.id_for_label == 'id_fecha' %}
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% else %}
-                <div id="campoDelFormularioAltaRevistaIngenio" class="row">
-                    <label for="formularioAltaRevistaIngenio" id="etiquetaFormularioAltaRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}</label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% endif %}
         
         {% endfor %}
+
+        <div id="parrafoAvisoCamposObligatorios" class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
+        </div>
         
         <div class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>

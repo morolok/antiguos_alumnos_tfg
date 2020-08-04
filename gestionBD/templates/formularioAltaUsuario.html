@@ -26,21 +26,17 @@
         
 
         {% for campo in formUsuario %}
-
-            {% if campo.id_for_label == 'id_direccionPostal' %}
-                <div id="campoDelFormularioAltaUsuario" class="row">
-                    <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
-                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
-                </div>
-            {% else %}
-                <div id="campoDelFormularioAltaUsuario" class="row">
-                    <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
-                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
-                </div>
-                
-            {% endif %}
+            
+            <div id="campoDelFormularioAltaUsuario" class="row">
+                <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+            </div>
         
         {% endfor %}
+
+        <div id="parrafoAvisoCamposObligatorios" class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
+        </div>
         
         <div class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>

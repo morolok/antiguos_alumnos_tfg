@@ -29,19 +29,23 @@
 
         {% for campo in formAcuerdo %}
 
-            {% if campo.id_for_label == 'id_texto' %}
-                <div id="campoDelFormularioAltaAcuerdoEmpresa" class="row">
-                    <label for="formularioAltaAcuerdoEmpresa" id="etiquetaFormularioAltaAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+            {% if campo.id_for_label == 'id_nombre' %}
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% else %}
-                <div id="campoDelFormularioAltaAcuerdoEmpresa" class="row">
-                    <label for="formularioAltaAcuerdoEmpresa" id="etiquetaFormularioAltaAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}: </label>
+                <div id="campoDelFormularioAltaActividad" class="row">
+                    <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}</label>
                     <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                 </div>
             {% endif %}
-
+        
         {% endfor %}
+
+        <div id="parrafoAvisoCamposObligatorios" class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
+        </div>
 
         <div class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
