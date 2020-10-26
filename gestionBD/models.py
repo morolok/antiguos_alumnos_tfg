@@ -140,9 +140,3 @@ class OfertaEmpleoTitulacion(models.Model):
     titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
 
 
-class Salt(models.Model):
-    usuarioUsuario = models.CharField(max_length=20, unique=True, verbose_name='Usuario')
-    salt = models.CharField(max_length=128, verbose_name='Salt')
-
-    def __str__(self):
-        return self.usuarioUsuario + " - " + self.salt

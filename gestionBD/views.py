@@ -2,9 +2,7 @@ from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import render, redirect, reverse
 from django.core.exceptions import ObjectDoesNotExist
 from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
-import os
-import hashlib
-import base64
+
 
 from django.db.models import CharField
 from django.db.models.functions import Lower
@@ -111,17 +109,9 @@ def formularioAltaUsuario(request):
     if(request.method == 'POST'):
         if(formUsuario.is_valid()):
             usuario = formUsuario.save(commit=False)
-            salt = os.urandom(64)
-            usuario.contraseña = hashlib.pbkdf2_hmac('sha256', usuario.contraseña.encode('utf-8'), salt, 1, dklen=128).hex()
             nombre = usuario.nombre
             apellidos = usuario.apellidos
-            saltSalt = base64.b64encode(salt).decode('utf-8')
-            usuarioSalt = usuario.usuario
             formUsuario.save()
-            obj, creado = modelos.Salt.objects.get_or_create(usuarioUsuario=usuarioSalt, salt=saltSalt)
-            if(not creado):
-                obj.delete()
-                modelos.Salt.objects.create(usuarioUsuario=usuarioSalt, salt=saltSalt)
             formUsuario = formularios.FormularioAltaUsuario()
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
         else:
