@@ -271,15 +271,12 @@ def login(request):
         formulario = request.POST
         usuario = formulario['usuario']
         try:
-            fila = modelos.Salt.objects.get(usuarioUsuario=usuario)
+            usuarioBD = modelos.Usuario.objects.get(usuario=usuario)
         except ObjectDoesNotExist:
             error = "El usuario es incorrecto"
             contexto['error'] = error
             return render(request, "login.html", contexto)
-        token = fila.salt
-        salt = base64.b64decode(token)
-        contraseña = hashlib.pbkdf2_hmac('sha256', formulario['contraseña'].encode('utf-8'), salt, 1, dklen=128).hex()
-        usuarioBD = modelos.Usuario.objects.get(usuario=usuario)
+        contraseña = formulario['contraseña']
         if(not (contraseña == usuarioBD.contraseña)):
             error = "La contraseña es incorrecta"
             contexto['error'] = error
