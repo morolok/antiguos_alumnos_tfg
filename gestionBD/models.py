@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import URLValidator
 
 # Create your models here.
 
@@ -57,7 +58,7 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
     texto = models.TextField(verbose_name='Texto')
     fecha = models.DateField(verbose_name='Fecha')
-    enlace = models.CharField(max_length=1024, null=True, blank=True, verbose_name='Enlace')
+    enlace = models.URLField(null=True, blank=True, verbose_name='Enlace', validators=[URLValidator()])
     fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
     imagen = models.ImageField(upload_to='images', blank=True, verbose_name='Imagen')
 
@@ -72,7 +73,7 @@ class Actividad(models.Model):
     imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
     fecha = models.DateField(verbose_name='Fecha de la actividad')
     hora = models.TimeField(null=True, blank=True, verbose_name='Hora de la actividad')
-    enlaceAlbum = models.CharField(max_length=256, null=True, blank=True, verbose_name='Enlace al album')
+    enlaceAlbum = models.URLField(null=True, blank=True, verbose_name='Enlace al album', validators=[URLValidator()])
     numeroPlazas = models.IntegerField(verbose_name='Número de plazas')
     fechaSolicitudesInicio = models.DateField(verbose_name='Fecha de inicio de las solicitudes')
     fechaSolicitudesFin = models.DateField(verbose_name='Fecha de fin de las solicitudes')
