@@ -10,9 +10,21 @@
 
 <div id="cuerpo">
 
-    <p>{{palabra}}</p>
-    {{noticias}}
-    {{actividades}}
+    <p>Resultados para: {{palabra}}</p>
+
+    {% for noticia in noticias %}
+    	<div id="cadaNoticiaEnNoticias" class="row">
+	        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}" ><p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p></a>
+	        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
+	    </div>
+    {% endfor %}
+    
+    {% for actividad in actividades %}
+        <div id="cadaActividadEnActividades" class="row">
+            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</p></a>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.descripcion|slice:"0:75" }}...</p>
+        </div>
+    {% endfor %}
 
 </div>
 
