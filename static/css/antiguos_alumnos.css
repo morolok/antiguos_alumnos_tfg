@@ -19,6 +19,11 @@ body{
     padding-bottom: 0.5em;
 }
 
+#logoYParrafoCabecera{
+    margin-bottom: 1em;
+    text-align: center;
+}
+
 #logoCabecera{
     vertical-align: bottom;
     display: inline;
@@ -29,10 +34,6 @@ body{
     display: inline;
     color: #B80C1C;
     font-size: 1.2em;
-}
-
-#logoYParrafoCabecera{
-    margin-bottom: 1em;
 }
 
 
@@ -50,6 +51,24 @@ body{
 /* Los enlaces de la barra de navegación */
 #enlaceBarraNavegacion{
     font-weight: bold;
+}
+
+
+/* Visualización del enlace de perfil */
+#accesoPerfil{
+    text-align: right;
+    margin-top: 1em;
+}
+
+#parrafoPerfil{
+    vertical-align: middle;
+    display: inline;
+    margin-right: 2em;
+}
+
+#iconoPerfil{
+    vertical-align: middle;
+    display: inline;
 }
 
 

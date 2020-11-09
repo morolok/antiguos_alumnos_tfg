@@ -45,6 +45,7 @@ urlpatterns = [
     path('antalumnos/multimedia/', views.multimedia, name='multimedia'),
     path('antalumnos/juntaRectora/', views.juntaRectora, name='juntaRectora'),
     path('antalumnos/login/', views.login, name='login'),
+    path('antalumnos/perfil/', views.perfil, name='perfil'),
     path('antalumnos/formularioAltaUsuario/', views.formularioAltaUsuario, name='formularioAltaUsuario'),
     path('antalumnos/formularioAltaActividad/', views.formularioAltaActividad, name='formularioAltaActividad'),
     path('antalumnos/formularioAltaNoticia/', views.formularioAltaNoticia, name='formularioAltaNoticia'),

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ actividad.titulo }}
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Nombre:</strong> {{nombreUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Apellidos:</strong> {{apellidosUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Dni:</strong> {{dniUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Fecha de nacimiento:</strong> {{fechaNacimientoUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Cuenta bancaria:</strong> {{cuentaBancariaUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Email:</strong> {{emailUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Teléfono:</strong> {{telefonoUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Dirección postal:</strong> {{direccionPostalUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Usuario:</strong> {{usuarioUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Tipo de usuario:</strong> {{tipoUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Titulación:</strong> {{titulacionUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Promoción:</strong> {{promocionUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Año de finalización:</strong> {{añoFinalizacionUsuario}}</p>
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Empresa:</strong> {{empresaUsuario}}</p>
+	</div>
+
+	<div class="row">
+		{% if comunicacionesUsuario %}
+			<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Comunicaciones:</strong> Si</p>
+		{% else %}
+			<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Comunicaciones:</strong> No</p>
+		{% endif %}
+	</div>
+
+	<div class="row">
+		<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><strong>Junta rectora:</strong> {{juntaRectoraUsuario}}</p>
+	</div>
+
+{% endblock %}

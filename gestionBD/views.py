@@ -103,6 +103,31 @@ def juntaRectora(request):
     return render(request, "juntaRectora.html")
 
 
+def perfil(request):
+    contexto = {}
+    usuarioLogin = request.session['usuario']
+    #print("usuario: " + usuarioLogin)
+    if(usuarioLogin):
+        usuario = modelos.Usuario.objects.get(usuario = usuarioLogin)
+        contexto['nombreUsuario'] = usuario.nombre
+        contexto['apellidosUsuario'] = usuario.apellidos
+        contexto['dniUsuario'] = usuario.dni
+        contexto['fechaNacimientoUsuario'] = usuario.fechaNacimiento
+        contexto['cuentaBancariaUsuario'] = usuario.cuentaBancaria
+        contexto['emailUsuario'] = usuario.email
+        contexto['telefonoUsuario'] = usuario.telefono
+        contexto['direccionPostalUsuario'] = usuario.direccionPostal
+        contexto['usuarioUsuario'] = usuario.usuario
+        contexto['tipoUsuario'] = usuario.tipo
+        contexto['titulacionUsuario'] = usuario.titulacion
+        contexto['promocionUsuario'] = usuario.promocion
+        contexto['añoFinalizacionUsuario'] = usuario.añoFinalizacion
+        contexto['empresaUsuario'] = usuario.empresa
+        contexto['comunicacionesUsuario'] = usuario.comunicaciones
+        contexto['juntaRectoraUsuario'] = usuario.juntaRectora
+    return render(request, "perfil.html", contexto)
+
+
 def formularioAltaUsuario(request):
     formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
     contexto = {'formUsuario': formUsuario}
