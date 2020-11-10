@@ -52,7 +52,7 @@ def actividad(request, titulo):
 
 
 def noticias(request):
-    noticias = modelos.Noticia.objects.all()
+    noticias = modelos.Noticia.objects.order_by('-fecha')
     contexto = {'noticias': noticias}
     return render(request, "noticias.html", contexto)
 

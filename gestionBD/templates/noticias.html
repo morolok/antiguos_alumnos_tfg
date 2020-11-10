@@ -18,6 +18,7 @@
 	    <div id="cadaNoticiaEnNoticias" class="row">
 	        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}" ><p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p></a>
 	        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
+	        <p id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la noticia: {{ noticia.fecha }}</p>
 	    </div>
     {% endfor %}
 
