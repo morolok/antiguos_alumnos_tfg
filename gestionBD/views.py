@@ -105,9 +105,9 @@ def juntaRectora(request):
 
 def perfil(request):
     contexto = {}
-    usuarioLogin = request.session['usuario']
-    #print("usuario: " + usuarioLogin)
-    if(usuarioLogin):
+    if(request.session['usuario']):
+        usuarioLogin = request.session['usuario']
+        contexto['inicioSesion'] = True
         usuario = modelos.Usuario.objects.get(usuario = usuarioLogin)
         contexto['nombreUsuario'] = usuario.nombre
         contexto['apellidosUsuario'] = usuario.apellidos
@@ -125,6 +125,8 @@ def perfil(request):
         contexto['empresaUsuario'] = usuario.empresa
         contexto['comunicacionesUsuario'] = usuario.comunicaciones
         contexto['juntaRectoraUsuario'] = usuario.juntaRectora
+    else:
+        contexto['inicioSesion'] = False
     return render(request, "perfil.html", contexto)
 
 
@@ -321,3 +323,8 @@ def exitoLogin(request):
     contexto['usuario'] = request.session.get('usuario')
     contexto['esAdministrador'] = request.session.get('esAdministrador')
     return render(request, "exitoLogin.html", contexto)
+
+
+def logout(request):
+    request.session['usuario'] = None
+    return render(request, "logout.html")
