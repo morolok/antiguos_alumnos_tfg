@@ -79,7 +79,8 @@ body{
 
 
 /* Que no aparezcan subrayados los enlaces */
-#enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos{
+#enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos, #enlaceAnteriorActividad, 
+#enlaceSiguienteActividad{
     text-decoration: none;
 }
 
@@ -117,6 +118,10 @@ body{
 
 
 /* Visualización de las páginas "actividades" y "actividad" */
+#enlacesAnteriorSiguiente{
+    margin-bottom: 2em;
+}
+
 #cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
     margin-bottom: 1.5em;
 }

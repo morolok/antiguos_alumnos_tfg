@@ -39,15 +39,38 @@ def asociacion(request):
 
 
 def actividades(request):
-    actividades = modelos.Actividad.objects.all()
-    contexto = {'actividades': actividades}
+    actividades = modelos.Actividad.objects.order_by('-fecha')
+    diccionarioActividades = {}
+    for i in range(0, len(actividades)):
+        diccionarioActividades[i] = str(actividades[i].titulo)
+    request.session['diccionarioActividades'] = diccionarioActividades
+    contexto = {'actividades': actividades, 'diccionarioActividades': diccionarioActividades}
     return render(request, "actividades.html", contexto)
 
 
 def actividad(request, titulo):
     actividad = modelos.Actividad.objects.get(titulo=titulo)
     lineas = actividad.descripcion.splitlines()
-    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    diccionarioActividades = request.session['diccionarioActividades']
+    for c, v in diccionarioActividades.items():
+        if(v == titulo):
+            actividadActual = int(c)
+            break
+    totalActividades = len(diccionarioActividades.keys())
+    if(actividadActual == totalActividades-1):
+        actividadSiguiente = 0
+        tituloSiguiente = diccionarioActividades.get(str(actividadSiguiente))
+    else:
+        actividadSiguiente = actividadActual+1
+        tituloSiguiente = diccionarioActividades.get(str(actividadSiguiente))
+    if(actividadActual == 0):
+        actividadAnterior = totalActividades-1
+        tituloAnterior = diccionarioActividades.get(str(actividadAnterior))
+    else:
+        actividadAnterior = actividadActual-1
+        tituloAnterior = diccionarioActividades.get(str(actividadAnterior))
+    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas, 'tituloAnterior': tituloAnterior, 
+        'tituloSiguiente': tituloSiguiente, 'diccionarioActividades': diccionarioActividades}
     return render(request, "actividad.html", contexto)
 
 
