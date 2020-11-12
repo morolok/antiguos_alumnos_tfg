@@ -12,9 +12,25 @@
 
 
     <div class="row" id="enlacesAnteriorSiguiente">
-        <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"><a href="{% url 'actividad' titulo=tituloAnterior %}" id="enlaceAnteriorActividad">&laquo; Anterior</a></p>
+
+        {% if hayAnterior %}
+            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                <a href="{% url 'actividad' titulo=tituloAnterior %}" id="enlaceAnteriorActividad">&laquo; Anterior</a>
+            </p>
+        {% else %}
+            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">&laquo; Anterior</p>
+        {% endif %}
+
         <p class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></p>
-        <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"><a href="{% url 'actividad' titulo=tituloSiguiente %}" id="enlaceSiguienteActividad">Siguiente &raquo;</a></p>
+
+        {% if haySiguiente %}
+            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                <a href="{% url 'actividad' titulo=tituloSiguiente %}" id="enlaceSiguienteActividad">Siguiente &raquo;</a>
+            </p>
+        {% else %}
+            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">Siguiente &raquo;</p>
+        {% endif %}
+        
     </div>
     
     <div id="elementoDeActividad" class="row">
