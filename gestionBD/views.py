@@ -1,17 +1,19 @@
 from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import render, redirect, reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
-
-
-from django.db.models import CharField
-from django.db.models.functions import Lower
-CharField.register_lookup(Lower)
-
-#from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 import gestionBD.models as modelos
 import gestionBD.forms as formularios
+from django.conf import settings
+
+
+#from django.db.models import CharField
+#from django.db.models.functions import Lower
+#CharField.register_lookup(Lower)
+#from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 #from datetime import datetime
+
 
 # Create your views here.
 
@@ -133,7 +135,7 @@ def juntaRectora(request):
 
 def perfil(request):
     contexto = {}
-    if(request.session['usuario']):
+    if('usuario' in request.session.keys()):
         usuarioLogin = request.session['usuario']
         contexto['inicioSesion'] = True
         usuario = modelos.Usuario.objects.get(usuario = usuarioLogin)
@@ -180,6 +182,16 @@ def formularioAltaUsuario(request):
     return render(request, "formularioAltaUsuario.html", contexto)
 
 
+def enviarCorreosConActividad(titulo, descripcion):
+    usuarios = modelos.Usuario.objects.all()
+    lsUsuarios = []
+    for usu in usuarios:
+        if(usu.comunicaciones):
+            lsUsuarios.append(str(usu.email))
+    emisor = settings.EMAIL_HOST_USER
+    send_mail('Nueva actividad: '+titulo, descripcion, emisor, lsUsuarios, fail_silently=False, )
+
+
 def formularioAltaActividad(request):
     formActividad = formularios.FormularioAltaActividad()
     contexto = {'formActividad': formActividad}
@@ -188,8 +200,10 @@ def formularioAltaActividad(request):
         if(formActividad.is_valid()):
             actividad = formActividad.save(commit=False)
             titulo = actividad.titulo
+            descripcion = actividad.descripcion
             formActividad.save()
             formActividad = formularios.FormularioAltaActividad()
+            enviarCorreosConActividad(str(titulo), str(descripcion))
             return redirect('exitoAltaActividad', titulo = titulo)
         else:
             if('__all__' in formActividad.errors.keys()):
@@ -337,7 +351,7 @@ def login(request):
             contexto['error'] = error
         else:
             request.session['usuario'] = usuarioBD.usuario
-            if(usuarioBD.tipo=='Administrador'):
+            if(str(usuarioBD.tipo)=='Administrador'):
                 request.session['esAdministrador'] = True
             else:
                 request.session['esAdministrador'] = False
