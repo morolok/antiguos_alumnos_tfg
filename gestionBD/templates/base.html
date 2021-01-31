@@ -30,68 +30,119 @@
                 <h5 id="parrafoNombre">Asociación de antiguos alumnos de la Escuela Superior de Ingenieros de Sevilla</h5>
             </div>
         </div>
-        
 
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- <img id="logoBarraNavegacion" src="{% static 'images/antalumnos_icono.ico' %}"> -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/asociacion/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'asociacion' %}">La Asociación</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'noticias' %}">Noticias</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/acuerdosEmpresas/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'acuerdosEmpresas' %}">Acuerdos-Empresas</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
-                    </li>
-                    <li id="enlaceBarraNavegacion" class="nav-item dropdown {% if 'formulario' in request.path %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Formularios
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{% url 'formularioAltaActividad' %}">Formulario alta actividad</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaAcuerdoEmpresa' %}">Formulario alta acuerdo con empresa</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaDatosDeContacto' %}">Formulario alta datos de contacto</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaNoticia' %}">Formulario alta noticia</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaOfertaEmpleo' %}">Formulario alta oferta de empleo</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaRevistaIngenio' %}">Formulario alta revista ingenio</a>
-                            <a class="dropdown-item" href="{% url 'formularioAltaUsuario' %}">Formulario alta usuario</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'busqueda' %}">{% csrf_token %}
-                    <input id="buscar" name="buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar">
-                    <button class="buscarBarraNavegación" type="submit">Buscar</button>
-                </form>
-            </div>
-        </nav>
+        {% if esAdministrador %}
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- <img id="logoBarraNavegacion" src="{% static 'images/antalumnos_icono.ico' %}"> -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/asociacion/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'asociacion' %}">La Asociación</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'noticias' %}">Noticias</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/acuerdosEmpresas/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'acuerdosEmpresas' %}">Acuerdos-Empresas</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item dropdown {% if 'formulario' in request.path %}active{% endif %}">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Formularios
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'formularioAltaActividad' %}">Formulario alta actividad</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaAcuerdoEmpresa' %}">Formulario alta acuerdo con empresa</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaDatosDeContacto' %}">Formulario alta datos de contacto</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaNoticia' %}">Formulario alta noticia</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaOfertaEmpleo' %}">Formulario alta oferta de empleo</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaRevistaIngenio' %}">Formulario alta revista ingenio</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaUsuario' %}">Formulario alta usuario</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'busqueda' %}">{% csrf_token %}
+                        <input id="buscar" name="buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar">
+                        <button class="buscarBarraNavegación" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </nav>
+        {% else %}
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- <img id="logoBarraNavegacion" src="{% static 'images/antalumnos_icono.ico' %}"> -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/asociacion/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'asociacion' %}">La Asociación</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'noticias' %}">Noticias</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/acuerdosEmpresas/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'acuerdosEmpresas' %}">Acuerdos-Empresas</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
+                        </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
+                            <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'busqueda' %}">{% csrf_token %}
+                        <input id="buscar" name="buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar">
+                        <button class="buscarBarraNavegación" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </nav>
+        {% endif %}
     
 
-        <div class="row">
-            <div class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></div>
-            <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1" id="accesoPerfil">
-                <img src="{% static 'images/icono_perfil.svg' %}" id="iconoPerfil">
-                <p id="parrafoPerfil"><a href="{% url 'perfil' %}">Perfil</a></p>
-            </div>
+        <div class="row" id="enlacesPerfil">
+            {% if inicioSesion %}
+                <p class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></p>
+                <div>
+                    <img src="{% static 'images/icono_perfil.svg' %}" id="iconoPerfil">
+                    <p id="parrafoPerfil"><a href="{% url 'perfil' %}" id="enlacePerfil">Perfil</a></p>
+                    
+                    <img src="{% static 'images/icono_logout.svg' %}" id="iconoLogout">
+                    <p id="parrafoLogout"><a href="{% url 'logout' %}" id="enlaceLogout">Cerrar sesión</a></p>
+                </div>
+            {% else %}
+                <p class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10"></p>
+                <div>
+                    <img src="{% static 'images/icono_login.svg' %}" id="iconoLogin">
+                    <p id="parrafoLogin"><a href="{% url 'login' %}" id="enlaceLogin">Iniciar sesión</a></p>
+                </div>
+            {% endif %}
             <!-- <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoPerfil"><img src="{% static 'images/icono_perfil.svg' %}" id="iconoPerfil"> Perfil</p> -->
         </div>
 

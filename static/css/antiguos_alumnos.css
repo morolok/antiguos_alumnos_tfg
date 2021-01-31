@@ -55,9 +55,13 @@ body{
 
 
 /* Visualización del enlace de perfil */
-#accesoPerfil{
-    text-align: right;
-    margin-top: 1em;
+#enlacesPerfil{
+    margin-top: 2em;
+}
+
+#iconoPerfil{
+    vertical-align: middle;
+    display: inline;
 }
 
 #parrafoPerfil{
@@ -65,7 +69,26 @@ body{
     display: inline;
 }
 
-#iconoPerfil{
+
+/* Visualización del enlace de logout */
+#parrafoLogout{
+    vertical-align: middle;
+    display: inline;
+}
+
+#iconoLogout{
+    vertical-align: middle;
+    display: inline;
+    margin-left: 1em;
+}
+
+/* Visualización del enlace de login */
+#parrafoLogin{
+    vertical-align: middle;
+    display: inline;
+}
+
+#iconoLogin{
     vertical-align: middle;
     display: inline;
 }
@@ -80,7 +103,7 @@ body{
 
 /* Que no aparezcan subrayados los enlaces */
 #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos, #enlaceAnteriorActividad, 
-#enlaceSiguienteActividad{
+#enlaceSiguienteActividad, #enlacePerfil, #enlaceLogout, #enlaceLogin{
     text-decoration: none;
 }
 

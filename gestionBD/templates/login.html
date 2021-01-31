@@ -10,27 +10,35 @@
 
 <div id="cuerpo">
 
-    <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
-
-        {% if error %}
-            <p id="erroresLogin">{{ error }}</p>
-        {% endif %}
-
-        <div id="campoUsuarioLogin" class="row">
-            <label for="formularioLogin" id="etiquetaUsuarioLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Usuario:</label>
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="text" id="usuario" name="usuario"></p>
-        </div>
-        <div id="campoContraseñaLogin" class="row">
-            <label for="formularioLogin" id="etiquetaContraseñaLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Contraseña:</label>
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="password" id="contraseña" name="contraseña"></p>
-        </div>
-        
-        
+    {% if inicioSesion %}
         <div class="row">
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Ya ha iniciado sesión.
+            </p>
         </div>
+    {% else %}
+        <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 
-    </form>
+            {% if error %}
+                <p id="erroresLogin">{{ error }}</p>
+            {% endif %}
+
+            <div id="campoUsuarioLogin" class="row">
+                <label for="formularioLogin" id="etiquetaUsuarioLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Usuario:</label>
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="text" id="usuario" name="usuario"></p>
+            </div>
+            <div id="campoContraseñaLogin" class="row">
+                <label for="formularioLogin" id="etiquetaContraseñaLogin"  class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Contraseña:</label>
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><input type="password" id="contraseña" name="contraseña"></p>
+            </div>
+            
+            
+            <div class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+            </div>
+
+        </form>
+    {% endif %}
 
 </div>
 

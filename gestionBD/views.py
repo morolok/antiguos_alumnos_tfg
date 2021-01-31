@@ -20,6 +20,12 @@ from django.conf import settings
 
 def busqueda(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     if(request.method=='POST'):
         palabra = request.POST.get('buscar')
         noticias = modelos.Noticia.objects.filter(titulo__unaccent__icontains=palabra)
@@ -32,20 +38,36 @@ def busqueda(request):
 
 def inicio(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     noticias = modelos.Noticia.objects.all()
     contexto['noticias'] = noticias
-    contexto['usuario'] = request.session.get('usuario')
-    contexto['esAdministrador'] = request.session.get('esAdministrador')
     return render(request, "index.html", contexto)
 
 
 def asociacion(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "asociacion.html", contexto)
 
 
 def actividades(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     actividades = modelos.Actividad.objects.order_by('-fecha')
     diccionarioActividades = {}
     for i in range(0, len(actividades)):
@@ -57,12 +79,19 @@ def actividades(request):
 
 def actividad(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     actividad = modelos.Actividad.objects.get(titulo=titulo)
     lineas = actividad.descripcion.splitlines()
     contexto['actividad'] = actividad
     contexto['MEDIA_URL'] = MEDIA_URL
     contexto['lineas'] = lineas
-    diccionarioActividades = request.session['diccionarioActividades']
+    diccionarioActividades = request.session.get('diccionarioActividades')
+    actividadActual = None
     for c, v in diccionarioActividades.items():
         if(v == titulo):
             actividadActual = int(c)
@@ -91,6 +120,12 @@ def actividad(request, titulo):
 
 def noticias(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     noticias = modelos.Noticia.objects.order_by('-fecha')
     contexto['noticias'] = noticias
     return render(request, "noticias.html", contexto)
@@ -98,6 +133,12 @@ def noticias(request):
 
 def noticia(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     noticia = modelos.Noticia.objects.get(titulo = titulo)
     lineas = noticia.texto.splitlines()
     contexto['noticia'] = noticia
@@ -108,6 +149,12 @@ def noticia(request, titulo):
 
 def empleo(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     ofertasEmpleo = modelos.OfertaEmpleo.objects.all()
     contexto['ofertasEmpleo'] = ofertasEmpleo
     return render(request, "empleo.html", contexto)
@@ -115,6 +162,12 @@ def empleo(request):
 
 def ofertaEmpleo(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     ofertaEmpleo = modelos.OfertaEmpleo.objects.get(titulo = titulo)
     lineas = ofertaEmpleo.texto.splitlines()
     contexto['ofertaEmpleo'] = ofertaEmpleo
@@ -125,6 +178,12 @@ def ofertaEmpleo(request, titulo):
 
 def acuerdosEmpresas(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     acuerdos = modelos.AcuerdosEmpresas.objects.all()
     contexto['acuerdos'] = acuerdos
     contexto['MEDIA_URL'] = MEDIA_URL
@@ -133,6 +192,12 @@ def acuerdosEmpresas(request):
 
 def acuerdoEmpresa(request, nombre):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     acuerdo = modelos.AcuerdosEmpresas.objects.get(nombre = nombre)
     lineas = acuerdo.texto.splitlines()
     contexto['acuerdo'] = acuerdo
@@ -143,6 +208,12 @@ def acuerdoEmpresa(request, nombre):
 
 def revistaIngenio(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     revistas = modelos.RevistaIngenio.objects.all()
     contexto['revistas'] = revistas
     contexto['MEDIA_URL'] = MEDIA_URL
@@ -151,19 +222,37 @@ def revistaIngenio(request):
 
 def multimedia(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "multimedia.html", contexto)
 
 
 def juntaRectora(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "juntaRectora.html", contexto)
 
 
 def perfil(request):
     contexto = {}
-    if('usuario' in request.session.keys()):
-        usuarioLogin = request.session['usuario']
-        contexto['inicioSesion'] = True
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    if(usuario is not None):
+        usuarioLogin = usuario
+        #contexto['inicioSesion'] = True
         usuario = modelos.Usuario.objects.get(usuario = usuarioLogin)
         contexto['nombreUsuario'] = usuario.nombre
         contexto['apellidosUsuario'] = usuario.apellidos
@@ -181,18 +270,24 @@ def perfil(request):
         contexto['empresaUsuario'] = usuario.empresa
         contexto['comunicacionesUsuario'] = usuario.comunicaciones
         contexto['juntaRectoraUsuario'] = usuario.juntaRectora
-    else:
-        contexto['inicioSesion'] = False
+    #else:
+        #contexto['inicioSesion'] = False
     return render(request, "perfil.html", contexto)
 
 
 def login(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     if(request.method == 'POST'):
         formulario = request.POST
-        usuario = formulario['usuario']
+        usuarioFormulario = formulario['usuario']
         try:
-            usuarioBD = modelos.Usuario.objects.get(usuario=usuario)
+            usuarioBD = modelos.Usuario.objects.get(usuario=usuarioFormulario)
         except ObjectDoesNotExist:
             error = "El usuario es incorrecto"
             contexto['error'] = error
@@ -202,38 +297,63 @@ def login(request):
             error = "La contraseña es incorrecta"
             contexto['error'] = error
         else:
+            inicioSesion = True
+            request.session['inicioSesion'] = inicioSesion
             request.session['usuario'] = usuarioBD.usuario
             if(str(usuarioBD.tipo)=='Administrador'):
                 request.session['esAdministrador'] = True
             else:
                 request.session['esAdministrador'] = False
+            usuario = request.session.get('usuario')
+            esAdministrador = request.session.get('esAdministrador')
+            inicioSesion = request.session.get('inicioSesion')
+            contexto['usuario'] = usuario
+            contexto['esAdministrador'] = esAdministrador
+            contexto['inicioSesion'] = inicioSesion
             return redirect('exitoLogin')
     return render(request, "login.html", contexto)
 
 
 def exitoLogin(request):
     contexto = {}
-    contexto['usuario'] = request.session.get('usuario')
-    contexto['esAdministrador'] = request.session.get('esAdministrador')
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "exitoLogin.html", contexto)
 
 
 def logout(request):
     contexto = {}
     request.session['usuario'] = None
-    request.session['esAdministrador'] = None
+    request.session['esAdministrador'] = False
+    request.session['inicioSesion'] = False
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "logout.html", contexto)
 
 
 def formularioAltaUsuario(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
     contexto['formUsuario'] = formUsuario
     if(request.method == 'POST'):
         if(formUsuario.is_valid()):
-            usuario = formUsuario.save(commit=False)
-            nombre = usuario.nombre
-            apellidos = usuario.apellidos
+            usuarioFormulario = formUsuario.save(commit=False)
+            nombre = usuarioFormulario.nombre
+            apellidos = usuarioFormulario.apellidos
             formUsuario.save()
             formUsuario = formularios.FormularioAltaUsuario()
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
@@ -244,7 +364,6 @@ def formularioAltaUsuario(request):
             else:
                 errores = [error for lsErrores in formUsuario.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
-    
     return render(request, "formularioAltaUsuario.html", contexto)
 
 
@@ -260,6 +379,12 @@ def enviarCorreosConActividad(titulo, descripcion):
 
 def formularioAltaActividad(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formActividad = formularios.FormularioAltaActividad()
     contexto['formActividad'] = formActividad
     if(request.method == 'POST'):
@@ -285,6 +410,12 @@ def formularioAltaActividad(request):
 
 def formularioAltaNoticia(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formNoticia = formularios.FormularioAltaNoticia()
     contexto['formNoticia'] = formNoticia
     if(request.method == 'POST'):
@@ -307,6 +438,12 @@ def formularioAltaNoticia(request):
 
 def formularioAltaOfertaEmpleo(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
     contexto['formOfertaEmpleo'] = formOfertaEmpleo
     if(request.method == 'POST'):
@@ -329,11 +466,23 @@ def formularioAltaOfertaEmpleo(request):
 
 def formularioAltaDatosDeContacto(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     return render(request, "formularioAltaDatosDeContacto.html", contexto)
 
 
 def formularioAltaRevistaIngenio(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
     contexto['formRevistaIngenio'] = formRevistaIngenio
     if(request.method == 'POST'):
@@ -356,6 +505,12 @@ def formularioAltaRevistaIngenio(request):
 
 def formularioAltaAcuerdoEmpresa(request):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
     contexto['formAcuerdo'] = formAcuerdo
     if(request.method == 'POST'):
@@ -378,12 +533,24 @@ def formularioAltaAcuerdoEmpresa(request):
 
 def exitoAltaRevistaIngenio(request, numero):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['numero'] = numero
     return render(request, "exitoAltaRevistaIngenio.html", contexto)
 
 
 def exitoAltaUsuario(request, nombre, apellidos):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['nombre'] = nombre
     contexto['apellidos'] = apellidos
     return render(request, "exitoAltaUsuario.html", contexto)
@@ -391,23 +558,47 @@ def exitoAltaUsuario(request, nombre, apellidos):
 
 def exitoAltaActividad(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['titulo'] = titulo
     return render(request, "exitoAltaActividad.html", contexto)
 
 
 def exitoAltaNoticia(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['titulo'] = titulo
     return render(request, "exitoAltaNoticia.html", contexto)
 
 
 def exitoAltaOfertaEmpleo(request, titulo):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['titulo'] = titulo
     return render(request, "exitoAltaOfertaEmpleo.html", contexto)
 
 
 def exitoAltaAcuerdoEmpresa(request, nombre):
     contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
     contexto['nombre'] = nombre
     return render(request, "exitoAltaAcuerdoEmpresa.html", contexto)
