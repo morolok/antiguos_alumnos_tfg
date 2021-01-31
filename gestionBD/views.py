@@ -31,29 +31,37 @@ def busqueda(request):
 
 
 def inicio(request):
+    contexto = {}
     noticias = modelos.Noticia.objects.all()
-    contexto = {'noticias': noticias}
+    contexto['noticias'] = noticias
+    contexto['usuario'] = request.session.get('usuario')
+    contexto['esAdministrador'] = request.session.get('esAdministrador')
     return render(request, "index.html", contexto)
 
 
 def asociacion(request):
-    return render(request, "asociacion.html")
+    contexto = {}
+    return render(request, "asociacion.html", contexto)
 
 
 def actividades(request):
+    contexto = {}
     actividades = modelos.Actividad.objects.order_by('-fecha')
     diccionarioActividades = {}
     for i in range(0, len(actividades)):
         diccionarioActividades[i] = str(actividades[i].titulo)
     request.session['diccionarioActividades'] = diccionarioActividades
-    contexto = {'actividades': actividades}
+    contexto['actividades'] = actividades
     return render(request, "actividades.html", contexto)
 
 
 def actividad(request, titulo):
+    contexto = {}
     actividad = modelos.Actividad.objects.get(titulo=titulo)
     lineas = actividad.descripcion.splitlines()
-    contexto = {'actividad': actividad, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    contexto['actividad'] = actividad
+    contexto['MEDIA_URL'] = MEDIA_URL
+    contexto['lineas'] = lineas
     diccionarioActividades = request.session['diccionarioActividades']
     for c, v in diccionarioActividades.items():
         if(v == titulo):
@@ -82,55 +90,73 @@ def actividad(request, titulo):
 
 
 def noticias(request):
+    contexto = {}
     noticias = modelos.Noticia.objects.order_by('-fecha')
-    contexto = {'noticias': noticias}
+    contexto['noticias'] = noticias
     return render(request, "noticias.html", contexto)
 
 
 def noticia(request, titulo):
+    contexto = {}
     noticia = modelos.Noticia.objects.get(titulo = titulo)
     lineas = noticia.texto.splitlines()
-    contexto = {'noticia': noticia, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    contexto['noticia'] = noticia
+    contexto['MEDIA_URL'] = MEDIA_URL
+    contexto['lineas'] = lineas
     return render(request, "noticia.html", contexto)
 
 
 def empleo(request):
+    contexto = {}
     ofertasEmpleo = modelos.OfertaEmpleo.objects.all()
-    contexto = {'ofertasEmpleo': ofertasEmpleo}
+    contexto['ofertasEmpleo'] = ofertasEmpleo
     return render(request, "empleo.html", contexto)
 
 
 def ofertaEmpleo(request, titulo):
+    contexto = {}
     ofertaEmpleo = modelos.OfertaEmpleo.objects.get(titulo = titulo)
     lineas = ofertaEmpleo.texto.splitlines()
-    contexto = {'ofertaEmpleo': ofertaEmpleo, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    contexto['ofertaEmpleo'] = ofertaEmpleo
+    contexto['MEDIA_URL'] = MEDIA_URL
+    contexto['lineas'] = lineas
     return render(request, "ofertaEmpleo.html", contexto)
 
 
 def acuerdosEmpresas(request):
+    contexto = {}
     acuerdos = modelos.AcuerdosEmpresas.objects.all()
-    contexto = {'acuerdos': acuerdos, 'MEDIA_URL': MEDIA_URL}
+    contexto['acuerdos'] = acuerdos
+    contexto['MEDIA_URL'] = MEDIA_URL
     return render(request, "acuerdosEmpresas.html", contexto)
 
 
 def acuerdoEmpresa(request, nombre):
+    contexto = {}
     acuerdo = modelos.AcuerdosEmpresas.objects.get(nombre = nombre)
     lineas = acuerdo.texto.splitlines()
-    contexto = {'acuerdo': acuerdo, 'MEDIA_URL': MEDIA_URL, 'lineas': lineas}
+    contexto['acuerdo'] = acuerdo
+    contexto['MEDIA_URL'] = MEDIA_URL
+    contexto['lineas'] = lineas
     return render(request, "acuerdoEmpresa.html", contexto)
 
 
 def revistaIngenio(request):
+    contexto = {}
     revistas = modelos.RevistaIngenio.objects.all()
-    return render(request, "revistaIngenio.html", {'revistas': revistas, 'MEDIA_URL': MEDIA_URL})
+    contexto['revistas'] = revistas
+    contexto['MEDIA_URL'] = MEDIA_URL
+    return render(request, "revistaIngenio.html", contexto)
 
 
 def multimedia(request):
-    return render(request, "multimedia.html")
+    contexto = {}
+    return render(request, "multimedia.html", contexto)
 
 
 def juntaRectora(request):
-    return render(request, "juntaRectora.html")
+    contexto = {}
+    return render(request, "juntaRectora.html", contexto)
 
 
 def perfil(request):
@@ -160,9 +186,49 @@ def perfil(request):
     return render(request, "perfil.html", contexto)
 
 
+def login(request):
+    contexto = {}
+    if(request.method == 'POST'):
+        formulario = request.POST
+        usuario = formulario['usuario']
+        try:
+            usuarioBD = modelos.Usuario.objects.get(usuario=usuario)
+        except ObjectDoesNotExist:
+            error = "El usuario es incorrecto"
+            contexto['error'] = error
+            return render(request, "login.html", contexto)
+        contraseña = formulario['contraseña']
+        if(not (contraseña == usuarioBD.contraseña)):
+            error = "La contraseña es incorrecta"
+            contexto['error'] = error
+        else:
+            request.session['usuario'] = usuarioBD.usuario
+            if(str(usuarioBD.tipo)=='Administrador'):
+                request.session['esAdministrador'] = True
+            else:
+                request.session['esAdministrador'] = False
+            return redirect('exitoLogin')
+    return render(request, "login.html", contexto)
+
+
+def exitoLogin(request):
+    contexto = {}
+    contexto['usuario'] = request.session.get('usuario')
+    contexto['esAdministrador'] = request.session.get('esAdministrador')
+    return render(request, "exitoLogin.html", contexto)
+
+
+def logout(request):
+    contexto = {}
+    request.session['usuario'] = None
+    request.session['esAdministrador'] = None
+    return render(request, "logout.html", contexto)
+
+
 def formularioAltaUsuario(request):
+    contexto = {}
     formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
-    contexto = {'formUsuario': formUsuario}
+    contexto['formUsuario'] = formUsuario
     if(request.method == 'POST'):
         if(formUsuario.is_valid()):
             usuario = formUsuario.save(commit=False)
@@ -189,12 +255,13 @@ def enviarCorreosConActividad(titulo, descripcion):
         if(usu.comunicaciones):
             lsUsuarios.append(str(usu.email))
     emisor = settings.EMAIL_HOST_USER
-    send_mail('Nueva actividad: '+titulo, descripcion, emisor, lsUsuarios, fail_silently=False, )
+    send_mail('Nueva actividad: ' + titulo, descripcion, emisor, lsUsuarios, fail_silently=False, )
 
 
 def formularioAltaActividad(request):
+    contexto = {}
     formActividad = formularios.FormularioAltaActividad()
-    contexto = {'formActividad': formActividad}
+    contexto['formActividad'] = formActividad
     if(request.method == 'POST'):
         formActividad = formularios.FormularioAltaActividad(request.POST, request.FILES)
         if(formActividad.is_valid()):
@@ -217,8 +284,9 @@ def formularioAltaActividad(request):
 
 
 def formularioAltaNoticia(request):
+    contexto = {}
     formNoticia = formularios.FormularioAltaNoticia()
-    contexto = {'formNoticia': formNoticia}
+    contexto['formNoticia'] = formNoticia
     if(request.method == 'POST'):
         formNoticia = formularios.FormularioAltaNoticia(request.POST, request.FILES)
         if(formNoticia.is_valid()):
@@ -238,8 +306,9 @@ def formularioAltaNoticia(request):
 
 
 def formularioAltaOfertaEmpleo(request):
+    contexto = {}
     formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
-    contexto = {'formOfertaEmpleo': formOfertaEmpleo}
+    contexto['formOfertaEmpleo'] = formOfertaEmpleo
     if(request.method == 'POST'):
         formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto(request.POST, request.FILES)
         if(formOfertaEmpleo.is_valid()):
@@ -259,12 +328,14 @@ def formularioAltaOfertaEmpleo(request):
 
 
 def formularioAltaDatosDeContacto(request):
-    return render(request, "formularioAltaDatosDeContacto.html")
+    contexto = {}
+    return render(request, "formularioAltaDatosDeContacto.html", contexto)
 
 
 def formularioAltaRevistaIngenio(request):
+    contexto = {}
     formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
-    contexto = {'formRevistaIngenio': formRevistaIngenio}
+    contexto['formRevistaIngenio'] = formRevistaIngenio
     if(request.method == 'POST'):
         formRevistaIngenio = formularios.FormularioAltaRevistaIngenio(request.POST, request.FILES)
         if(formRevistaIngenio.is_valid()):
@@ -284,8 +355,9 @@ def formularioAltaRevistaIngenio(request):
 
 
 def formularioAltaAcuerdoEmpresa(request):
+    contexto = {}
     formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
-    contexto = {'formAcuerdo': formAcuerdo}
+    contexto['formAcuerdo'] = formAcuerdo
     if(request.method == 'POST'):
         formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa(request.POST, request.FILES)
         if(formAcuerdo.is_valid()):
@@ -305,68 +377,37 @@ def formularioAltaAcuerdoEmpresa(request):
 
 
 def exitoAltaRevistaIngenio(request, numero):
-    contexto = {'numero': numero}
+    contexto = {}
+    contexto['numero'] = numero
     return render(request, "exitoAltaRevistaIngenio.html", contexto)
 
 
 def exitoAltaUsuario(request, nombre, apellidos):
-    contexto = {'nombre': nombre, 'apellidos': apellidos}
+    contexto = {}
+    contexto['nombre'] = nombre
+    contexto['apellidos'] = apellidos
     return render(request, "exitoAltaUsuario.html", contexto)
 
 
 def exitoAltaActividad(request, titulo):
-    contexto = {'titulo': titulo}
+    contexto = {}
+    contexto['titulo'] = titulo
     return render(request, "exitoAltaActividad.html", contexto)
 
 
 def exitoAltaNoticia(request, titulo):
-    contexto = {'titulo': titulo}
+    contexto = {}
+    contexto['titulo'] = titulo
     return render(request, "exitoAltaNoticia.html", contexto)
 
 
 def exitoAltaOfertaEmpleo(request, titulo):
-    contexto = {'titulo': titulo}
+    contexto = {}
+    contexto['titulo'] = titulo
     return render(request, "exitoAltaOfertaEmpleo.html", contexto)
 
 
 def exitoAltaAcuerdoEmpresa(request, nombre):
-    contexto = {'nombre': nombre}
+    contexto = {}
+    contexto['nombre'] = nombre
     return render(request, "exitoAltaAcuerdoEmpresa.html", contexto)
-
-
-def login(request):
-    contexto = {}
-    if(request.method == 'POST'):
-        formulario = request.POST
-        usuario = formulario['usuario']
-        try:
-            usuarioBD = modelos.Usuario.objects.get(usuario=usuario)
-        except ObjectDoesNotExist:
-            error = "El usuario es incorrecto"
-            contexto['error'] = error
-            return render(request, "login.html", contexto)
-        contraseña = formulario['contraseña']
-        if(not (contraseña == usuarioBD.contraseña)):
-            error = "La contraseña es incorrecta"
-            contexto['error'] = error
-        else:
-            request.session['usuario'] = usuarioBD.usuario
-            if(str(usuarioBD.tipo)=='Administrador'):
-                request.session['esAdministrador'] = True
-            else:
-                request.session['esAdministrador'] = False
-            return redirect('exitoLogin')
-
-    return render(request, "login.html", contexto)
-
-
-def exitoLogin(request):
-    contexto = {}
-    contexto['usuario'] = request.session.get('usuario')
-    contexto['esAdministrador'] = request.session.get('esAdministrador')
-    return render(request, "exitoLogin.html", contexto)
-
-
-def logout(request):
-    request.session['usuario'] = None
-    return render(request, "logout.html")
