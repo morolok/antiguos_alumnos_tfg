@@ -1,11 +1,16 @@
+from django.conf import settings
+from django.core import paginator
+from django.core.mail import send_mail
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.http import HttpResponse, FileResponse, Http404
 from django.shortcuts import render, redirect, reverse
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.mail import send_mail
+
 from antiguos_alumnos_tfg.settings import MEDIA_URL, MEDIA_ROOT
 import gestionBD.models as modelos
 import gestionBD.forms as formularios
-from django.conf import settings
+
+import math
 
 
 #from django.db.models import CharField
@@ -13,7 +18,6 @@ from django.conf import settings
 #CharField.register_lookup(Lower)
 #from gestionBD.models import Titulacion, JuntaRectora, TipoActividad, RevistaIngenio, TipoUsuario
 #from datetime import datetime
-
 
 # Create your views here.
 
@@ -68,12 +72,20 @@ def actividades(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    objetos_paginacion = 5
     actividades = modelos.Actividad.objects.order_by('-fecha')
+    paginator = Paginator(actividades, objetos_paginacion)
+    pagina = request.GET.get('page')
+    actividades_paginadas = paginator.get_page(pagina)
+    numero_paginas = math.ceil(actividades.count()/objetos_paginacion)
+    paginas = [i for i in range(1, numero_paginas+1)]
     diccionarioActividades = {}
     for i in range(0, len(actividades)):
         diccionarioActividades[i] = str(actividades[i].titulo)
     request.session['diccionarioActividades'] = diccionarioActividades
-    contexto['actividades'] = actividades
+    #contexto['actividades'] = actividades
+    contexto['actividades_paginadas'] = actividades_paginadas
+    contexto['paginas'] = paginas
     return render(request, "actividades.html", contexto)
 
 

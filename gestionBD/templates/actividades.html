@@ -14,15 +14,39 @@
     <div id="tituloPaginaActividades" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Actividades de la asociación</h5>
     </div>
-    
-    {% for actividad in actividades %}
+
+    {% for actividad in actividades_paginadas %}
         <div id="cadaActividadEnActividades" class="row">
-            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" ><p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</p></a>
+            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.titulo %}" >
+                <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</p>
+            </a>
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.descripcion|slice:"0:75" }}...</p>
         </div>
     {% endfor %}
-    
-    
+
+    <div id="paginacion" class="row">
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% if actividades_paginadas.has_previous %}
+                <a href="?page={{ actividades_paginadas.previous_page_number }}">&laquo; Anterior &nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a href="?page=1">Primera &nbsp;&nbsp;&nbsp;&nbsp;</a>
+            {% endif %}
+        
+            Página {{ actividades_paginadas.number }} de {{ actividades_paginadas.paginator.num_pages }}
+            
+            {% if actividades_paginadas.has_next %}
+                <a href="?page={{ actividades_paginadas.paginator.num_pages }}">&nbsp;&nbsp;&nbsp;&nbsp; Última</a>
+                <a href="?page={{ actividades_paginadas.next_page_number }}">&nbsp;&nbsp;&nbsp;&nbsp; Siguiente &raquo;</a>
+            {% endif %}
+        </p>
+    </div>
+
+    <div id="paginacion2" class="row">
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% for pagina in paginas %}
+                <a href="?page={{ pagina }}">{{pagina}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+            {% endfor %}
+        </p>
+    </div>
 
 </div>
 
