@@ -154,6 +154,18 @@ body{
     color: #EE7C1B;
 }
 
+#paginacion{
+    text-align: center;
+}
+
+#enlacePaginaPaginacionActividades{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #303B89;
+}
+
 
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas, #parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{

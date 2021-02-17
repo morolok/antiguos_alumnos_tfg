@@ -24,7 +24,7 @@
         </div>
     {% endfor %}
 
-    <div id="paginacion" class="row">
+    <div id="paginacionPrueba" class="row">
         <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {% if actividades_paginadas.has_previous %}
                 <a href="?page={{ actividades_paginadas.previous_page_number }}">&laquo; Anterior &nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -40,11 +40,47 @@
         </p>
     </div>
 
-    <div id="paginacion2" class="row">
+    <div id="paginacion" class="row">
         <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {% for pagina in paginas %}
-                <a href="?page={{ pagina }}">{{pagina}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <a id="enlacePagina" href="?page={{ pagina }}">{{pagina}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
             {% endfor %}
+        </p>
+        
+        <br><br><br>
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% if tipoInicio %}
+                {% for pagina in rango_inicio %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+        
+            {% elif tipoMedio %}
+                <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                {% if no_puntos_suspensivos %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }} </a>
+                    {% endfor %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page=6">6</a>
+                {% else %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+                {% endif %}
+
+            {% elif tipoFin %}
+                <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                {% for pagina in rango_fin %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+
+            {% else %}
+                {% for pagina in paginas %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{pagina}}</a>
+                {% endfor %}
+            {% endif %}
+            
         </p>
     </div>
 
