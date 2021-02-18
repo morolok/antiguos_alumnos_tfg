@@ -14,13 +14,60 @@
 	    <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Últimas noticias</h5>
 	</div>
 
-    {% for noticia in noticias %}
-	    <div id="cadaNoticiaEnNoticias" class="row">
-	        <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}" ><p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p></a>
-	        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
-	        <p id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la noticia: {{ noticia.fecha }}</p>
-	    </div>
+	{% for noticia in noticias_paginadas %}
+        <div id="cadaNoticiaEnNoticias" class="row">
+            <a id="enlaceNoticias" href="{% url 'noticia' titulo=noticia.titulo %}" >
+                <p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p>
+            </a>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
+			<p id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la noticia: {{ noticia.fecha }}</p>
+        </div>
     {% endfor %}
+
+	<div id="paginacion" class="row">
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% for pagina in paginas %}
+                <a id="enlacePagina" href="?page={{ pagina }}">{{pagina}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+            {% endfor %}
+        </p>
+        
+        <br><br><br>
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% if tipoInicio %}
+                {% for pagina in rango_inicio %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ noticias_paginadas.paginator.num_pages }}">{{ noticias_paginadas.paginator.num_pages }}</a>
+        
+            {% elif tipoMedio %}
+                <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                {% if no_puntos_suspensivos %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }} </a>
+                    {% endfor %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page=6">6</a>
+                {% else %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ noticias_paginadas.paginator.num_pages }}">{{ noticias_paginadas.paginator.num_pages }}</a>
+                {% endif %}
+
+            {% elif tipoFin %}
+                <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                {% for pagina in rango_fin %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+
+            {% else %}
+                {% for pagina in paginas %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{pagina}}</a>
+                {% endfor %}
+            {% endif %}
+            
+        </p>
+    </div>
+
 
 </div>
 

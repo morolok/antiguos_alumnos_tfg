@@ -66,6 +66,23 @@
     </div>
 
 
+    <div id="columnasActividadesYEmpleo" class="row">
+        <p id="tituloColumnaActividades" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">Actividades</p>
+        <p id="tituloColumnaOfertasEmpleo" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">Ofertas de empleo</p>
+        {% for elemento in actividades_ofertas %}
+            {% if forloop.counter0|divisibleby:2 %}
+                <p id="parrafoEnlaceTituloColumnaActividad" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <a id="enlaceActividadInicio" href="{% url 'actividad' titulo=elemento.titulo %}">{{ elemento.titulo }}</a>
+                </p>
+            {% else %}
+                <p id="parrafoEnlaceTituloColumnaOfertaEmpleo" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <a id="enlaceOfertaEmpleoInicio" href="{% url 'ofertaEmpleo' titulo=elemento.titulo %}">{{ elemento.titulo }}</a>
+                </p>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
 
 </div>
 

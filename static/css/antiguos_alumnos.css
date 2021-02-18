@@ -101,6 +101,41 @@ body{
 }
 
 
+/* Visualización de la página de "index" */
+#columnasActividadesYEmpleo{
+    margin-top: 2em;
+}
+
+#tituloColumnaActividades{
+    font-weight: bold;
+}
+
+#tituloColumnaOfertasEmpleo{
+    font-weight: bold; 
+}
+
+#parrafoEnlaceTituloColumnaActividad{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#enlaceActividadInicio{
+    text-decoration: none;
+    color: #EE7C1B;
+}
+
+#parrafoEnlaceTituloColumnaOfertaEmpleo{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: #980c17;
+}
+
+#enlaceOfertaEmpleoInicio{
+    text-decoration: none;
+    color: #980c17;
+}
+
+
 /* Que no aparezcan subrayados los enlaces */
 #enlaceActividades, #enlaceNoticias, #enlaceOfertasEmpleo, #enlaceAcuerdos, #enlaceAnteriorActividad, 
 #enlaceSiguienteActividad, #enlacePerfil, #enlaceLogout, #enlaceLogin{

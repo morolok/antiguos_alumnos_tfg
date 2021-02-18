@@ -48,8 +48,15 @@ def inicio(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    noticias = modelos.Noticia.objects.all()
+    noticias = modelos.Noticia.objects.order_by('-fecha')
     contexto['noticias'] = noticias
+    actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
+    ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
+    actividades_ofertas = []
+    for i in range(3):
+        actividades_ofertas.append(actividades[i])
+        actividades_ofertas.append(ofertas_empleo[i])
+    contexto['actividades_ofertas'] = actividades_ofertas
     return render(request, "index.html", contexto)
 
 
@@ -72,8 +79,8 @@ def actividades(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    objetos_paginacion = 5
     actividades = modelos.Actividad.objects.order_by('-fecha')
+    objetos_paginacion = 5
     paginator = Paginator(actividades, objetos_paginacion)
     pagina = request.GET.get('page')
     actividades_paginadas = paginator.get_page(pagina)
@@ -172,7 +179,49 @@ def noticias(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     noticias = modelos.Noticia.objects.order_by('-fecha')
-    contexto['noticias'] = noticias
+    #contexto['noticias'] = noticias
+    
+    objetos_paginacion = 5
+    paginator = Paginator(noticias, objetos_paginacion)
+    pagina = request.GET.get('page')
+    noticias_paginadas = paginator.get_page(pagina)
+    numero_paginas = math.ceil(noticias.count()/objetos_paginacion)
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['noticias_paginadas'] = noticias_paginadas
+    contexto['paginas'] = paginas
+    
+    tipoInicio = False
+    tipoMedio = False
+    tipoFin = False
+    no_puntos_suspensivos = False
+    
+    if(numero_paginas > 6):
+        if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            tipoInicio = True
+            rango_inicio = [i for i in range(1, 6)]
+            contexto['rango_inicio'] = rango_inicio
+        
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas):
+            tipoMedio = True
+            if((numero_paginas - int(pagina)) == 1):
+                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
+                no_puntos_suspensivos = True
+            else:
+                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
+                if(numero_paginas - rango_medio[len(rango_medio)-1] == 1):
+                    no_puntos_suspensivos = True
+            contexto['rango_medio'] = rango_medio
+        
+        elif(pagina is not None and int(pagina) == numero_paginas):
+            tipoFin = True
+            rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+            contexto['rango_fin'] = rango_fin
+    
+    contexto['tipoInicio'] = tipoInicio
+    contexto['tipoMedio'] = tipoMedio
+    contexto['tipoFin'] = tipoFin
+    contexto['no_puntos_suspensivos'] = no_puntos_suspensivos
+
     return render(request, "noticias.html", contexto)
 
 
