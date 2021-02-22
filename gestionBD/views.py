@@ -250,7 +250,49 @@ def empleo(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     ofertasEmpleo = modelos.OfertaEmpleo.objects.all()
-    contexto['ofertasEmpleo'] = ofertasEmpleo
+    #contexto['ofertasEmpleo'] = ofertasEmpleo
+
+    objetos_paginacion = 5
+    paginator = Paginator(ofertasEmpleo, objetos_paginacion)
+    pagina = request.GET.get('page')
+    ofertasEmpleo_paginadas = paginator.get_page(pagina)
+    numero_paginas = math.ceil(ofertasEmpleo.count()/objetos_paginacion)
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['ofertasEmpleo_paginadas'] = ofertasEmpleo_paginadas
+    contexto['paginas'] = paginas
+    
+    tipoInicio = False
+    tipoMedio = False
+    tipoFin = False
+    no_puntos_suspensivos = False
+    
+    if(numero_paginas > 6):
+        if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            tipoInicio = True
+            rango_inicio = [i for i in range(1, 6)]
+            contexto['rango_inicio'] = rango_inicio
+        
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas):
+            tipoMedio = True
+            if((numero_paginas - int(pagina)) == 1):
+                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
+                no_puntos_suspensivos = True
+            else:
+                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
+                if(numero_paginas - rango_medio[len(rango_medio)-1] == 1):
+                    no_puntos_suspensivos = True
+            contexto['rango_medio'] = rango_medio
+        
+        elif(pagina is not None and int(pagina) == numero_paginas):
+            tipoFin = True
+            rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+            contexto['rango_fin'] = rango_fin
+    
+    contexto['tipoInicio'] = tipoInicio
+    contexto['tipoMedio'] = tipoMedio
+    contexto['tipoFin'] = tipoFin
+    contexto['no_puntos_suspensivos'] = no_puntos_suspensivos
+    
     return render(request, "empleo.html", contexto)
 
 

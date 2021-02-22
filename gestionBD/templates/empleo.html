@@ -12,18 +12,65 @@
 
 
     <div id="tituloPaginaEmpleo" class="row">
-        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Esta es la página de empleo</h5>
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ofertas de empleo</h5>
     </div>
 
 
-    {% for ofertaEmpleo in ofertasEmpleo %}
+    {% for ofertaEmpleo in ofertasEmpleo_paginadas %}
         <div id="cadaOfertaEmpleo" class="row">
-            <a id="enlaceOfertasEmpleo" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}">
+            <a id="enlaceOfertasEmpleo" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}" >
                 <p id="mostrandoTituloOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.titulo }}</p>
             </a>
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
+			<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
         </div>
     {% endfor %}
+
+	<div id="paginacion" class="row">
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% for pagina in paginas %}
+                <a id="enlacePagina" href="?page={{ pagina }}">{{pagina}} &nbsp;&nbsp;&nbsp;&nbsp;</a>
+            {% endfor %}
+        </p>
+        
+        <br><br><br>
+        <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {% if tipoInicio %}
+                {% for pagina in rango_inicio %}
+                    <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+                    ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">{{ ofertasEmpleo_paginadas.paginator.num_pages }}</a>
+        
+            {% elif tipoMedio %}
+                <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=1">1</a>...
+                {% if no_puntos_suspensivos %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }} </a>
+                    {% endfor %}
+                    <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=6">6</a>
+                {% else %}
+                    {% for pagina in rango_medio %}
+                        <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% endfor %}
+                    ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">{{ ofertasEmpleo_paginadas.paginator.num_pages }}</a>
+                {% endif %}
+
+            {% elif tipoFin %}
+                <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=1">1</a>...
+                {% for pagina in rango_fin %}
+                    <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                {% endfor %}
+
+            {% else %}
+                {% for pagina in paginas %}
+                    <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{pagina}}</a>
+                {% endfor %}
+            {% endif %}
+            
+        </p>
+    </div>
+
+
+
 
 </div>
 

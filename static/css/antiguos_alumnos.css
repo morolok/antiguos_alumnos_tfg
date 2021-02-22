@@ -180,8 +180,12 @@ body{
     margin-bottom: 2em;
 }
 
-#cadaActividadEnActividades, #tituloPaginaActividades, #elementoDeActividad{
-    margin-bottom: 1.5em;
+#tituloPaginaActividades{
+    margin-bottom: 3em;
+}
+
+#cadaActividadEnActividades{
+    margin-bottom: 2em;
 }
 
 #mostrandoTituloActividad{
@@ -203,7 +207,11 @@ body{
 
 
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
-#tituloPaginaAcuerdosEmpresas, #parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{
+#tituloPaginaAcuerdosEmpresas{
+    margin-bottom: 2em;
+}
+
+#parrafoPaginaAcuerdosEmpresas, #parrafoFinal2PaginaAcuerdosEmpresas{
     margin-bottom: 1.5em;
 }
 
@@ -231,16 +239,16 @@ body{
 
 
 /* Márgenes de elementos de las páginas "empleo" y "ofertaEmpleo" */
-#tituloPaginaEmpleo, #tituloOfertaEmpleo{
-    margin-bottom: 1.5em;
+#tituloPaginaEmpleo{
+    margin-bottom: 2em;
 }
 
-#cadaElementoOfertaEmpleo{
+#tituloOfertaEmpleo{
     margin-bottom: 1.5em;
 }
 
 #cadaOfertaEmpleo{
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 }
 
 #parrafoFechaOfertaEmpleo{
@@ -256,14 +264,30 @@ body{
     color: #980c17;
 }
 
+#paginacion{
+    text-align: center;
+}
+
+#enlacePaginaPaginacionOfertasEmpleo{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #303B89;
+}
+
 
 /* Visualización de las páginas "noticias" y "noticia" */
-#tituloPaginaNoticias, #tituloNoticia{
+#tituloPaginaNoticias{
+    margin-bottom: 3em;
+}
+
+#tituloNoticia{
     margin-bottom: 1.5em;
 }
 
 #cadaNoticiaEnNoticias{
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 }
 
 #parrafoFechaNoticia{
