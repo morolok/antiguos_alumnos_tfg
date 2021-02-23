@@ -519,7 +519,7 @@ def publicarTweetActividad(titulo):
         consumer_secret = 'manhSe3L3mnjKHQjMu3QtUtDBQSlqX29217dyjB7FA6gE4THT4',
         access_token_key = '1327583260348739590-6uTs3sucXoMRV4UyIJ0Tr2EdhOiSR0',
         access_token_secret = 'YHlo610QHMmU5cE7CVDAfR1GeAmWcbyuHvdcAPyONUP7O')
-    texto_tweet = 'Nueva actividad creada: ' + titulo
+    texto_tweet = 'Tenemos una nueva actividad para vosotros: ' + titulo
     api_twitter.PostUpdate(status = texto_tweet)
 
 
@@ -560,7 +560,7 @@ def publicarTweetNoticia(titulo):
         consumer_secret = 'manhSe3L3mnjKHQjMu3QtUtDBQSlqX29217dyjB7FA6gE4THT4',
         access_token_key = '1327583260348739590-6uTs3sucXoMRV4UyIJ0Tr2EdhOiSR0',
         access_token_secret = 'YHlo610QHMmU5cE7CVDAfR1GeAmWcbyuHvdcAPyONUP7O')
-    texto_tweet = 'Nueva noticia en la sociación: ' + titulo
+    texto_tweet = 'Tenemos una nueva noticia que contaros: ' + titulo
     api_twitter.PostUpdate(status = texto_tweet)
 
 
