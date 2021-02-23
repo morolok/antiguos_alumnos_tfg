@@ -11,6 +11,7 @@ import gestionBD.models as modelos
 import gestionBD.forms as formularios
 
 import math
+import twitter
 
 
 #from django.db.models import CharField
@@ -513,6 +514,15 @@ def enviarCorreosConActividad(titulo, descripcion):
     send_mail('Nueva actividad: ' + titulo, descripcion, emisor, lsUsuarios, fail_silently=False, )
 
 
+def publicarTweetActividad(titulo):
+    api_twitter = twitter.Api(consumer_key = 'XSPvc9U4HgUm2dfqoY9WBvtHI', 
+        consumer_secret = 'manhSe3L3mnjKHQjMu3QtUtDBQSlqX29217dyjB7FA6gE4THT4',
+        access_token_key = '1327583260348739590-6uTs3sucXoMRV4UyIJ0Tr2EdhOiSR0',
+        access_token_secret = 'YHlo610QHMmU5cE7CVDAfR1GeAmWcbyuHvdcAPyONUP7O')
+    texto_tweet = 'Nueva actividad creada: ' + titulo
+    api_twitter.PostUpdate(status = texto_tweet)
+
+
 def formularioAltaActividad(request):
     contexto = {}
     usuario = request.session.get('usuario')
@@ -532,6 +542,7 @@ def formularioAltaActividad(request):
             formActividad.save()
             formActividad = formularios.FormularioAltaActividad()
             enviarCorreosConActividad(str(titulo), str(descripcion))
+            publicarTweetActividad(str(titulo))
             return redirect('exitoAltaActividad', titulo = titulo)
         else:
             if('__all__' in formActividad.errors.keys()):
@@ -542,6 +553,15 @@ def formularioAltaActividad(request):
                 contexto['errores'] = errores
     
     return render(request, "formularioAltaActividad.html", contexto)
+
+
+def publicarTweetNoticia(titulo):
+    api_twitter = twitter.Api(consumer_key = 'XSPvc9U4HgUm2dfqoY9WBvtHI', 
+        consumer_secret = 'manhSe3L3mnjKHQjMu3QtUtDBQSlqX29217dyjB7FA6gE4THT4',
+        access_token_key = '1327583260348739590-6uTs3sucXoMRV4UyIJ0Tr2EdhOiSR0',
+        access_token_secret = 'YHlo610QHMmU5cE7CVDAfR1GeAmWcbyuHvdcAPyONUP7O')
+    texto_tweet = 'Nueva noticia en la sociación: ' + titulo
+    api_twitter.PostUpdate(status = texto_tweet)
 
 
 def formularioAltaNoticia(request):
@@ -561,6 +581,7 @@ def formularioAltaNoticia(request):
             titulo = noticia.titulo
             formNoticia.save()
             formNoticia = formularios.FormularioAltaNoticia()
+            publicarTweetNoticia(str(titulo))
             return redirect('exitoAltaNoticia', titulo = titulo)
         else:
             if('__all__' in formNoticia.errors.keys()):

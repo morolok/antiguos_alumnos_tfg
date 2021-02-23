@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'gestionBD',
 ]
 
+#AUTHENTICATION_BACKENDS = [
+#    'social_core.backends.twitter.TwitterOAuth',
+#]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -131,20 +135,35 @@ USE_TZ = True
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
+
+# Static files:
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-#STATICFILES_DIRS = ["C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/"]
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIRS = ["C:/Users/carlo/Documents/Carlos Mata Blasco/Universidad/Django/antiguos_alumnos_tfg/antiguos_alumnos_tfg/static/"]
+
+
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #MEDIA_URL = '/static/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'antiguos_alumnos_tfg/multimedia')
 
+
+# Gmail:
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "antalumnosetsi@gmail.com"
 EMAIL_HOST_PASSWORD = "Admintfg20"
+
+
+# Twitter:
+TWITTER_API_KEY = 'XSPvc9U4HgUm2dfqoY9WBvtHI'
+TWITTER_API_SECRET_KEY = 'manhSe3L3mnjKHQjMu3QtUtDBQSlqX29217dyjB7FA6gE4THT4'
+TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAHY3NAEAAAAASx0C2kbj6aTFKgSisgu%2FYWt3csc%3D13acJHT3ei9RarsWuOfv4PvSjCqP4NdIR1NsqQ2hI6A0oKkl53'
+TWITTER_ACCESS_TOKEN = '1327583260348739590-6uTs3sucXoMRV4UyIJ0Tr2EdhOiSR0'
+TWITTER_ACCESS_TOKEN_SECRET = 'YHlo610QHMmU5cE7CVDAfR1GeAmWcbyuHvdcAPyONUP7O'

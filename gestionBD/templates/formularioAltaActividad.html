@@ -27,7 +27,7 @@
 
             {% for campo in formActividad %}
 
-                {% if campo.id_for_label == 'id_titulo' or campo.id_for_label == 'id_descripcion' or campo.id_for_label == 'id_fecha' or campo.id_for_label == 'id_numeroPlazas' or campo.id_for_label == 'id_fechaSolicitudesInicio' or campo.id_for_label == 'id_fechaSolicitudesFin' or campo.id_for_label == 'id_tipoActividad' %}
+                {% if campo.id_for_label == 'id_titulo' or campo.id_for_label == 'id_descripcion' or campo.id_for_label == 'id_fecha' or campo.id_for_label == 'id_hora' or campo.id_for_label == 'id_numeroPlazas' or campo.id_for_label == 'id_fechaSolicitudesInicio' or campo.id_for_label == 'id_fechaSolicitudesFin' or campo.id_for_label == 'id_tipoActividad' %}
                     <div id="campoDelFormularioAltaActividad" class="row">
                         <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
