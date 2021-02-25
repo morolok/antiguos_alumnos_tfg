@@ -215,6 +215,30 @@ body{
     color: #303B89;
 }
 
+#tituloYFechaActividad, #descripcionActividad, #tipoActividad, #plazasActividad, #fechasActividad, #adjuntosActividad{
+    margin-bottom: 2em;
+}
+
+#parrafoFechaActividad{
+    font-style: italic;
+}
+
+#parrafoTipoActividad, #parrafoPlazasActividad, #parrafoFechasActividades, #parrafoAdjuntosActividad{
+    font-weight: bold;
+}
+
+#botonApuntarseActividad{
+    background-color: #303B89;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+}
+
 
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas{
@@ -383,7 +407,7 @@ body{
     color: white;
     border: none;
     border-radius: 0.4em;
-    padding-top: 0.35em;
+    padding-top: 0.2em;
     padding-bottom: 0.35em;
     padding-left: 0.5em;
     padding-right: 0.5em;

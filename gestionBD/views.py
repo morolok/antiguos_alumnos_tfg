@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.core import paginator
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.http import HttpResponse, FileResponse, Http404
@@ -130,6 +130,13 @@ def actividades(request):
     return render(request, "actividades.html", contexto)
 
 
+def enviarCorreoApuntarseActividad(emailUsuario, tituloActividad):
+    asunto = "Apuntarse a una actividad"
+    cuerpo = "Le enviamos este correo para informarle de que se acaba de apuntar a una actividad de la asociación. La actividad a la que se ha apuntado es " + tituloActividad
+    emisor = settings.EMAIL_HOST_USER
+    send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
+
+
 def actividad(request, titulo):
     contexto = {}
     usuario = request.session.get('usuario')
@@ -138,9 +145,19 @@ def actividad(request, titulo):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    actividad = modelos.Actividad.objects.get(titulo=titulo)
-    lineas = actividad.descripcion.splitlines()
-    contexto['actividad'] = actividad
+    usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+    actividadBD = modelos.Actividad.objects.get(titulo = titulo)
+    if(request.method == 'POST' and inicioSesion):
+        usuarioActividad = modelos.UsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
+        usuarioActividad.save()
+        enviarCorreoApuntarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+    ls_usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD)
+    apuntado = False
+    if(len(ls_usuarioActividad) > 0):
+        apuntado = True
+    contexto['apuntado'] = apuntado
+    lineas = actividadBD.descripcion.splitlines()
+    contexto['actividad'] = actividadBD
     contexto['MEDIA_URL'] = MEDIA_URL
     contexto['lineas'] = lineas
     diccionarioActividades = request.session.get('diccionarioActividades')

@@ -33,17 +33,16 @@
         
     </div>
     
-    <div id="elementoDeActividad" class="row">
-        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</h4><br>
+
+    <div id="tituloYFechaActividad" class="row">
+        <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</h4>
+        <p id="parrafoFechaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}
+        </p>
     </div>
 
 
-    <div id="elementoDeActividad" class="row">
-        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><i>Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}</i></p>
-    </div>
-
-
-    <div id="elementoDeActividad">
+    <div id="descripcionActividad">
         {% for linea in lineas %}
             <div class="row">
                 <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
@@ -52,20 +51,20 @@
     </div>
 
 
-    <div id="elementoDeActividad" class="row">
-        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Tipo de actividad: </p></strong>
+    <div id="tipoActividad" class="row">
+        <p id="parrafoTipoActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Tipo de actividad:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.tipoActividad }}</p>
     </div>
 
 
-    <div id="elementoDeActividad" class="row">
-        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Número de plazas: </p></strong>
+    <div id="plazasActividad" class="row">
+        <p id="parrafoPlazasActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Número de plazas:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.numeroPlazas }}</p>
     </div>
 
 
-    <div id="elementoDeActividad" class="row">
-        <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de solicitudes: </p></strong>
+    <div id="fechasActividad" class="row">
+        <p id="parrafoFechasActividades" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de solicitudes:</p>
         {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.fechaSolicitudesInicio }}</p>
         {% else %}
@@ -74,12 +73,29 @@
     </div>
 
 
-    <div id="elementoDeActividad" class="row">
-        {% if actividad.fichero %}
-            <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
-            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor"><p>Fichero adjunto</p></a>
+    {% if actividad.fichero %}
+        <div id="adjuntosActividad" class="row">
+            <p id="parrafoAdjuntosActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos:</p>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <a id="enlaceAColor" href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">Fichero adjunto</a>
+            </p>
+        </div>
+    {% endif %}
+
+
+
+    {% if apuntado %}
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ya se ha apuntado a esta actividad</p>
+        </div>
+        
+    {% else %}
+        {% if inicioSesion %}
+            <form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
+                <button id="botonApuntarseActividad" type="submit">Apuntarse</button>
+            </form>
         {% endif %}
-    </div>
+    {% endif %}
 
 
 </div>

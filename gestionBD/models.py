@@ -174,7 +174,7 @@ class AcuerdosEmpresas(models.Model):
 
 
 class UsuarioActividad(models.Model):
-    dniUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Dni')
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, verbose_name='Actividad')
     #dniUsuario = models.CharField(max_length=9, null=False)
     #actividad = models.CharField(max_length=50, null=False)
@@ -182,6 +182,9 @@ class UsuarioActividad(models.Model):
     class Meta:
         verbose_name = 'Usuario actividad'
         verbose_name_plural = 'Usuarios actividades'
+    
+    def __str__(self):
+        return str(self.usuario) + " - " + str(self.actividad)
 
 
 class OfertaEmpleoTitulacion(models.Model):
