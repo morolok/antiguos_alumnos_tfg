@@ -157,6 +157,16 @@ body{
 }
 
 
+/* Visualización de la página "asociacion" */
+#tituloPaginaAsociacion{
+    margin-bottom: 3em;
+}
+
+#contenedorEnlaceJuntaRectora{
+    margin-bottom: 3em;
+}
+
+
 /* Visualización de la página "juntaRectora" */
 #imagenJuntaRectora{
     display: block;
