@@ -3,8 +3,13 @@ from django.core.validators import URLValidator
 
 # Create your models here.
 
+
 class JuntaRectora(models.Model):
     puesto = models.CharField(max_length=20, primary_key=True, verbose_name='Puesto')
+
+    class Meta:
+        verbose_name = 'Junta Rectora'
+        verbose_name_plural = 'Junta Rectora'
 
     def __str__(self):
         return self.puesto
@@ -13,6 +18,10 @@ class JuntaRectora(models.Model):
 class Titulacion(models.Model):
     nombre = models.CharField(max_length=100, primary_key=True, verbose_name='Titulación')
 
+    class Meta:
+        verbose_name = 'Titulación'
+        verbose_name_plural = 'Titulaciones'
+
     def __str__(self):
         return self.nombre
 
@@ -20,12 +29,20 @@ class Titulacion(models.Model):
 class TipoActividad(models.Model):
     tipo = models.CharField(max_length=30, primary_key=True, verbose_name='Tipo de actividad')
 
+    class Meta:
+        verbose_name = 'Tipo de actividad'
+        verbose_name_plural = 'Tipos de actividades'
+
     def __str__(self):
         return self.tipo
 
 
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, primary_key=True, verbose_name='Tipo de usuario')
+
+    class Meta:
+        verbose_name = 'Tipo de usuario'
+        verbose_name_plural = 'Tipos de usuarios'
 
     def __str__(self):
         return self.tipo
@@ -50,6 +67,10 @@ class Usuario(models.Model):
     comunicaciones = models.BooleanField(verbose_name='Comunicaciones')
     juntaRectora = models.ForeignKey(JuntaRectora, on_delete=models.CASCADE, verbose_name='Junta rectora')
 
+    class Meta:
+        verbose_name = 'Usuario'
+        verbose_name_plural = 'Usuarios'
+
     def __str__(self):
         return self.nombre + " " + self.apellidos + " - " + self.dni
 
@@ -61,6 +82,10 @@ class Noticia(models.Model):
     enlace = models.URLField(null=True, blank=True, verbose_name='Enlace', validators=[URLValidator()])
     fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
     imagen = models.ImageField(upload_to='images', blank=True, verbose_name='Imagen')
+
+    class Meta:
+        verbose_name = 'Noticia'
+        verbose_name_plural = 'Noticias'
 
     def __str__(self):
         return self.titulo
@@ -80,6 +105,10 @@ class Actividad(models.Model):
     fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
+    class Meta:
+        verbose_name = 'Actividad'
+        verbose_name_plural = 'Actividades'
+
     def __str__(self):
         return self.titulo
 
@@ -94,6 +123,10 @@ class DatosDeContacto(models.Model):
     twitter = models.CharField(max_length=256, null=True, blank=True, verbose_name='Twitter')
     instagram = models.CharField(max_length=256, null=True, blank=True, verbose_name='Instagram')
 
+    class Meta:
+        verbose_name = 'Datos de contacto'
+        verbose_name_plural = 'Datos de contacto'
+
 
 class OfertaEmpleo(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
@@ -103,6 +136,10 @@ class OfertaEmpleo(models.Model):
     fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
     titulaciones = models.ManyToManyField(Titulacion, blank=True, verbose_name='Titulaciones')
     fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
+
+    class Meta:
+        verbose_name = 'Oferta de empleo'
+        verbose_name_plural = 'Ofertas de empleo'
 
     def __str__(self):
         return self.titulo
@@ -114,6 +151,10 @@ class RevistaIngenio(models.Model):
     fichero = models.FileField(upload_to='files', verbose_name='Fichero')
     fecha = models.DateField(verbose_name='Fecha')
     tablaContenido = models.TextField(null=True, blank=True, verbose_name='Tabla de contenidos')
+
+    class Meta:
+        verbose_name = 'Revista Ingenio'
+        verbose_name_plural = 'Revistas Ingenio'
     
     def __str__(self):
         return "Revista número " + str(self.numero)
@@ -123,6 +164,10 @@ class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=1024, primary_key=True, verbose_name='Nombre')
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
     fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
+
+    class Meta:
+        verbose_name = 'Acuerdos con empresas'
+        verbose_name_plural = 'Acuerdos com empresas'
     
     def __str__(self):
         return self.nombre
@@ -134,10 +179,16 @@ class UsuarioActividad(models.Model):
     #dniUsuario = models.CharField(max_length=9, null=False)
     #actividad = models.CharField(max_length=50, null=False)
 
+    class Meta:
+        verbose_name = 'Usuario actividad'
+        verbose_name_plural = 'Usuarios actividades'
+
 
 class OfertaEmpleoTitulacion(models.Model):
     #ofertaEmpleo = models.CharField(max_length=200, null=False)
     ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE, verbose_name='Oferta de empleo')
     titulacion = models.ForeignKey(Titulacion, on_delete=models.CASCADE, verbose_name='Titulación')
 
-
+    class Meta:
+        verbose_name = 'Ofertas de empleo titulación'
+        verbose_name_plural = 'Ofertas de empleo titulaciones'
