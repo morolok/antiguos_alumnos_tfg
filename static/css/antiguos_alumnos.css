@@ -4,6 +4,13 @@ body{
 }
 
 
+/* Que la página no tenga desplazamiento lateral */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+
 /* Márgenes para el contenido de cada página */
 #cuerpo{
     margin-left: 5%;
@@ -37,7 +44,7 @@ body{
 }
 
 
-/* Botón de buscar de la barra de navegación*/
+/* Botón de buscar de la barra de navegación    -> BORRAR*/
 .buscarBarraNavegación{
     background-color: #303B89;
     color: white;
@@ -237,6 +244,7 @@ body{
     padding-left: 0.5em;
     padding-right: 0.5em;
     font-size: 1.2em;
+    margin-bottom: 2em;
 }
 
 
