@@ -383,9 +383,22 @@ html, body {
 
 
 /* Visualización de los datos del perfil de usuario */
+#tituloPaginaPerfil{
+    margin-bottom: 2em;
+}
+
 #datosPerfilUsuario{
     margin-top: 1em;
     margin-bottom: 2em;
+}
+
+#contenedorElementoPerfil{
+    margin-bottom: 1em;
+}
+
+#iconoEditar{
+    margin-left: 1.5em;
+    vertical-align: bottom;
 }
 
 
