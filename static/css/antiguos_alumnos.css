@@ -124,6 +124,7 @@ html, body {
 #parrafoEnlaceTituloColumnaActividad{
     margin-top: 1em;
     margin-bottom: 1em;
+    font-weight: bold;
 }
 
 #enlaceActividadInicio{
@@ -134,12 +135,33 @@ html, body {
 #parrafoEnlaceTituloColumnaOfertaEmpleo{
     margin-top: 1em;
     margin-bottom: 1em;
-    color: #980c17;
+    font-weight: bold;
 }
 
 #enlaceOfertaEmpleoInicio{
     text-decoration: none;
     color: #980c17;
+}
+
+#redesSociales{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-align: center;
+}
+
+#parrafoRedesSociales{
+    font-weight: bold;
+}
+
+#enlaceFacebook, #enlaceTwitter, #enlaceInstagram{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+}
+
+#iconoFacebook, #iconoTwitter, #iconoInstagram, #iconoLupa, #iconoPerfil, #iconoLogout, #iconoLogin{
+    height: 30px;
+    width: 30px;   
 }
 
 
