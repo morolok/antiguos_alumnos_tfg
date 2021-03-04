@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    {{ actividad.titulo }}
+    Perfil
 {% endblock %}
 
 
@@ -21,21 +21,25 @@
 
 		{% if inicioSesion %}
 			
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Nombre:</strong> {{nombreUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
+			<form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
 
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Apellidos:</strong> {{apellidosUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Nombre:</strong> {{nombreUsuario}}
+						<input id="iconoEditar" type="image" name="editarNombrePerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Apellidos:</strong> {{apellidosUsuario}}
+						<input id="iconoEditar" type="image" name="editarApellidosPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+					</p>
+				</div>
+		
+			</form>
 
 			<div id="contenedorElementoPerfil" class="row">
 				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>

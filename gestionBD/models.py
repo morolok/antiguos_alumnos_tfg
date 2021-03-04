@@ -167,7 +167,7 @@ class AcuerdosEmpresas(models.Model):
 
     class Meta:
         verbose_name = 'Acuerdos con empresas'
-        verbose_name_plural = 'Acuerdos com empresas'
+        verbose_name_plural = 'Acuerdos con empresas'
     
     def __str__(self):
         return self.nombre

@@ -426,6 +426,10 @@ def perfil(request):
         contexto['juntaRectoraUsuario'] = usuario.juntaRectora
     #else:
         #contexto['inicioSesion'] = False
+    if((request.method == 'POST') and ('editarNombrePerfil.x' in request.POST)):
+        print('Editar nombre')
+    elif((request.method == 'POST') and ('editarApellidosPerfil.x' in request.POST)):
+        print('Editar apellidos')
     return render(request, "perfil.html", contexto)
 
 
