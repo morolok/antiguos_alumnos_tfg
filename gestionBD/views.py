@@ -404,6 +404,35 @@ def perfil(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+
+    editarNombre = False
+    editarApellidos = False
+    if(request.method == 'POST'):
+        # Editar el nombre:
+        if('editarNombrePerfil.x' in request.POST):
+            editarNombre = True
+            contexto['editarNombre'] = editarNombre
+        elif('guardarNombrePerfil.x' in request.POST):
+            nuevoNombre = request.POST['inputNuevoNombre']
+            modelos.Usuario.objects.filter(usuario = usuario).update(nombre = nuevoNombre)
+            editarNombre = False
+            contexto['editarNombre'] = editarNombre
+        elif('cancelarNombrePerfil.x' in request.POST):
+            editarNombre = False
+            contexto['editarNombre'] = editarNombre
+        # Editar los apellidos:
+        elif('editarApellidosPerfil.x' in request.POST):
+            editarApellidos = True
+            contexto['editarApellidos'] = editarApellidos
+        elif('guardarApellidosPerfil.x' in request.POST):
+            nuevosApellidos = request.POST['inputNuevosApellidos']
+            modelos.Usuario.objects.filter(usuario = usuario).update(apellidos = nuevosApellidos)
+            editarApellidos = False
+            contexto['editarApellidos'] = editarApellidos
+        elif('cancelarApellidosPerfil.x' in request.POST):
+            editarApellidos = False
+            contexto['editarApellidos'] = editarApellidos
+    
     if(usuario is not None):
         usuarioLogin = usuario
         #contexto['inicioSesion'] = True
@@ -426,10 +455,6 @@ def perfil(request):
         contexto['juntaRectoraUsuario'] = usuario.juntaRectora
     #else:
         #contexto['inicioSesion'] = False
-    if((request.method == 'POST') and ('editarNombrePerfil.x' in request.POST)):
-        print('Editar nombre')
-    elif((request.method == 'POST') and ('editarApellidosPerfil.x' in request.POST)):
-        print('Editar apellidos')
     return render(request, "perfil.html", contexto)
 
 

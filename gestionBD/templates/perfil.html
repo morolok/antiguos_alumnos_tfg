@@ -24,19 +24,40 @@
 			<form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Nombre:</strong> {{nombreUsuario}}
-						<input id="iconoEditar" type="image" name="editarNombrePerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
-					</p>
+					{% if editarNombre %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="nombre"><strong>Introduzca el nuevo nombre: </strong></label>
+							<input id="inputNuevoNombre" name="inputNuevoNombre" type="text" value="{{nombreUsuario}}">
+							<input id="iconoGuardar" type="image" name="guardarNombrePerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarNombrePerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Nombre:</strong> {{nombreUsuario}}
+							<input id="iconoEditar" type="image" name="editarNombrePerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Apellidos:</strong> {{apellidosUsuario}}
-						<input id="iconoEditar" type="image" name="editarApellidosPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
-					</p>
+					{% if editarApellidos %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="apellidos"><strong>Introduzca los nuevos apellidos: </strong></label>
+							<input id="inputNuevosApellidos" name="inputNuevosApellidos" type="text" value="{{apellidosUsuario}}">
+							<input id="iconoGuardar" type="image" name="guardarApellidosPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarApellidosPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Apellidos:</strong> {{apellidosUsuario}}
+							<input id="iconoEditar" type="image" name="editarApellidosPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
+					
 				</div>
 		
 			</form>
