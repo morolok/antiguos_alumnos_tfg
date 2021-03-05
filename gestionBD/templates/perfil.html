@@ -19,6 +19,15 @@
 			<h3 class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">Perfil</h3>
 		</div>
 
+		{% if errores %}
+                {% for error in errores %}
+                    <div class="row" id="contedorErrorEditarPerfil">
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+                        <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >{{ error }}</p>
+                    </div>
+                {% endfor %}
+        {% endif %}
+
 		{% if inicioSesion %}
 			
 			<form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
@@ -60,116 +69,142 @@
 					
 				</div>
 		
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Dni:</strong> {{dniUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Fecha de nacimiento:</strong> {{fechaNacimientoUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Cuenta bancaria:</strong> {{cuentaBancariaUsuario}}
+						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Email:</strong> {{emailUsuario}}
+						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Teléfono:</strong> {{telefonoUsuario}}
+						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Dirección postal:</strong> {{direccionPostalUsuario}}
+						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Usuario:</strong> {{usuarioUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Tipo de usuario:</strong> {{tipoUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Titulación:</strong> {{titulacionUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Promoción:</strong> {{promocionUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Año de finalización:</strong> {{añoFinalizacionUsuario}}
+					</p>
+				</div>
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Empresa:</strong> {{empresaUsuario}}
+						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
+					</p>
+				</div>
+
+				{% if comunicacionesUsuario %}
+
+					{% if editarComunicaciones %}
+						<div id="contenedorElementoPerfil" class="row">
+							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<label for="comunicaciones"><strong>Desamarque para no recibir más comunicaciones: </strong></label>
+								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" checked>
+								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+							</p>
+						</div>
+					{% else %}
+						<div id="contenedorElementoPerfil" class="row">
+							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<strong>Comunicaciones:</strong> Si
+								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+							</p>
+						</div>
+					{% endif %}
+					
+				{% else %}
+					
+					{% if editarComunicaciones %}
+						<div id="contenedorElementoPerfil" class="row">
+							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<label for="comunicaciones"><strong>Marque para recibir comunicaciones: </strong></label>
+								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox">
+								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+							</p>
+						</div>
+					{% else %}
+						<div id="contenedorElementoPerfil" class="row">
+							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<strong>Comunicaciones:</strong> No
+								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+							</p>
+						</div>
+					{% endif %}
+
+				{% endif %}
+		
 			</form>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Dni:</strong> {{dniUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Fecha de nacimiento:</strong> {{fechaNacimientoUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Cuenta bancaria:</strong> {{cuentaBancariaUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Email:</strong> {{emailUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Teléfono:</strong> {{telefonoUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Dirección postal:</strong> {{direccionPostalUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Usuario:</strong> {{usuarioUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Tipo de usuario:</strong> {{tipoUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Titulación:</strong> {{titulacionUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Promoción:</strong> {{promocionUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Año de finalización:</strong> {{añoFinalizacionUsuario}}
-				</p>
-			</div>
-
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Empresa:</strong> {{empresaUsuario}}
-					<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-				</p>
-			</div>
-
-			
-			{% if comunicacionesUsuario %}
-				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Comunicaciones:</strong> Si
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
-				</div>
-			{% else %}
-				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Comunicaciones:</strong> No
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
-				</div>
-			{% endif %}
 
 			<div id="contenedorElementoPerfil" class="row">
 				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>

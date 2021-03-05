@@ -428,9 +428,14 @@ html, body {
     vertical-align: middle;
 }
 
-#inputNuevoNombre, #inputNuevosApellidos{
+#inputNuevoNombre, #inputNuevosApellidos, #inputNuevasComunicaciones{
     vertical-align: middle;
     margin-left: 1em;
+}
+
+#contedorErrorEditarPerfil{
+    color: red;
+    margin-bottom: 1em;
 }
 
 

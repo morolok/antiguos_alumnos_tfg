@@ -407,31 +407,50 @@ def perfil(request):
 
     editarNombre = False
     editarApellidos = False
+    editarComunicaciones = False
+    errores = []
     if(request.method == 'POST'):
         # Editar el nombre:
         if('editarNombrePerfil.x' in request.POST):
             editarNombre = True
-            contexto['editarNombre'] = editarNombre
         elif('guardarNombrePerfil.x' in request.POST):
             nuevoNombre = request.POST['inputNuevoNombre']
-            modelos.Usuario.objects.filter(usuario = usuario).update(nombre = nuevoNombre)
-            editarNombre = False
-            contexto['editarNombre'] = editarNombre
+            if(nuevoNombre == ''):
+                errores.append('Debe introducir un nombre')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(nombre = nuevoNombre)
+                editarNombre = False
+                errores.clear()
         elif('cancelarNombrePerfil.x' in request.POST):
             editarNombre = False
-            contexto['editarNombre'] = editarNombre
         # Editar los apellidos:
         elif('editarApellidosPerfil.x' in request.POST):
             editarApellidos = True
-            contexto['editarApellidos'] = editarApellidos
         elif('guardarApellidosPerfil.x' in request.POST):
             nuevosApellidos = request.POST['inputNuevosApellidos']
-            modelos.Usuario.objects.filter(usuario = usuario).update(apellidos = nuevosApellidos)
-            editarApellidos = False
-            contexto['editarApellidos'] = editarApellidos
+            if(nuevosApellidos == ''):
+                errores.append('Debe introducir unos apellidos')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(apellidos = nuevosApellidos)
+                editarApellidos = False
+                errores.clear()
         elif('cancelarApellidosPerfil.x' in request.POST):
             editarApellidos = False
-            contexto['editarApellidos'] = editarApellidos
+        # Editar las comunicaciones:
+        elif('editarComunicacionesPerfil.x' in request.POST):
+            editarComunicaciones = True
+        elif('guardarComunicacionesPerfil.x' in request.POST):
+            if('inputNuevasComunicaciones' in request.POST):
+                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = True)
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = False)
+            editarComunicaciones = False
+        elif('cancelarComunicacionesPerfil.x' in request.POST):
+            editarComunicaciones = False
+    contexto['editarNombre'] = editarNombre
+    contexto['editarApellidos'] = editarApellidos
+    contexto['editarComunicaciones'] = editarComunicaciones
+    contexto['errores'] = errores
     
     if(usuario is not None):
         usuarioLogin = usuario
