@@ -37,7 +37,7 @@
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 							<label for="nombre"><strong>Introduzca el nuevo nombre: </strong></label>
-							<input id="inputNuevoNombre" name="inputNuevoNombre" type="text" value="{{nombreUsuario}}" autofocus>
+							<input id="inputNuevoNombre" name="inputNuevoNombre" type="text" value="{{nombreUsuario}}" maxlength="30" autofocus>
 							<input id="iconoGuardar" type="image" name="guardarNombrePerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 							<input id="iconoCancelar" type="image" name="cancelarNombrePerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 						</p>
@@ -55,7 +55,7 @@
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 							<label for="apellidos"><strong>Introduzca los nuevos apellidos: </strong></label>
-							<input id="inputNuevosApellidos" name="inputNuevosApellidos" type="text" value="{{apellidosUsuario}}" autofocus>
+							<input id="inputNuevosApellidos" name="inputNuevosApellidos" type="text" value="{{apellidosUsuario}}" maxlength="50" autofocus>
 							<input id="iconoGuardar" type="image" name="guardarApellidosPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 							<input id="iconoCancelar" type="image" name="cancelarApellidosPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 						</p>
@@ -84,35 +84,80 @@
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Cuenta bancaria:</strong> {{cuentaBancariaUsuario}}
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
+					{% if editarCuentaBancaria %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="cuentaBancaria"><strong>Introduzca la nueva cuenta bancaria: </strong></label>
+							<input id="inputNuevaCuentaBancaria" name="inputNuevaCuentaBancaria" type="text" value="{{cuentaBancariaUsuario}}" maxlength="24" autofocus>
+							<input id="iconoGuardar" type="image" name="guardarCuentaBancariaPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarCuentaBancariaPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Cuenta bancaria:</strong> {{cuentaBancariaUsuario}}
+							<input id="iconoEditar" type="image" name="editarCuentaBancariaPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Email:</strong> {{emailUsuario}}
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
+					{% if editarEmail %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="email"><strong>Introduzca el nuevo email: </strong></label>
+							<input id="inputNuevoEmail" name="inputNuevoEmail" type="email" value="{{emailUsuario}}" autofocus>
+							<input id="iconoGuardar" type="image" name="guardarEmailPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarEmailPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Email:</strong> {{emailUsuario}}
+							<input id="iconoEditar" type="image" name="editarEmailPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
+					
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Teléfono:</strong> {{telefonoUsuario}}
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
+					{% if editarTelefono %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="telefono"><strong>Introduzca el nuevo teléfono: </strong></label>
+							<input id="inputNuevoTelefono" name="inputNuevoTelefono" type="text" value="{{telefonoUsuario}}" patterns="^[6-7]{1}[0-9]{8}" maxlength="9" autofocus>
+							<input id="iconoGuardar" type="image" name="guardarTelefonoPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarTelefonoPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Teléfono:</strong> {{telefonoUsuario}}
+							<input id="iconoEditar" type="image" name="editarTelefonoPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
+					
 				</div>
-
+				
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Dirección postal:</strong> {{direccionPostalUsuario}}
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
+					{% if editarDireccionPostal %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<label for="direccion" class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Introduzca la nueva dirección postal: </strong>
+						</label>
+						<p class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></p>
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<textarea id="inputNuevaDireccionPostal" name="inputNuevaDireccionPostal" cols="40" rows="10" autofocus>{{direccionPostalUsuario}}</textarea>
+						<input id="iconoGuardar" type="image" name="guardarDireccionPostalPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+						<input id="iconoCancelar" type="image" name="cancelarDireccionPostalPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Dirección postal:</strong> {{direccionPostalUsuario}}
+							<input id="iconoEditar" type="image" name="editarDireccionPostalPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
+					
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
@@ -151,11 +196,22 @@
 				</div>
 
 				<div id="contenedorElementoPerfil" class="row">
-					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-						<strong>Empresa:</strong> {{empresaUsuario}}
-						<img src="{% static 'images/icono_editar.svg' %}" id="iconoEditar"/>
-					</p>
+					{% if editarEmpresa %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="empresa"><strong>Introduzca la nueva empresa: </strong></label>
+							<input id="inputNuevaEmpresa" name="inputNuevaEmpresa" type="text" value="{{empresaUsuario}}" maxlength="150" autofocus>
+							<input id="iconoGuardar" type="image" name="guardarEmpresaPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarEmpresaPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+					{% else %}
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<strong>Empresa:</strong> {{empresaUsuario}}
+							<input id="iconoEditar" type="image" name="editarEmpresaPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+						</p>
+					{% endif %}
+					
 				</div>
 
 				{% if comunicacionesUsuario %}

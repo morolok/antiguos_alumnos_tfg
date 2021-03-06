@@ -428,7 +428,8 @@ html, body {
     vertical-align: middle;
 }
 
-#inputNuevoNombre, #inputNuevosApellidos, #inputNuevasComunicaciones{
+#inputNuevoNombre, #inputNuevosApellidos, #inputNuevaCuentaBancaria, #inputNuevoEmail, #inputNuevoTelefono, #inputNuevaDireccionPostal,
+#inputNuevaEmpresa, #inputNuevasComunicaciones{
     vertical-align: middle;
     margin-left: 1em;
 }

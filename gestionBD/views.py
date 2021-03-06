@@ -408,6 +408,11 @@ def perfil(request):
     editarNombre = False
     editarApellidos = False
     editarComunicaciones = False
+    editarCuentaBancaria = False
+    editarEmail = False
+    editarTelefono = False
+    editarDireccionPostal = False
+    editarEmpresa = False
     errores = []
     if(request.method == 'POST'):
         # Editar el nombre:
@@ -447,9 +452,85 @@ def perfil(request):
             editarComunicaciones = False
         elif('cancelarComunicacionesPerfil.x' in request.POST):
             editarComunicaciones = False
+        # Editar la cuenta bancaria:
+        elif('editarCuentaBancariaPerfil.x' in request.POST):
+            editarCuentaBancaria = True
+        elif('guardarCuentaBancariaPerfil.x' in request.POST):
+            nuevaCuentaBancaria = request.POST['inputNuevaCuentaBancaria']
+            if(nuevaCuentaBancaria == ''):
+                errores.append('Debe introducir una cuenta bancaria')
+            elif(not nuevaCuentaBancaria.startswith('ES')):
+                errores.append('La cuenta bancaria debe empezar por ES')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(cuentaBancaria = nuevaCuentaBancaria)
+                editarCuentaBancaria = False
+                errores.clear()
+        elif('cancelarCuentaBancariaPerfil.x' in request.POST):
+            editarCuentaBancaria = False
+        # Editar el email:
+        elif('editarEmailPerfil.x' in request.POST):
+            editarEmail = True
+        elif('guardarEmailPerfil.x' in request.POST):
+            nuevoEmail = request.POST['inputNuevoEmail']
+            if(nuevoEmail == ''):
+                errores.append('Introduzca el nuevo email')
+            elif('@' not in nuevoEmail):
+                errores.append('Introduzca un formato de email válido')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(email = nuevoEmail)
+                editarEmail = False
+                errores.clear()
+        elif('cancelarEmailPerfil.x' in request.POST):
+            editarEmail = False
+        # Editar el telefono:
+        elif('editarTelefonoPerfil.x' in request.POST):
+            editarTelefono = True
+        elif('guardarTelefonoPerfil.x' in request.POST):
+            nuevoTelefono = request.POST['inputNuevoTelefono']
+            if(nuevoTelefono == ''):
+                errores.append('Introduzca el nuevo teléfono')
+            elif((not nuevoTelefono.startswith('6')) and (not nuevoTelefono.startswith('7'))):
+                errores.append('El teléfono debe empezar por 6 o por 7')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(telefono = nuevoTelefono)
+                editarTelefono = False
+                errores.clear()
+        elif('cancelarTelefonoPerfil.x' in request.POST):
+            editarDireccionPostal = False
+        # Editar la dirección
+        elif('editarDireccionPostalPerfil.x' in request.POST):
+            editarDireccionPostal = True
+        elif('guardarDireccionPostalPerfil.x' in request.POST):
+            nuevaDireccionPostal = request.POST['inputNuevaDireccionPostal']
+            if(nuevaDireccionPostal == ''):
+                errores.append('Introduce la nueva dirección postal')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(direccionPostal = nuevaDireccionPostal)
+                editarDireccionPostal = False
+                errores.clear()
+        elif('cancelarDireccionPostalPerfil.x' in request.POST):
+            editarTelefono = False
+        # Editar empresa:
+        if('editarEmpresaPerfil.x' in request.POST):
+            editarEmpresa = True
+        elif('guardarEmpresaPerfil.x' in request.POST):
+            nuevaEmpresa = request.POST['inputNuevaEmpresa']
+            if(nuevaEmpresa == ''):
+                errores.append('Introduce la nueva empresa')
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(empresa = nuevaEmpresa)
+                editarEmpresa = False
+                errores.clear()
+        elif('cancelarEmpresaPerfil.x' in request.POST):
+            editarEmpresa = False
     contexto['editarNombre'] = editarNombre
     contexto['editarApellidos'] = editarApellidos
     contexto['editarComunicaciones'] = editarComunicaciones
+    contexto['editarCuentaBancaria'] = editarCuentaBancaria
+    contexto['editarEmail'] = editarEmail
+    contexto['editarTelefono'] = editarTelefono
+    contexto['editarDireccionPostal'] = editarDireccionPostal
+    contexto['editarEmpresa'] = editarEmpresa
     contexto['errores'] = errores
     
     if(usuario is not None):
