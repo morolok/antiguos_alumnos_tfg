@@ -37,7 +37,7 @@
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 							<label for="nombre"><strong>Introduzca el nuevo nombre: </strong></label>
-							<input id="inputNuevoNombre" name="inputNuevoNombre" type="text" value="{{nombreUsuario}}">
+							<input id="inputNuevoNombre" name="inputNuevoNombre" type="text" value="{{nombreUsuario}}" autofocus>
 							<input id="iconoGuardar" type="image" name="guardarNombrePerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 							<input id="iconoCancelar" type="image" name="cancelarNombrePerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 						</p>
@@ -55,7 +55,7 @@
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 							<label for="apellidos"><strong>Introduzca los nuevos apellidos: </strong></label>
-							<input id="inputNuevosApellidos" name="inputNuevosApellidos" type="text" value="{{apellidosUsuario}}">
+							<input id="inputNuevosApellidos" name="inputNuevosApellidos" type="text" value="{{apellidosUsuario}}" autofocus>
 							<input id="iconoGuardar" type="image" name="guardarApellidosPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 							<input id="iconoCancelar" type="image" name="cancelarApellidosPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 						</p>
@@ -165,7 +165,7 @@
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 								<label for="comunicaciones"><strong>Desamarque para no recibir más comunicaciones: </strong></label>
-								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" checked>
+								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" checked autofocus>
 								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 							</p>
@@ -175,7 +175,7 @@
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 								<strong>Comunicaciones:</strong> Si
-								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar"/>
 							</p>
 						</div>
 					{% endif %}
@@ -187,7 +187,7 @@
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 								<label for="comunicaciones"><strong>Marque para recibir comunicaciones: </strong></label>
-								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox">
+								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" autofocus>
 								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 							</p>
@@ -197,7 +197,7 @@
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 								<strong>Comunicaciones:</strong> No
-								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
+								<input id="iconoEditar" type="image" name="editarComunicacionesPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar"/>
 							</p>
 						</div>
 					{% endif %}
