@@ -64,6 +64,10 @@
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
                         </li>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/admin/' %}active{% endif %}">
+                            <!-- <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">Administración</a> -->
+                            <a class="nav-link" href="http://127.0.0.1:8000/admin/" target="_blank">Administración</a>
+                        </li>
                         <li id="enlaceBarraNavegacion" class="nav-item dropdown {% if 'formulario' in request.path %}active{% endif %}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Formularios

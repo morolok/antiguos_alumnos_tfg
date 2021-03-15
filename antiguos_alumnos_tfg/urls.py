@@ -28,7 +28,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from gestionBD import views as views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     #path('media/<path>', static2.serve, {'document_root': settings.MEDIA_ROOT,}),
     path('antalumnos/', views.inicio, name='inicio'),
     path('antalumnos/busqueda/', views.busqueda, name='busqueda'),
@@ -47,6 +47,7 @@ urlpatterns = [
     path('antalumnos/login/', views.login, name='login'),
     path('antalumnos/logout/', views.logout, name='logout'),
     path('antalumnos/perfil/', views.perfil, name='perfil'),
+    path('antalumnos/perfil/misActividades/', views.misActividades, name='misActividades'),
     path('antalumnos/formularioAltaUsuario/', views.formularioAltaUsuario, name='formularioAltaUsuario'),
     path('antalumnos/formularioAltaActividad/', views.formularioAltaActividad, name='formularioAltaActividad'),
     path('antalumnos/formularioAltaNoticia/', views.formularioAltaNoticia, name='formularioAltaNoticia'),

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Mis actividades
+{% endblock %}
+
+
+{% block content %}
+
+
+<div id="cuerpo">
+
+    {% for actividad in actividades_apuntado%}
+        <div id="cadaActividadApuntado" class="row">
+            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.actividad %}" >
+                <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.actividad }}</p>
+            </a>
+        </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

@@ -148,9 +148,16 @@ def actividad(request, titulo):
     usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
     actividadBD = modelos.Actividad.objects.get(titulo = titulo)
     if(request.method == 'POST' and inicioSesion):
-        usuarioActividad = modelos.UsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
-        usuarioActividad.save()
-        enviarCorreoApuntarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+        if('apuntarseActividad' in request.POST):
+            vecesApuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
+            if(vecesApuntado == 0):
+                usuarioActividad = modelos.UsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
+                usuarioActividad.save()
+                enviarCorreoApuntarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+            else:
+                return redirect('actividad', titulo = titulo)
+        elif('borrarseActividad' in request.POST):
+            modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
     ls_usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD)
     apuntado = False
     if(len(ls_usuarioActividad) > 0):
@@ -394,6 +401,20 @@ def juntaRectora(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     return render(request, "juntaRectora.html", contexto)
+
+
+def misActividades(request):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+    actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD)
+    contexto['actividades_apuntado'] = actividades_apuntado
+    return render(request, "misActividades.html", contexto)
 
 
 def perfil(request):

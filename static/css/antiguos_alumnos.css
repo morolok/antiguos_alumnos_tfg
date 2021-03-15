@@ -256,6 +256,27 @@ html, body {
     font-weight: bold;
 }
 
+#apuntado{
+    margin-bottom: 2em;
+}
+
+#botonBorrarseActividad{
+    background-color: #980c17;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+    margin-top: 1em;
+}
+
+#apuntarse{
+    margin-bottom: 2em;
+}
+
 #botonApuntarseActividad{
     background-color: #303B89;
     color: white;
@@ -266,7 +287,6 @@ html, body {
     padding-left: 0.5em;
     padding-right: 0.5em;
     font-size: 1.2em;
-    margin-bottom: 2em;
 }
 
 
@@ -404,9 +424,34 @@ html, body {
 }
 
 
+/* Visualización de la página "misActividades" */
+#cadaActividadApuntado{
+    margin-bottom: 2em;
+}
+
+#mostrandoTituloActividad{
+    font-weight: bold;
+    color: #EE7C1B;
+}
+
+#enlaceActividades{
+    text-decoration: none;
+}
+
+
 /* Visualización de los datos del perfil de usuario */
 #tituloPaginaPerfil{
     margin-bottom: 2em;
+}
+
+#enlaceAMisActividades{
+    margin-bottom: 1em;
+}
+
+#enlaceMisActividades{
+    text-decoration: none;
+    color: #303B89;
+    font-weight: bold;
 }
 
 #datosPerfilUsuario{

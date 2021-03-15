@@ -86,15 +86,20 @@
 
 
     {% if apuntado %}
-        <div class="row">
+        <div id="apuntado" class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ya se ha apuntado a esta actividad</p>
+            <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                <button id="botonBorrarseActividad" name="borrarseActividad" type="submit">Borrarse</button>
+            </form>
         </div>
         
     {% else %}
         {% if inicioSesion %}
-            <form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
-                <button id="botonApuntarseActividad" type="submit">Apuntarse</button>
-            </form>
+            <div id="apuntarse" class="row">
+                <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                    <button id="botonApuntarseActividad" name="apuntarseActividad" type="submit">Apuntarse</button>
+                </form>
+            </div>
         {% endif %}
     {% endif %}
 
