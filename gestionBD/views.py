@@ -121,7 +121,7 @@ def actividades(request):
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin
-    
+
     contexto['tipoInicio'] = tipoInicio
     contexto['tipoMedio'] = tipoMedio
     contexto['tipoFin'] = tipoFin
@@ -145,8 +145,14 @@ def actividad(request, titulo):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
     actividadBD = modelos.Actividad.objects.get(titulo = titulo)
+    if(usuario is not None):
+        usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+        ls_usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD)
+        apuntado = False
+        if(len(ls_usuarioActividad) > 0):
+            apuntado = True
+        contexto['apuntado'] = apuntado
     if(request.method == 'POST' and inicioSesion):
         if('apuntarseActividad' in request.POST):
             vecesApuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
@@ -154,15 +160,19 @@ def actividad(request, titulo):
                 usuarioActividad = modelos.UsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
                 usuarioActividad.save()
                 enviarCorreoApuntarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+                return redirect('actividad', titulo = titulo)
             else:
                 return redirect('actividad', titulo = titulo)
         elif('borrarseActividad' in request.POST):
             modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
-    ls_usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD)
-    apuntado = False
-    if(len(ls_usuarioActividad) > 0):
-        apuntado = True
-    contexto['apuntado'] = apuntado
+    plazasTotal = actividadBD.numeroPlazas
+    plazasOcupadas = modelos.UsuarioActividad.objects.filter(actividad = actividadBD).count()
+    plazasLibres = plazasTotal - plazasOcupadas
+    hayPlazasLibres = False
+    if(plazasLibres > 0):
+        hayPlazasLibres = True
+    contexto['plazasLibres'] = plazasLibres
+    contexto['hayPlazasLibres'] = hayPlazasLibres
     lineas = actividadBD.descripcion.splitlines()
     contexto['actividad'] = actividadBD
     contexto['MEDIA_URL'] = MEDIA_URL
@@ -412,7 +422,7 @@ def misActividades(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
-    actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD)
+    actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD).order_by('-actividad__fecha')
     contexto['actividades_apuntado'] = actividades_apuntado
     return render(request, "misActividades.html", contexto)
 

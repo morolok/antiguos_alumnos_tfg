@@ -12,13 +12,27 @@
 
 <div id="cuerpo">
 
-    {% for actividad in actividades_apuntado%}
-        <div id="cadaActividadApuntado" class="row">
-            <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.actividad %}" >
-                <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.actividad }}</p>
-            </a>
+
+    {% if inicioSesion %}
+
+        {% for actividad in actividades_apuntado%}
+            <div id="cadaActividadApuntado" class="row">
+                <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.actividad %}" >
+                    <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.actividad }}</p>
+                </a>
+            </div>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="row">
+            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+            <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                Para ver el perfil necesita iniciar sesión. Pinche <a href="{% url 'login' %}">aquí</a> para iniciar sesión
+            </p>
         </div>
-    {% endfor %}
+
+    {% endif %}
 
 </div>
 

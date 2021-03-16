@@ -61,6 +61,7 @@
     <div id="plazasActividad" class="row">
         <p id="parrafoPlazasActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Número de plazas:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.numeroPlazas }}</p>
+        <p id="parrafoPlazasDisponibles" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Plazas disponibles: {{plazasLibres}}</p>
     </div>
 
 
@@ -95,11 +96,17 @@
         
     {% else %}
         {% if inicioSesion %}
-            <div id="apuntarse" class="row">
-                <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
-                    <button id="botonApuntarseActividad" name="apuntarseActividad" type="submit">Apuntarse</button>
-                </form>
-            </div>
+            {% if hayPlazasLibres %}
+                <div id="apuntarse" class="row">
+                    <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                        <button id="botonApuntarseActividad" name="apuntarseActividad" type="submit">Apuntarse</button>
+                    </form>
+                </div>
+            {% else %}
+                <div id="apuntarse" class="row">
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> Lo sentimos pero todas las plazas están ocupadas</p>
+                </div>
+            {% endif %}
         {% endif %}
     {% endif %}
 

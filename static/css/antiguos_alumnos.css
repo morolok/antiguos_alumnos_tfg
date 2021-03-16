@@ -256,6 +256,10 @@ html, body {
     font-weight: bold;
 }
 
+#parrafoPlazasDisponibles{
+    font-style: italic;
+}
+
 #apuntado{
     margin-bottom: 2em;
 }
