@@ -165,6 +165,7 @@ def actividad(request, titulo):
                 return redirect('actividad', titulo = titulo)
         elif('borrarseActividad' in request.POST):
             modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
+            return redirect('actividad', titulo = titulo)
     plazasTotal = actividadBD.numeroPlazas
     plazasOcupadas = modelos.UsuarioActividad.objects.filter(actividad = actividadBD).count()
     plazasLibres = plazasTotal - plazasOcupadas
