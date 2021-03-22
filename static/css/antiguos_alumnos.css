@@ -463,7 +463,7 @@ html, body {
     margin-bottom: 2em;
 }
 
-#contenedorElementoPerfil{
+#contenedorElementoPerfil, #contenedorCambiarContraseña{
     margin-bottom: 1em;
 }
 
@@ -478,7 +478,7 @@ html, body {
 }
 
 #inputNuevoNombre, #inputNuevosApellidos, #inputNuevaCuentaBancaria, #inputNuevoEmail, #inputNuevoTelefono, #inputNuevaDireccionPostal,
-#inputNuevaEmpresa, #inputNuevasComunicaciones{
+#inputNuevaEmpresa, #inputNuevasComunicaciones, #inputNuevaContraseña, #inputConfirmacionContraseña{
     vertical-align: middle;
     margin-left: 1em;
 }
@@ -486,6 +486,18 @@ html, body {
 #contedorErrorEditarPerfil{
     color: red;
     margin-bottom: 1em;
+}
+
+#botonCambiarContraseña{
+    background-color: #303B89;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
 }
 
 

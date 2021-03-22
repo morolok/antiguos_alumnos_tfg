@@ -12,6 +12,7 @@ import gestionBD.forms as formularios
 
 import math
 import twitter
+import re
 
 
 #from django.db.models import CharField
@@ -445,6 +446,7 @@ def perfil(request):
     editarTelefono = False
     editarDireccionPostal = False
     editarEmpresa = False
+    editarContraseña = False
     errores = []
     if(request.method == 'POST'):
         # Editar el nombre:
@@ -473,17 +475,6 @@ def perfil(request):
                 errores.clear()
         elif('cancelarApellidosPerfil.x' in request.POST):
             editarApellidos = False
-        # Editar las comunicaciones:
-        elif('editarComunicacionesPerfil.x' in request.POST):
-            editarComunicaciones = True
-        elif('guardarComunicacionesPerfil.x' in request.POST):
-            if('inputNuevasComunicaciones' in request.POST):
-                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = True)
-            else:
-                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = False)
-            editarComunicaciones = False
-        elif('cancelarComunicacionesPerfil.x' in request.POST):
-            editarComunicaciones = False
         # Editar la cuenta bancaria:
         elif('editarCuentaBancariaPerfil.x' in request.POST):
             editarCuentaBancaria = True
@@ -555,6 +546,44 @@ def perfil(request):
                 errores.clear()
         elif('cancelarEmpresaPerfil.x' in request.POST):
             editarEmpresa = False
+        # Editar las comunicaciones:
+        elif('editarComunicacionesPerfil.x' in request.POST):
+            editarComunicaciones = True
+        elif('guardarComunicacionesPerfil.x' in request.POST):
+            if('inputNuevasComunicaciones' in request.POST):
+                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = True)
+            else:
+                modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = False)
+            editarComunicaciones = False
+        elif('cancelarComunicacionesPerfil.x' in request.POST):
+            editarComunicaciones = False
+        # Editar la contraseña:
+        elif('botonCambiarContraseña' in request.POST):
+            editarContraseña = True
+        elif('guardarNuevaContraseña.x' in request.POST):
+            nuevaContraseña = request.POST['inputNuevaContraseña']
+            confirmacionContraseña = request.POST['inputConfirmacionContraseña']
+            if(nuevaContraseña != confirmacionContraseña):
+                errores.append('La nueva contraseña y su confirmación deben coincidir')
+            else:
+                antiguaContraseña = modelos.Usuario.objects.get(usuario = usuario).contraseña
+                contieneMayuscula = re.search("[A-Z]", nuevaContraseña)
+                contieneNumero = re.search("[0-9]", nuevaContraseña)
+                if(len(nuevaContraseña) < 8):
+                    errores.append('La nueva contraseña debe contener más de 8 caracteres')
+                elif(nuevaContraseña == antiguaContraseña):
+                    errores.append('La nueva contraseña no puede ser igual que la anterior')
+                elif(not contieneMayuscula):
+                    errores.append('La nueva contraseña debe contener alguna letra mayúscula')
+                elif(not contieneNumero):
+                    errores.append('La nueva contraseña debe contener algún número')
+                else:
+                    modelos.Usuario.objects.filter(usuario = usuario).update(contraseña = nuevaContraseña)
+                    editarContraseña = False
+                    errores.clear()
+        elif('cancelarNuevaContraseña.x' in request.POST):
+            editarContraseña = False
+
     contexto['editarNombre'] = editarNombre
     contexto['editarApellidos'] = editarApellidos
     contexto['editarComunicaciones'] = editarComunicaciones
@@ -563,6 +592,7 @@ def perfil(request):
     contexto['editarTelefono'] = editarTelefono
     contexto['editarDireccionPostal'] = editarDireccionPostal
     contexto['editarEmpresa'] = editarEmpresa
+    contexto['editarContraseña'] = editarContraseña
     contexto['errores'] = errores
     
     if(usuario is not None):

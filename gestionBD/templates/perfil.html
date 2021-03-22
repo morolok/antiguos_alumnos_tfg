@@ -266,16 +266,44 @@
 					{% endif %}
 
 				{% endif %}
-		
+
+				<div id="contenedorElementoPerfil" class="row">
+					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+						<strong>Junta rectora:</strong> {{juntaRectoraUsuario}}
+					</p>
+				</div>
+			
+				
+				{% if editarContraseña %}
+					<div id="contenedorCambiarContraseña" class="row">
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="contraseña"><strong>Introduzca la nueva contraseña: </strong></label>
+							<input id="inputNuevaContraseña" name="inputNuevaContraseña" type="password" autofocus>
+						</p>
+						<p class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></p>
+
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<label for="confirmacionContraseña"><strong>Confirme la nueva contraseña: </strong></label>
+							<input id="inputConfirmacionContraseña" name="inputConfirmacionContraseña" type="password">
+							<input id="iconoGuardar" type="image" name="guardarNuevaContraseña" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
+							<input id="iconoCancelar" type="image" name="cancelarNuevaContraseña" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
+						</p>
+						<p class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></p>
+					</div>
+				{% else %}
+					<div id="contenedorCambiarContraseña" class="row">
+						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+						<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+							<button id="botonCambiarContraseña" name="botonCambiarContraseña" type="submit">Cambiar contraseña</button>
+						</p>
+					</div>
+				{% endif %}
+			
 			</form>
 
-			<div id="contenedorElementoPerfil" class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					<strong>Junta rectora:</strong> {{juntaRectoraUsuario}}
-				</p>
-			</div>
-			
 		{% else %}
 
 			<div class="row">
