@@ -138,6 +138,13 @@ def enviarCorreoApuntarseActividad(emailUsuario, tituloActividad):
     send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
 
 
+def enviarCorreoApuntarseListaEspera(emailUsuario, tituloActividad):
+    asunto = "Apuntarse en la lista de espera"
+    cuerpo = "Le enviamos este correo para informarle de que se acaba de apuntar a la lista de espera de la actividad " + tituloActividad + ". En cuanto haya una plaza disponible se le apuntará automáticamente."
+    emisor = settings.EMAIL_HOST_USER
+    send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
+
+
 def actividad(request, titulo):
     contexto = {}
     usuario = request.session.get('usuario')
@@ -147,13 +154,27 @@ def actividad(request, titulo):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     actividadBD = modelos.Actividad.objects.get(titulo = titulo)
+    contexto['actividad'] = actividadBD
+    plazasTotal = actividadBD.numeroPlazas
+    plazasOcupadas = modelos.UsuarioActividad.objects.filter(actividad = actividadBD).count()
+    plazasLibres = plazasTotal - plazasOcupadas
+    hayPlazasLibres = False
+    if(plazasLibres > 0):
+        hayPlazasLibres = True
+    contexto['plazasLibres'] = plazasLibres
+    contexto['hayPlazasLibres'] = hayPlazasLibres
     if(usuario is not None):
         usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
-        ls_usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD)
+        usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
+        listaEsperaUsuarioActividad = modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
         apuntado = False
-        if(len(ls_usuarioActividad) > 0):
+        apuntadoListaEspera = False
+        if(usuarioActividad > 0):
             apuntado = True
+        if(listaEsperaUsuarioActividad > 0):
+            apuntadoListaEspera = True
         contexto['apuntado'] = apuntado
+        contexto['apuntadoListaEspera'] = apuntadoListaEspera
     if(request.method == 'POST' and inicioSesion):
         if('apuntarseActividad' in request.POST):
             vecesApuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
@@ -167,17 +188,14 @@ def actividad(request, titulo):
         elif('borrarseActividad' in request.POST):
             modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
             return redirect('actividad', titulo = titulo)
-    plazasTotal = actividadBD.numeroPlazas
-    plazasOcupadas = modelos.UsuarioActividad.objects.filter(actividad = actividadBD).count()
-    plazasLibres = plazasTotal - plazasOcupadas
-    hayPlazasLibres = False
-    if(plazasLibres > 0):
-        hayPlazasLibres = True
-    contexto['plazasLibres'] = plazasLibres
-    contexto['hayPlazasLibres'] = hayPlazasLibres
-    lineas = actividadBD.descripcion.splitlines()
-    contexto['actividad'] = actividadBD
+        elif('botonApuntarseListaEspera' in request.POST):
+            print(request.POST)
+            listaEsperaUsuarioActividad = modelos.ListaEsperaUsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
+            listaEsperaUsuarioActividad.save()
+            enviarCorreoApuntarseListaEspera(str(usuarioBD.email), str(actividadBD.titulo))
+            return redirect('actividad', titulo = titulo)
     contexto['MEDIA_URL'] = MEDIA_URL
+    lineas = actividadBD.descripcion.splitlines()
     contexto['lineas'] = lineas
     diccionarioActividades = request.session.get('diccionarioActividades')
     actividadActual = None

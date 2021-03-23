@@ -293,6 +293,23 @@ html, body {
     font-size: 1.2em;
 }
 
+#parrafoListaEspera{
+    margin-bottom: 2em;
+}
+
+#botonApuntarseListaEspera{
+    background-color: #303B89;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+    margin-bottom: 2em;
+}
+
 
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas{

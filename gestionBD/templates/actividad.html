@@ -103,9 +103,23 @@
                     </form>
                 </div>
             {% else %}
-                <div id="apuntarse" class="row">
-                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> Lo sentimos pero todas las plazas están ocupadas</p>
-                </div>
+                {% if apuntadoListaEspera %}
+                    <div id="apuntadoListaEspera" class="row">
+                        <p id="parrafoApuntadoListaEspera" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            Se ha apuntado a la lista de espera, en cuanto haya una plaza disponible se le apuntará de automáticamente
+                        </p>
+                    </div>
+                {% else %}
+                    <div id="apuntarseListaEspera" class="row">
+                        <p id="parrafoListaEspera" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            Todas las plazas están ocupadas, si lo desea se puede apuntar a la lista de espera y en cuanto haya una plaza 
+                            disponible se le apuntará automáticamente
+                        </p>
+                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                            <button id="botonApuntarseListaEspera" name="botonApuntarseListaEspera" type="submit">Apuntarse a la lista de espera</button>
+                        </form>
+                    </div>
+                {% endif %}
             {% endif %}
         {% endif %}
     {% endif %}

@@ -187,6 +187,19 @@ class UsuarioActividad(models.Model):
         return str(self.usuario) + " - " + str(self.actividad)
 
 
+class ListaEsperaUsuarioActividad(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
+    actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE, verbose_name='Actividad')
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Lista de espera usuario actividad'
+        verbose_name_plural = 'Lista de espera usuarios actividades'
+    
+    def __str__(self):
+        return str(self.usuario) + " - " + str(self.actividad) + " - " + str(self.fecha)
+
+
 class OfertaEmpleoTitulacion(models.Model):
     #ofertaEmpleo = models.CharField(max_length=200, null=False)
     ofertaEmpleo = models.ForeignKey(OfertaEmpleo, on_delete=models.CASCADE, verbose_name='Oferta de empleo')
