@@ -145,6 +145,13 @@ def enviarCorreoApuntarseListaEspera(emailUsuario, tituloActividad):
     send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
 
 
+def enviarCorreoApuntarseActividadAutomaticamente(emailUsuario, tituloActividad):
+    asunto = "Apuntarse a una actividad"
+    cuerpo = "Le enviamos este correo para informarle de que se le ha apuntado automáticamente a una actividad ya que estaba el primero en la lista de espera y se ha quedado una plaza libre. La actividad en cuestión es " + tituloActividad
+    emisor = settings.EMAIL_HOST_USER
+    send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
+
+
 def actividad(request, titulo):
     contexto = {}
     usuario = request.session.get('usuario')
@@ -187,9 +194,14 @@ def actividad(request, titulo):
                 return redirect('actividad', titulo = titulo)
         elif('borrarseActividad' in request.POST):
             modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
+            primerUsuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(actividad = actividadBD).order_by('fecha')[0]
+            usuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = primerUsuarioListaEspera.usuario, actividad = primerUsuarioListaEspera.actividad)
+            usuarioActividad = modelos.UsuarioActividad(usuario = primerUsuarioListaEspera.usuario, actividad = actividadBD)
+            usuarioActividad.save()
+            usuarioListaEspera.delete()
+            enviarCorreoApuntarseActividadAutomaticamente(str(primerUsuarioListaEspera.usuario.email), str(actividadBD))
             return redirect('actividad', titulo = titulo)
         elif('botonApuntarseListaEspera' in request.POST):
-            print(request.POST)
             listaEsperaUsuarioActividad = modelos.ListaEsperaUsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
             listaEsperaUsuarioActividad.save()
             enviarCorreoApuntarseListaEspera(str(usuarioBD.email), str(actividadBD.titulo))

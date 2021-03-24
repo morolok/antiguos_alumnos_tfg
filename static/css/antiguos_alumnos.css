@@ -260,6 +260,10 @@ html, body {
     font-style: italic;
 }
 
+#compartirRedesSociales{
+    margin-bottom: 3em;
+}
+
 #apuntado{
     margin-bottom: 2em;
 }
