@@ -95,19 +95,20 @@ def actividades(request):
     #contexto['actividades'] = actividades
     contexto['actividades_paginadas'] = actividades_paginadas
     contexto['paginas'] = paginas
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
     
     tipoInicio = False
     tipoMedio = False
     tipoFin = False
     no_puntos_suspensivos = False
-    
     if(numero_paginas > 6):
         if((pagina is None) or (pagina is not None and int(pagina) < 5)):
             tipoInicio = True
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
         
-        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas):
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
             tipoMedio = True
             if((numero_paginas - int(pagina)) == 1):
                 rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
@@ -118,9 +119,10 @@ def actividades(request):
                     no_puntos_suspensivos = True
             contexto['rango_medio'] = rango_medio
         
-        elif(pagina is not None and int(pagina) == numero_paginas):
+        elif(pagina is not None and int(pagina) >= numero_paginas-3):
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+            print(rango_fin)
             contexto['rango_fin'] = rango_fin
 
     contexto['tipoInicio'] = tipoInicio
@@ -256,6 +258,8 @@ def noticias(request):
     paginas = [i for i in range(1, numero_paginas+1)]
     contexto['noticias_paginadas'] = noticias_paginadas
     contexto['paginas'] = paginas
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
     
     tipoInicio = False
     tipoMedio = False
@@ -268,7 +272,7 @@ def noticias(request):
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
         
-        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas):
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
             tipoMedio = True
             if((numero_paginas - int(pagina)) == 1):
                 rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
@@ -279,7 +283,7 @@ def noticias(request):
                     no_puntos_suspensivos = True
             contexto['rango_medio'] = rango_medio
         
-        elif(pagina is not None and int(pagina) == numero_paginas):
+        elif(pagina is not None and int(pagina) >= numero_paginas-3):
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin
@@ -327,6 +331,8 @@ def empleo(request):
     paginas = [i for i in range(1, numero_paginas+1)]
     contexto['ofertasEmpleo_paginadas'] = ofertasEmpleo_paginadas
     contexto['paginas'] = paginas
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
     
     tipoInicio = False
     tipoMedio = False
@@ -339,7 +345,7 @@ def empleo(request):
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
         
-        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas):
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
             tipoMedio = True
             if((numero_paginas - int(pagina)) == 1):
                 rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
@@ -350,7 +356,7 @@ def empleo(request):
                     no_puntos_suspensivos = True
             contexto['rango_medio'] = rango_medio
         
-        elif(pagina is not None and int(pagina) == numero_paginas):
+        elif(pagina is not None and int(pagina) >= numero_paginas-3):
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin

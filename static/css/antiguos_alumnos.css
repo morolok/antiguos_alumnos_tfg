@@ -244,6 +244,14 @@ html, body {
     color: #303B89;
 }
 
+#enlacePaginaActualPaginacionActividades{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #980c17;
+}
+
 #tituloYFechaActividad, #descripcionActividad, #tipoActividad, #plazasActividad, #fechasActividad, #adjuntosActividad{
     margin-bottom: 2em;
 }
@@ -385,6 +393,14 @@ html, body {
     color: #303B89;
 }
 
+#enlacePaginaActualPaginacionOfertasEmpleo{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #980c17;
+}
+
 
 /* Visualización de las páginas "noticias" y "noticia" */
 #tituloPaginaNoticias{
@@ -412,6 +428,26 @@ html, body {
 }
 
 #mostrandoTituloNoticia{
+    font-weight: bold;
+    color: #980c17;
+}
+
+#paginacion{
+    text-align: center;
+}
+
+#enlacePaginaPaginacionNoticias{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
+    font-weight: bold;
+    color: #303B89;
+}
+
+#enlacePaginaActualPaginacionNoticias{
+    margin-left: 1em;
+    margin-right: 1em;
+    text-decoration: none;
     font-weight: bold;
     color: #980c17;
 }
