@@ -44,6 +44,7 @@ urlpatterns = [
     path('antalumnos/revistaIngenio/', views.revistaIngenio, name='revistaIngenio'),
     path('antalumnos/multimedia/', views.multimedia, name='multimedia'),
     path('antalumnos/juntaRectora/', views.juntaRectora, name='juntaRectora'),
+    path('antalumnos/historia/', views.historia, name='historia'),
     path('antalumnos/login/', views.login, name='login'),
     path('antalumnos/logout/', views.logout, name='logout'),
     path('antalumnos/perfil/', views.perfil, name='perfil'),

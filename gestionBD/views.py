@@ -320,7 +320,7 @@ def empleo(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    ofertasEmpleo = modelos.OfertaEmpleo.objects.all()
+    ofertasEmpleo = modelos.OfertaEmpleo.objects.order_by('-fecha')
     #contexto['ofertasEmpleo'] = ofertasEmpleo
 
     objetos_paginacion = 5
@@ -449,6 +449,17 @@ def juntaRectora(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     return render(request, "juntaRectora.html", contexto)
+
+
+def historia(request):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    return render(request, "historia.html", contexto)
 
 
 def misActividades(request):

@@ -43,8 +43,16 @@
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/asociacion/' %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'asociacion' %}">La Asociación</a>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if 'asociacion' in request.path or 'historia' in request.path or 'juntaRectora' in request.path or 'acuerdosEmpresas' in request.path %}active{% endif %}">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                La Asociación
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'asociacion' %}">La asociación</a>
+                                <a class="dropdown-item" href="{% url 'historia' %}">Historia</a>
+                                <a class="dropdown-item" href="{% url 'juntaRectora' %}">Junta Rectora</a>
+                                <a class="dropdown-item" href="{% url 'acuerdosEmpresas' %}">Acuerdos con empresas</a>
+                            </div>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
@@ -54,9 +62,6 @@
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
-                        </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/acuerdosEmpresas/' %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'acuerdosEmpresas' %}">Acuerdos-Empresas</a>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
@@ -100,8 +105,16 @@
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/asociacion/' %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'asociacion' %}">La Asociación</a>
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if 'asociacion' in request.path or 'historia' in request.path or 'juntaRectora' in request.path or 'acuerdosEmpresas' in request.path %}active{% endif %}">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                La Asociación
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'asociacion' %}">La asociación</a>
+                                <a class="dropdown-item" href="{% url 'historia' %}">Historia</a>
+                                <a class="dropdown-item" href="{% url 'juntaRectora' %}">Junta Rectora</a>
+                                <a class="dropdown-item" href="{% url 'acuerdosEmpresas' %}">Acuerdos con empresas</a>
+                            </div>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
@@ -111,9 +124,6 @@
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
-                        </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/acuerdosEmpresas/' %}active{% endif %}">
-                            <a class="nav-link" href="{% url 'acuerdosEmpresas' %}">Acuerdos-Empresas</a>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>

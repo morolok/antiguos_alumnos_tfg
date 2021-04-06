@@ -26,17 +26,29 @@
                 {% endfor %}
             {% endif %}
             
-
             {% for campo in formNoticia %}
 
-                {% if campo.id_for_label == 'id_titulo' or campo.id_for_label == 'id_texto' or campo.id_for_label == 'id_fecha' %}
+                {% if campo.id_for_label == 'id_titulo' or campo.id_for_label == 'id_texto' %}
                     <div id="campoDelFormularioAltaActividad" class="row">
-                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
+                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span>
+                        </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                    </div>
+                {% elif campo.id_for_label == 'id_fecha' %}
+                    <div id="campoDelFormularioAltaActividad" class="row">
+                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span>
+                        </label>
+                        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <input type="date" name="{{campo.name}}" required id="{{campo.id_for_label}}">
+                        </p>
                     </div>
                 {% else %}
                     <div id="campoDelFormularioAltaActividad" class="row">
-                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }}</label>
+                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }}
+                        </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                     </div>
                 {% endif %}

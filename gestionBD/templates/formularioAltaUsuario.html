@@ -28,11 +28,24 @@
             
 
             {% for campo in formUsuario %}
-                
-                <div id="campoDelFormularioAltaUsuario" class="row">
-                    <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> </label>
-                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
-                </div>
+            
+                {% if campo.id_for_label == 'id_fechaNacimiento' %}
+                    <div id="campoDelFormularioAltaActividad" class="row">
+                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span>
+                        </label>
+                        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <input type="date" name="{{campo.name}}" required id="{{campo.id_for_label}}">
+                        </p>
+                    </div>
+                {% else %}
+                    <div id="campoDelFormularioAltaUsuario" class="row">
+                        <label for="formularioAltaUsuario" id="etiquetaFormularioAltaUsuario" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span>
+                        </label>
+                        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                    </div>
+                {% endif %}
             
             {% endfor %}
 
