@@ -54,11 +54,19 @@ def inicio(request):
     contexto['noticias'] = noticias
     actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
     ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
+    ultimaRevistaIngenio = modelos.RevistaIngenio.objects.order_by('-numero')[:1][0]
+    hayPortada = False
+    if(ultimaRevistaIngenio.imagen):
+        hayPortada = True
+        contexto['ultimaRevistaIngenio'] = ultimaRevistaIngenio
+        contexto['hayPortada'] = hayPortada
+    print(ultimaRevistaIngenio.imagen)
     actividades_ofertas = []
     for i in range(3):
         actividades_ofertas.append(actividades[i])
         actividades_ofertas.append(ofertas_empleo[i])
     contexto['actividades_ofertas'] = actividades_ofertas
+    contexto['MEDIA_URL'] = MEDIA_URL
     return render(request, "index.html", contexto)
 
 
@@ -423,7 +431,7 @@ def revistaIngenio(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    revistas = modelos.RevistaIngenio.objects.all()
+    revistas = modelos.RevistaIngenio.objects.order_by('-numero')
     contexto['revistas'] = revistas
     contexto['MEDIA_URL'] = MEDIA_URL
     return render(request, "revistaIngenio.html", contexto)

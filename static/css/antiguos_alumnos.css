@@ -110,7 +110,8 @@ html, body {
 
 /* Visualización de la página de "index" */
 #columnasActividadesYEmpleo{
-    margin-top: 2em;
+    margin-top: 3em;
+    margin-bottom: 2em;
 }
 
 #tituloColumnaActividades{
@@ -162,6 +163,15 @@ html, body {
 #iconoFacebook, #iconoTwitter, #iconoInstagram, #iconoLupa, #iconoPerfil, #iconoLogout, #iconoLogin{
     height: 30px;
     width: 30px;   
+}
+
+#contenedorAnuncioRevistaIngenio{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#imagenAnuncioRevistaIngenio{
+    width: 214px;
 }
 
 

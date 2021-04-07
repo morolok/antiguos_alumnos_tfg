@@ -58,15 +58,6 @@
         </a>
     </div>
 
-
-    <div id="enlacesAuxiliares">
-        <a href="{% url 'login' %}">Login</a>
-        <br>
-        <a href="{% url 'logout' %}">Logout</a>
-        <br>
-    </div>
-
-
     <div id="columnasActividadesYEmpleo" class="row">
         <p id="tituloColumnaActividades" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">Actividades</p>
         <p id="tituloColumnaOfertasEmpleo" class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">Ofertas de empleo</p>
@@ -82,6 +73,18 @@
             {% endif %}
         {% endfor %}
     </div>
+
+    
+    
+    {% if hayPortada %}
+        <div id="contenedorAnuncioRevistaIngenio" class="row">
+            <p id="parrafoAnuncioRevistaIngenio" class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                <a id="enlaceAnuncioRevistaIngenio" href="{{MEDIA_URL}}{{ultimaRevistaIngenio.fichero}}" target="_blank">
+                    <img id="imagenAnuncioRevistaIngenio" src="{{MEDIA_URL}}{{ultimaRevistaIngenio.imagen}}">
+                </a>
+            </p>
+        </div>
+    {% endif %}
 
     <div id="redesSociales" class="row">
         <p id="parrafoRedesSociales" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Síguenos en nuestras redes sociales</p>
