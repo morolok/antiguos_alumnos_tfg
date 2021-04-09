@@ -456,6 +456,21 @@ def juntaRectora(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    datosPresidente = modelos.Usuario.objects.get(juntaRectora = 'Presidente')
+    datosVicepresidente = modelos.Usuario.objects.get(juntaRectora = 'Vicepresidente')
+    datosSecretario = modelos.Usuario.objects.get(juntaRectora = 'Secretario')
+    datosTesorero = modelos.Usuario.objects.get(juntaRectora = 'Tesorero')
+    datosVocales = modelos.Usuario.objects.filter(juntaRectora = 'Vocal')
+    presidente = 'D. ' + datosPresidente.nombre + ' ' + datosPresidente.apellidos
+    vicepresidente = 'D. ' + datosVicepresidente.nombre + ' ' + datosVicepresidente.apellidos
+    secretario = 'D. ' + datosSecretario.nombre + ' ' + datosSecretario.apellidos
+    tesorero = 'D. ' + datosTesorero.nombre + ' ' + datosTesorero.apellidos
+    vocales = ['D. ' + vocal.nombre + ' ' + vocal.apellidos for vocal in datosVocales]
+    contexto['presidente'] = presidente
+    contexto['vicepresidente'] = vicepresidente
+    contexto['secretario'] = secretario
+    contexto['tesorero'] = tesorero
+    contexto['vocales'] = vocales
     return render(request, "juntaRectora.html", contexto)
 
 
