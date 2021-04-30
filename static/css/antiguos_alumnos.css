@@ -411,6 +411,10 @@ html, body {
     color: #980c17;
 }
 
+#cadaElementoOfertaEmpleo{
+    margin-bottom: 1.5em;
+}
+
 
 /* Visualización de las páginas "noticias" y "noticia" */
 #tituloPaginaNoticias{
