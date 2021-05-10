@@ -207,6 +207,10 @@ html, body {
 
 
 /* Visualización de la página "juntaRectora" */
+#tituloPaginaJuntaRectora{
+    margin-bottom: 3em;
+}
+
 #imagenJuntaRectora{
     display: block;
     margin-left: auto;
