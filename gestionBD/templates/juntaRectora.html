@@ -18,45 +18,38 @@
     <div id="miembrosJuntaRectora">
         
         <div class="row">
-            <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
-            <p id="parrafoMiembro" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <p id="parrafoMiembro" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <strong>Presidente: </strong>{{presidente}}
             </p>
             
         </div>
 
         <div class="row">
-            <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
-            <p id="parrafoMiembro" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <p id="parrafoMiembro" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <strong>Vicepresidente: </strong>{{vicepresidente}}
             </p>
         </div>
 
         <div class="row">
-            <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
-            <p id="parrafoMiembro" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <p id="parrafoMiembro" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <strong>Secretario: </strong>{{secretario}}
             </p>
         </div>
 
         <div class="row">
-            <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
-            <p id="parrafoMiembro" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+            <p id="parrafoMiembro" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <strong>Tesorero: </strong>{{tesorero}}
             </p>
         </div>
 
         <div class="row">
-            <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
             <p id="parrafoMiembro" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7"><strong>Vocales: </strong></p>
         </div>
 
         <ul>
             {% for vocal in vocales %}
                 <div class="row">
-                    <p class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5"></p>
-                    <li id="vocalJuntaRectora" class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">{{vocal}}</li>
-                    <p class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></p>
+                    <li id="vocalJuntaRectora" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{vocal}}</li>
                 </div>
             {% endfor %}
         </ul>
@@ -64,7 +57,9 @@
     </div>
 
     <div class="row">
-        <img id="imagenJuntaRectora" src="{% static 'images/junta_rectora.png' %}" alt="Imagen de los miembros de la Junta Rectora" title="Imagen de los miembros de la Junta Rectora"/>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <img id="imagenJuntaRectora" src="{% static 'images/junta_rectora.png' %}" alt="Imagen de los miembros de la Junta Rectora" title="Imagen de los miembros de la Junta Rectora"/>
+        </p>
     </div>
 
 </div>

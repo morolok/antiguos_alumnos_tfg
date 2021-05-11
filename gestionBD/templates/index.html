@@ -78,11 +78,12 @@
     
     {% if hayPortada %}
         <div id="contenedorAnuncioRevistaIngenio" class="row">
-            <p id="parrafoAnuncioRevistaIngenio" class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+            <p id="parrafoAnuncioRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <a id="enlaceAnuncioRevistaIngenio" href="{{MEDIA_URL}}{{ultimaRevistaIngenio.fichero}}" target="_blank">
                     <img id="imagenAnuncioRevistaIngenio" src="{{MEDIA_URL}}{{ultimaRevistaIngenio.imagen}}">
                 </a>
             </p>
+            <p id="parrafoNumeroRevistaIngenio" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Revista número {{numeroRevista}}</p>
         </div>
     {% endif %}
 

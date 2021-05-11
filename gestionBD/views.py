@@ -54,13 +54,15 @@ def inicio(request):
     contexto['noticias'] = noticias
     actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
     ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
-    ultimaRevistaIngenio = modelos.RevistaIngenio.objects.order_by('-numero')[:1][0]
+    revistasIngenio = modelos.RevistaIngenio.objects.order_by('-numero')
     hayPortada = False
-    if(ultimaRevistaIngenio.imagen):
-        hayPortada = True
-        contexto['ultimaRevistaIngenio'] = ultimaRevistaIngenio
-        contexto['hayPortada'] = hayPortada
-    print(ultimaRevistaIngenio.imagen)
+    for revista in revistasIngenio:
+        if(revista.imagen):
+            hayPortada = True
+            contexto['ultimaRevistaIngenio'] = revista
+            contexto['hayPortada'] = hayPortada
+            contexto['numeroRevista'] = revista.numero
+            break
     actividades_ofertas = []
     for i in range(3):
         actividades_ofertas.append(actividades[i])
