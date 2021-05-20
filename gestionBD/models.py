@@ -125,7 +125,7 @@ class DatosDeContacto(models.Model):
 
     class Meta:
         verbose_name = 'Datos de contacto'
-        verbose_name_plural = 'Datos de contacto'
+        verbose_name_plural = 'Datos de contactos'
 
 
 class OfertaEmpleo(models.Model):
