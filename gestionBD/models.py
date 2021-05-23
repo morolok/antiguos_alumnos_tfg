@@ -147,7 +147,7 @@ class OfertaEmpleo(models.Model):
 
 class RevistaIngenio(models.Model):
     numero = models.IntegerField(primary_key=True, verbose_name='Número')
-    imagen = models.ImageField(upload_to='images', max_length=256, null=True, blank=True, verbose_name='Imagen')
+    imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
     fichero = models.FileField(upload_to='files', verbose_name='Fichero')
     fecha = models.DateField(verbose_name='Fecha')
     tablaContenido = models.TextField(null=True, blank=True, verbose_name='Tabla de contenidos')
