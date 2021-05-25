@@ -50,19 +50,15 @@ def inicio(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    noticias = modelos.Noticia.objects.order_by('-fecha')
-    contexto['noticias'] = noticias
     actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
     ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
-    revistasIngenio = modelos.RevistaIngenio.objects.order_by('-numero')
-    hayPortada = False
-    for revista in revistasIngenio:
-        if(revista.imagen):
-            hayPortada = True
-            contexto['ultimaRevistaIngenio'] = revista
-            contexto['hayPortada'] = hayPortada
-            contexto['numeroRevista'] = revista.numero
-            break
+    
+    noticias = modelos.Noticia.objects.values_list('titulo').order_by('-fecha')
+    #contexto['noticias'] = noticias
+    ultimaRevistaIngenio = modelos.RevistaIngenio.objects.order_by('-numero')[0]
+    elementosCarrusel = [ultimaRevistaIngenio] + [n[0] for n in noticias]
+    contexto['elementosCarrusel'] = elementosCarrusel
+    
     actividades_ofertas = []
     for i in range(3):
         actividades_ofertas.append(actividades[i])
@@ -434,7 +430,9 @@ def revistaIngenio(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     revistas = modelos.RevistaIngenio.objects.order_by('-numero')
+    mayorNumero = revistas[0].numero
     contexto['revistas'] = revistas
+    contexto['mayorNumero'] = mayorNumero
     contexto['MEDIA_URL'] = MEDIA_URL
     return render(request, "revistaIngenio.html", contexto)
 

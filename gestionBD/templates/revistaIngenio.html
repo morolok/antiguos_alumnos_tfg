@@ -32,14 +32,29 @@
             </thead>
             <tbody>
                 {% for revista in revistas %}
-                    <tr>
-                        <td>{{revista.numero}}</td>
-                        <td>{{revista.fecha}}</td>
-                        <td>
-                            <img id="logoPdfTablaRI" src="{% static 'images/icono_pdf.ico' %}">
-                            <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">Revista Ingenio {{revista.numero}}</a>
-                        </td>
-                    </tr>
+                    {% if revista.numero == mayorNumero %}
+                        <tr>
+                            <td id="mayorNumero">{{revista.numero}}</td>
+                            <td id="mayorNumero">{{revista.fecha}}</td>
+                            <td>
+                                <img id="logoPdfTablaRI" src="{% static 'images/icono_pdf.ico' %}">
+                                <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                                    Revista Ingenio {{revista.numero}}
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>{{revista.numero}}</td>
+                            <td>{{revista.fecha}}</td>
+                            <td>
+                                <img id="logoPdfTablaRI" src="{% static 'images/icono_pdf.ico' %}">
+                                <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                                    Revista Ingenio {{revista.numero}}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             </tbody>
         </table>

@@ -509,6 +509,10 @@ html, body {
     margin-bottom: 2em;
 }
 
+#mayorNumero{
+    font-weight: bold;
+}
+
 
 /* Visualización de la página "misActividades" */
 #tituloPaginaMisActividades{
