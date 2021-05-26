@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Recuperar contraseña
+{% endblock %}
+
+
+{% block content %}
+
+<div id="cuerpo">
+
+    <div id="tituloRecuperarContraseña" class="row">
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Recuperar contraseña</h5>
+    </div>
+
+    {% if inicioSesion %}
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Si ya has iniciado sesión y deseas cambiarla puedes hacerlo en el <a href="{% url 'perfil' %}" id="enlacePerfil">Perfil</a>
+            </p>
+        </div>
+    {% else %}
+
+    {% if error %}
+        <p id="erroresRecuperarContraseña">{{ error }}</p>
+    {% endif %}
+
+        <form id="formularioRecuperarContraseña" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
+            <div id="contenedorRecuperarContraseña" class="row">
+                <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoUsuario">
+                    <label for="usuario"><strong>Introduzca su usuario: </strong></label>
+                    <input id="inputUsuario" name="inputUsuario" type="text" autofocus required>
+                </p>
+                <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
+
+                <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoNuevaContraseña">
+                    <label for="contraseña"><strong>Introduzca la nueva contraseña: </strong></label>
+                    <input id="inputNuevaContraseña" name="inputNuevaContraseña" type="password" required>
+                </p>
+                <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
+
+                <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoConfirmacionContraseña">
+                    <label for="confirmacionContraseña"><strong>Confirme la nueva contraseña: </strong></label>
+                    <input id="inputConfirmacionContraseña" name="inputConfirmacionContraseña" type="password" required>
+                </p>
+                <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
+            </div>
+
+            <div class="row" id="botonEnviarRecuperarContraseña">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button id="botonEnviarFormulario" type="submit">Enviar</button>
+                </p>
+            </div>
+        </form>
+    {% endif %}
+
+</div>
+
+{% endblock %}

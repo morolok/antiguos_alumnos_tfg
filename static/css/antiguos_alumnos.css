@@ -100,6 +100,17 @@ html, body {
     display: inline;
 }
 
+#recuperarContraseña{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#enlaceRecuperarContraseña{
+    text-decoration: none;
+    font-weight: bold;
+    color: #303B89;
+}
+
 
 /* Carrusel de noticias */
 #myCarousel{
@@ -481,6 +492,11 @@ html, body {
 /* Visualización de la página "login" */
 #erroresLogin{
     color: red;
+    margin-bottom: 2em;
+}
+
+#tituloIniciarSesion{
+    margin-bottom: 3em;
 }
 
 #campoUsuarioLogin, #campoContraseñaLogin{
@@ -490,6 +506,32 @@ html, body {
 #etiquetaUsuarioLogin, #etiquetaContraseñaLogin{
     font-weight: bold;
 }
+
+
+/* Visualización de la página "recuperarContraseña" */
+#erroresRecuperarContraseña{
+    color: red;
+    margin-bottom: 2em;
+}
+
+#botonEnviarRecuperarContraseña{
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#tituloRecuperarContraseña{
+    margin-bottom: 3em;
+}
+
+#inputUsuario, #inputNuevaContraseña, #inputConfirmacionContraseña{
+    vertical-align: middle;
+    margin-left: 1em;
+}
+
+#parrafoUsuario, #parrafoNuevaContraseña, #parrafoConfirmacionContraseña{
+    margin-bottom: 2em;
+}
+
 
 
 /* Visualización de la página "revistaIngenio" */

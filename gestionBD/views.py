@@ -740,6 +740,67 @@ def exitoLogin(request):
     return render(request, "exitoLogin.html", contexto)
 
 
+def recuperarContraseña(request):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+
+    if(request.method == 'POST'):
+        formulario = request.POST
+        usuarioFormulario = formulario['inputUsuario']
+        try:
+            usuarioBD = modelos.Usuario.objects.get(usuario=usuarioFormulario)
+        except ObjectDoesNotExist:
+            error = "El usuario es incorrecto"
+            contexto['error'] = error
+            return render(request, "recuperarContraseña.html", contexto)
+        nuevaContraseña = request.POST['inputNuevaContraseña']
+        confirmacionContraseña = request.POST['inputConfirmacionContraseña']
+        if(nuevaContraseña != confirmacionContraseña):
+            error = "La nueva contraseña y su confirmación deben coincidir"
+            contexto['error'] = error
+            return render(request, "recuperarContraseña.html", contexto)
+        else:
+            antiguaContraseña = modelos.Usuario.objects.get(usuario = usuarioFormulario).contraseña
+            contieneMayuscula = re.search("[A-Z]", nuevaContraseña)
+            contieneNumero = re.search("[0-9]", nuevaContraseña)
+            if(len(nuevaContraseña) < 8):
+                error = 'La nueva contraseña debe contener más de 8 caracteres'
+                contexto['error'] = error
+                return render(request, "recuperarContraseña.html", contexto)
+            elif(nuevaContraseña == antiguaContraseña):
+                error = 'La nueva contraseña no puede ser igual que la anterior'
+                contexto['error'] = error
+                return render(request, "recuperarContraseña.html", contexto)
+            elif(not contieneMayuscula):
+                error = 'La nueva contraseña debe contener alguna letra mayúscula'
+                contexto['error'] = error
+                return render(request, "recuperarContraseña.html", contexto)
+            elif(not contieneNumero):
+                error = 'La nueva contraseña debe contener algún número'
+                contexto['error'] = error
+                return render(request, "recuperarContraseña.html", contexto)
+            else:
+                modelos.Usuario.objects.filter(usuario = usuarioFormulario).update(contraseña = nuevaContraseña)
+                return redirect('exitoRecuperarContraseña')
+    return render(request, "recuperarContraseña.html", contexto)
+
+
+def exitoRecuperarContraseña(request):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    return render(request, "exitoRecuperarContraseña.html", contexto)
+
+
 def logout(request):
     contexto = {}
     request.session['usuario'] = None

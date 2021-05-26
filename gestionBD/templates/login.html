@@ -11,6 +11,10 @@
 
 <div id="cuerpo">
 
+    <div id="tituloIniciarSesion" class="row">
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Iniciar sesión</h5>
+    </div>
+
     {% if inicioSesion %}
         <div class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -35,10 +39,20 @@
             
             
             <div class="row">
-                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button id="botonEnviarFormulario" type="submit">Enviar</button>
+                </p>
             </div>
 
         </form>
+
+        <div class="row" id="recuperarContraseña">
+            <a id="enlaceRecuperarContraseña" href="{% url 'recuperarContraseña' %}">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    ¿Has olvidado la contraseña? Pincha aquí para recuperarla.
+                </p>
+            </a>
+        </div>
     {% endif %}
 
 </div>

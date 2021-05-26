@@ -46,6 +46,7 @@ urlpatterns = [
     path('antalumnos/juntaRectora/', views.juntaRectora, name='juntaRectora'),
     path('antalumnos/historia/', views.historia, name='historia'),
     path('antalumnos/login/', views.login, name='login'),
+    path('antalumnos/recuperarContraseña/', views.recuperarContraseña, name='recuperarContraseña'),
     path('antalumnos/logout/', views.logout, name='logout'),
     path('antalumnos/perfil/', views.perfil, name='perfil'),
     path('antalumnos/perfil/misActividades/', views.misActividades, name='misActividades'),
@@ -63,6 +64,7 @@ urlpatterns = [
     path('antalumnos/exitoAltaOfertaEmpleo/<titulo>', views.exitoAltaOfertaEmpleo, name='exitoAltaOfertaEmpleo'),
     path('antalumnos/exitoAltaAcuerdoEmpresa/<nombre>/', views.exitoAltaAcuerdoEmpresa, name='exitoAltaAcuerdoEmpresa'),
     path('antalumnos/exitoLogin', views.exitoLogin, name='exitoLogin'),
+    path('antalumnos/exitoRecuperarContraseña', views.exitoRecuperarContraseña, name='exitoRecuperarContraseña'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
