@@ -80,62 +80,76 @@ def asociacion(request):
 
 
 def actividades(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos las actividades a la base de datos ordenadas de más recientes a más antiguas y las guardamos en una variable
     actividades = modelos.Actividad.objects.order_by('-fecha')
+    # Determinamos el número de actividades por página en la paginación
     objetos_paginacion = 5
+    # Paginamos las actividades por la cantidad determinada anteriormente
     paginator = Paginator(actividades, objetos_paginacion)
+    # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
+    # primera vez que entramos se ven las actividades de la primera página pero no hay un valor de página
     pagina = request.GET.get('page')
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
+    # Nos quedamos con las actividades de la página en la que estamos y lo guardamos en el contexto
     actividades_paginadas = paginator.get_page(pagina)
+    contexto['actividades_paginadas'] = actividades_paginadas
+    # Nos quedamos con el número de páginas en total
     numero_paginas = math.ceil(actividades.count()/objetos_paginacion)
+    # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
     paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['paginas'] = paginas
+    # Creamos un diccionario que tiene un índice numérico de clave y el título de una actividad como valor y lo guardamos en
+    # el contexto
     diccionarioActividades = {}
     for i in range(0, len(actividades)):
         diccionarioActividades[i] = str(actividades[i].titulo)
     request.session['diccionarioActividades'] = diccionarioActividades
-    #contexto['actividades'] = actividades
-    contexto['actividades_paginadas'] = actividades_paginadas
-    contexto['paginas'] = paginas
-    if(pagina is not None):
-        contexto['paginaActual'] = int(pagina)
-    
+    # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
+    # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
     tipoInicio = False
     tipoMedio = False
     tipoFin = False
-    no_puntos_suspensivos = False
+    # Si hay más de 6 páginas mostraremos las páginas con puntos suspensivos puesto que hay muchas para mostrar, y en caso
+    # de que haya menos de 6 páginas mostramos todas las páginas
     if(numero_paginas > 6):
+        # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
+        # que estamos al inicio de las páginas
         if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
             tipoInicio = True
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
-        
+        # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
+        # de las páginas
         elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+            # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoMedio = True
-            if((numero_paginas - int(pagina)) == 1):
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
-                no_puntos_suspensivos = True
-            else:
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
-                if(numero_paginas - rango_medio[len(rango_medio)-1] == 1):
-                    no_puntos_suspensivos = True
+            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
             contexto['rango_medio'] = rango_medio
-        
+        # Si estamos en una de las 3 últimas páginas consideramos que estamos en la zona final de las páginas
         elif(pagina is not None and int(pagina) >= numero_paginas-3):
+            # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
-            print(rango_fin)
             contexto['rango_fin'] = rango_fin
-
+    # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
     contexto['tipoInicio'] = tipoInicio
     contexto['tipoMedio'] = tipoMedio
     contexto['tipoFin'] = tipoFin
-    contexto['no_puntos_suspensivos'] = no_puntos_suspensivos
-    
+    # Renderizamos la página de las actividades paginadas
     return render(request, "actividades.html", contexto)
 
 
@@ -392,16 +406,23 @@ def ofertaEmpleo(request, titulo):
 
 
 def acuerdosEmpresas(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos los acuerdos con empresas a la base de datos y los guardamos en una variable. Esa variable la guardamos a
+    # a su vez en el contexto
     acuerdos = modelos.AcuerdosEmpresas.objects.all()
     contexto['acuerdos'] = acuerdos
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
     contexto['MEDIA_URL'] = MEDIA_URL
+    # Renderizamos la página de los acuerdos con empresas
     return render(request, "acuerdosEmpresas.html", contexto)
 
 
@@ -816,30 +837,44 @@ def logout(request):
 
 
 def formularioAltaUsuario(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formUsuario = formularios.FormularioAltaUsuario(request.POST or None)
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formUsuario = formularios.FormularioAltaUsuario(request.POST, request.FILES or None)
     contexto['formUsuario'] = formUsuario
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
         if(formUsuario.is_valid()):
-            usuarioFormulario = formUsuario.save(commit=False)
-            nombre = usuarioFormulario.nombre
-            apellidos = usuarioFormulario.apellidos
+            # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
+            formUsuario = formularios.FormularioAltaUsuario(request.POST, request.FILES)
+            # Si es valido creamos el objeto usuario
+            usuario = formUsuario.save(commit=False)
+            # Nos quedamos el nombre y los apellidos del usuario
+            nombre = usuario.nombre
+            apellidos = usuario.apellidos
+            # Guardamos el usuario en la base de datos y ponemos el formulario en blanco
             formUsuario.save()
             formUsuario = formularios.FormularioAltaUsuario()
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaUsuario', nombre=nombre, apellidos=apellidos)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formUsuario.errors.keys()):
                 errores = [error for error in formUsuario.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formUsuario.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaUsuario.html", contexto)
 
 
@@ -863,34 +898,49 @@ def publicarTweetActividad(titulo):
 
 
 def formularioAltaActividad(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formActividad = formularios.FormularioAltaActividad()
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formActividad = formularios.FormularioAltaActividad(request.POST, request.FILES or None)
     contexto['formActividad'] = formActividad
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
         formActividad = formularios.FormularioAltaActividad(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
         if(formActividad.is_valid()):
+            # Si es valido creamos el objeto actividad
             actividad = formActividad.save(commit=False)
+            # Nos quedamos el título y la descripción de la actividad
             titulo = actividad.titulo
             descripcion = actividad.descripcion
+            # Guardamos la actividad en la base de datos y ponemos el formulario en blanco
             formActividad.save()
             formActividad = formularios.FormularioAltaActividad()
+            # Enviamos los correos con el título y la descripción de la actividad a los usuarios que tengan las comunicaciones
+            # activadas y publicamos un Tweet con el título
             enviarCorreosConActividad(str(titulo), str(descripcion))
             publicarTweetActividad(str(titulo))
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaActividad', titulo = titulo)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formActividad.errors.keys()):
                 errores = [error for error in formActividad.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formActividad.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
-    
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaActividad.html", contexto)
 
 
@@ -904,59 +954,88 @@ def publicarTweetNoticia(titulo):
 
 
 def formularioAltaNoticia(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formNoticia = formularios.FormularioAltaNoticia()
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formNoticia = formularios.FormularioAltaNoticia(request.POST, request.FILES or None)
     contexto['formNoticia'] = formNoticia
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
         formNoticia = formularios.FormularioAltaNoticia(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
         if(formNoticia.is_valid()):
+            # Si es valido creamos el objeto noticia
             noticia = formNoticia.save(commit=False)
+            # Nos quedamos el título de la noticia
             titulo = noticia.titulo
+            # Guardamos la noticia en la base de datos y ponemos el formulario en blanco
             formNoticia.save()
             formNoticia = formularios.FormularioAltaNoticia()
+            # Publicamos un Tweet con el título de la noticia
             publicarTweetNoticia(str(titulo))
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaNoticia', titulo = titulo)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formNoticia.errors.keys()):
                 errores = [error for error in formNoticia.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formNoticia.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaNoticia.html", contexto)
 
 
 def formularioAltaOfertaEmpleo(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto(request.POST, request.FILES or None)
     contexto['formOfertaEmpleo'] = formOfertaEmpleo
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
         formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
         if(formOfertaEmpleo.is_valid()):
+            # Si es valido creamos el objeto oferta de empleo
             ofertaEmpleo = formOfertaEmpleo.save(commit=False)
+            # Nos quedamos el título de la oferta de empleo
             titulo = ofertaEmpleo.titulo
+            # Guardamos la actividad en la base de datos y ponemos el formulario en blanco
             formOfertaEmpleo.save()
             formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaOfertaEmpleo', titulo = titulo)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formOfertaEmpleo.errors.keys()):
                 errores = [error for error in formOfertaEmpleo.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formOfertaEmpleo.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaOfertaEmpleo.html", contexto)
 
 
@@ -972,58 +1051,86 @@ def formularioAltaDatosDeContacto(request):
 
 
 def formularioAltaRevistaIngenio(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formRevistaIngenio = formularios.FormularioAltaRevistaIngenio(request.POST, request.FILES or None)
     contexto['formRevistaIngenio'] = formRevistaIngenio
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
         formRevistaIngenio = formularios.FormularioAltaRevistaIngenio(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
         if(formRevistaIngenio.is_valid()):
+            # Si es valido creamos el objeto revista
             revista = formRevistaIngenio.save(commit=False)
+            # Nos quedamos el número de la actividad
             numero = revista.numero
+            # Guardamos la actividad en la base de datos y ponemos el formulario en blanco
             formRevistaIngenio.save()
             formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaRevistaIngenio', numero = numero)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formRevistaIngenio.errors.keys()):
                 errores = [error for error in formRevistaIngenio.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formRevistaIngenio.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaRevistaIngenio.html", contexto)
 
 
 def formularioAltaAcuerdoEmpresa(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa(request.POST, request.FILES or None)
     contexto['formAcuerdo'] = formAcuerdo
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
     if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
         formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
         if(formAcuerdo.is_valid()):
+            # Si es valido creamos el objeto acuerdo con empresa
             acuerdoEmpresa = formAcuerdo.save(commit=False)
+            # Nos quedamos el nombre del acuerdo
             nombre = acuerdoEmpresa.nombre
+            # Guardamos al acuerdo en la base de datos y ponemos el formulario en blanco
             formAcuerdo.save()
             formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
+            # Redirigimos a la página de éxito pues ha ido todo bien
             return redirect('exitoAltaAcuerdoEmpresa', nombre = nombre)
         else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
             if('__all__' in formAcuerdo.errors.keys()):
                 errores = [error for error in formAcuerdo.errors['__all__']]
                 contexto['errores'] = errores
             else:
                 errores = [error for lsErrores in formAcuerdo.errors.values() for error in lsErrores]
                 contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaAcuerdoEmpresa.html", contexto)
 
 
