@@ -52,6 +52,7 @@
 
             {% elif tipoFin %}
                 <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                <a id="enlacePaginaPaginacionActividades" href="?page={{pagina_media}}">{{pagina_media}}</a>...
                 {% for pagina in rango_fin %}
                     {% if paginaActual == pagina %}
                         <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
@@ -63,7 +64,7 @@
             {% else %}
                 {% for pagina in paginas %}
                     {% if paginaActual == None and pagina == 1 %}
-                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% elif paginaActual == pagina %}
                         <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% else %}

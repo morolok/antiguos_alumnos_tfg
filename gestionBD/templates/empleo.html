@@ -62,6 +62,7 @@
 
             {% elif tipoFin %}
                 <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=1">1</a>...
+                <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{pagina_media}}">{{pagina_media}}</a>...
                 {% for pagina in rango_fin %}
                     {% if paginaActual == pagina %}
                         <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
@@ -72,7 +73,9 @@
 
             {% else %}
                 {% for pagina in paginas %}
-                    {% if paginaActual == pagina %}
+                    {% if paginaActual == None and pagina == 1 %}
+                        <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% elif paginaActual == pagina %}
                         <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% else %}
                         <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>

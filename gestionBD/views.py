@@ -13,6 +13,7 @@ import gestionBD.forms as formularios
 import math
 import twitter
 import re
+from validate_email import validate_email
 
 
 #from django.db.models import CharField
@@ -25,7 +26,10 @@ import re
 
 
 def busqueda(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
@@ -33,12 +37,16 @@ def busqueda(request):
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
     if(request.method=='POST'):
+        # Si se ha pulsado el botón de buscar guardamos lo que se ha introducido en la búsqueda
         palabra = request.POST.get('buscar')
+        # Buscamos noticias y actividades con lo que se ha introducido
         noticias = modelos.Noticia.objects.filter(titulo__unaccent__icontains=palabra)
         actividades = modelos.Actividad.objects.filter(titulo__unaccent__icontains=palabra)
+        # Guardamos en el contexto lo que se ha introducido, y las noticias y actividades encontradas
         contexto['palabra'] = palabra
         contexto['noticias'] = noticias
         contexto['actividades'] = actividades
+    # Renderizamos la página de búsqueda con los resultados
     return render(request, "busqueda.html", contexto)
 
 
@@ -92,7 +100,7 @@ def actividades(request):
     contexto['inicioSesion'] = inicioSesion
     # Consultamos las actividades a la base de datos ordenadas de más recientes a más antiguas y las guardamos en una variable
     actividades = modelos.Actividad.objects.order_by('-fecha')
-    # Determinamos el número de actividades por página en la paginación
+    # Determinamos el número de actividades por página
     objetos_paginacion = 5
     # Paginamos las actividades por la cantidad determinada anteriormente
     paginator = Paginator(actividades, objetos_paginacion)
@@ -109,8 +117,9 @@ def actividades(request):
     # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
     paginas = [i for i in range(1, numero_paginas+1)]
     contexto['paginas'] = paginas
-    # Creamos un diccionario que tiene un índice numérico de clave y el título de una actividad como valor y lo guardamos en
-    # el contexto
+    # Creamos un diccionario que tiene un índice numérico de clave y el título de una actividad como valor para poder
+    # navegar entre las actividades cuando pulsemos anterior y siguiente y lo guardamos en la sesión para acceder a ello
+    # en todo momento
     diccionarioActividades = {}
     for i in range(0, len(actividades)):
         diccionarioActividades[i] = str(actividades[i].titulo)
@@ -120,9 +129,9 @@ def actividades(request):
     tipoInicio = False
     tipoMedio = False
     tipoFin = False
-    # Si hay más de 6 páginas mostraremos las páginas con puntos suspensivos puesto que hay muchas para mostrar, y en caso
-    # de que haya menos de 6 páginas mostramos todas las páginas
-    if(numero_paginas > 6):
+    # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
+    # todas las páginas
+    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
         # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
         # que estamos al inicio de las páginas
         if((pagina is None) or (pagina is not None and int(pagina) < 5)):
@@ -138,13 +147,17 @@ def actividades(request):
             tipoMedio = True
             rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
             contexto['rango_medio'] = rango_medio
-        # Si estamos en una de las 3 últimas páginas consideramos que estamos en la zona final de las páginas
+        # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
         elif(pagina is not None and int(pagina) >= numero_paginas-3):
             # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
             # en el contexto
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin
+            # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
+            # a una página intermedia
+            pagina_media = math.ceil((rango_fin[0]+1)/2)
+            contexto['pagina_media'] = pagina_media
     # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
     contexto['tipoInicio'] = tipoInicio
     contexto['tipoMedio'] = tipoMedio
@@ -260,59 +273,74 @@ def actividad(request, titulo):
 
 
 def noticias(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos las noticias a la base de datos ordenadas de más recientes a más antiguas y las guardamos en una variable
     noticias = modelos.Noticia.objects.order_by('-fecha')
-    #contexto['noticias'] = noticias
-    
+    # Determinamos el número de actividades por página
     objetos_paginacion = 5
+    # Paginamos las noticias por la cantidad determinada anteriormente
     paginator = Paginator(noticias, objetos_paginacion)
+    # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
+    # primera vez que entramos se ven las noticias de la primera página pero no hay un valor de página
     pagina = request.GET.get('page')
-    noticias_paginadas = paginator.get_page(pagina)
-    numero_paginas = math.ceil(noticias.count()/objetos_paginacion)
-    paginas = [i for i in range(1, numero_paginas+1)]
-    contexto['noticias_paginadas'] = noticias_paginadas
-    contexto['paginas'] = paginas
     if(pagina is not None):
         contexto['paginaActual'] = int(pagina)
-    
+    # Nos quedamos con las noticias de la página en la que estamos y lo guardamos en el contexto
+    noticias_paginadas = paginator.get_page(pagina)
+    contexto['noticias_paginadas'] = noticias_paginadas
+    # Nos quedamos con el número de páginas en total
+    numero_paginas = math.ceil(noticias.count()/objetos_paginacion)
+    # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['paginas'] = paginas
+    # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
+    # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
     tipoInicio = False
     tipoMedio = False
     tipoFin = False
-    no_puntos_suspensivos = False
-    
-    if(numero_paginas > 6):
+    # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
+    # todas las páginas
+    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
+        # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
+        # que estamos al inicio de las páginas
         if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
             tipoInicio = True
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
-        
+        # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
+        # de las páginas
         elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+            # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoMedio = True
-            if((numero_paginas - int(pagina)) == 1):
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
-                no_puntos_suspensivos = True
-            else:
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
-                if(numero_paginas - rango_medio[len(rango_medio)-1] == 1):
-                    no_puntos_suspensivos = True
+            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
             contexto['rango_medio'] = rango_medio
-        
+        # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
         elif(pagina is not None and int(pagina) >= numero_paginas-3):
+            # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin
-    
+            # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
+            # a una página intermedia
+            pagina_media = math.ceil((rango_fin[0]+1)/2)
+            contexto['pagina_media'] = pagina_media
+    # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
     contexto['tipoInicio'] = tipoInicio
     contexto['tipoMedio'] = tipoMedio
     contexto['tipoFin'] = tipoFin
-    contexto['no_puntos_suspensivos'] = no_puntos_suspensivos
-
+    # Renderizamos la página de las noticias paginadas
     return render(request, "noticias.html", contexto)
 
 
@@ -333,59 +361,75 @@ def noticia(request, titulo):
 
 
 def empleo(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos las ofertas de empleo a la base de datos ordenadas de más recientes a más antiguas y las guardamos en 
+    # una variable
     ofertasEmpleo = modelos.OfertaEmpleo.objects.order_by('-fecha')
-    #contexto['ofertasEmpleo'] = ofertasEmpleo
-
+    # Determinamos el número de ofertas de empleo por página
     objetos_paginacion = 5
+    # Paginamos las actividades por la cantidad determinada anteriormente
     paginator = Paginator(ofertasEmpleo, objetos_paginacion)
+    # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
+    # primera vez que entramos se ven las actividades de la primera página pero no hay un valor de página
     pagina = request.GET.get('page')
-    ofertasEmpleo_paginadas = paginator.get_page(pagina)
-    numero_paginas = math.ceil(ofertasEmpleo.count()/objetos_paginacion)
-    paginas = [i for i in range(1, numero_paginas+1)]
-    contexto['ofertasEmpleo_paginadas'] = ofertasEmpleo_paginadas
-    contexto['paginas'] = paginas
     if(pagina is not None):
         contexto['paginaActual'] = int(pagina)
-    
+    # Nos quedamos con las ofertas de empleo de la página en la que estamos y lo guardamos en el contexto
+    ofertasEmpleo_paginadas = paginator.get_page(pagina)
+    contexto['ofertasEmpleo_paginadas'] = ofertasEmpleo_paginadas
+    # Nos quedamos con el número de páginas en total
+    numero_paginas = math.ceil(ofertasEmpleo.count()/objetos_paginacion)
+    # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['paginas'] = paginas
+    # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
+    # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
     tipoInicio = False
     tipoMedio = False
     tipoFin = False
-    no_puntos_suspensivos = False
-    
-    if(numero_paginas > 6):
+    # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
+    # todas las páginas
+    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
+        # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
+        # que estamos al inicio de las páginas
         if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
             tipoInicio = True
             rango_inicio = [i for i in range(1, 6)]
             contexto['rango_inicio'] = rango_inicio
-        
+        # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
+        # de las páginas
         elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+            # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoMedio = True
-            if((numero_paginas - int(pagina)) == 1):
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+1)]
-                no_puntos_suspensivos = True
-            else:
-                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
-                if(numero_paginas - rango_medio[len(rango_medio)-1] == 1):
-                    no_puntos_suspensivos = True
+            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
             contexto['rango_medio'] = rango_medio
-        
+        # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
         elif(pagina is not None and int(pagina) >= numero_paginas-3):
+            # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
             tipoFin = True
             rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
             contexto['rango_fin'] = rango_fin
-    
+            # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
+            # a una página intermedia
+            pagina_media = math.ceil((rango_fin[0]+1)/2)
+            contexto['pagina_media'] = pagina_media
+    # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
     contexto['tipoInicio'] = tipoInicio
     contexto['tipoMedio'] = tipoMedio
     contexto['tipoFin'] = tipoFin
-    contexto['no_puntos_suspensivos'] = no_puntos_suspensivos
-    
+    # Renderizamos la página de las ofertas de empleo paginadas
     return render(request, "empleo.html", contexto)
 
 
@@ -443,18 +487,27 @@ def acuerdoEmpresa(request, nombre):
 
 
 def revistaIngenio(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos las revistas almacenadas en la base de datos ordenadas por su número de mayor a menor a fin de mostrar las
+    # más recientes primero y las guardamos en el contexto
     revistas = modelos.RevistaIngenio.objects.order_by('-numero')
-    mayorNumero = revistas[0].numero
     contexto['revistas'] = revistas
+    # Guardamos el número de revista mayor, pues será la revista más reciente, a fin de destacarla en la vista para 
+    # que sea más fácil de ver para los usuarios
+    mayorNumero = revistas[0].numero
     contexto['mayorNumero'] = mayorNumero
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
     contexto['MEDIA_URL'] = MEDIA_URL
+    # Renderizamos la página de la Revista Ingenio
     return render(request, "revistaIngenio.html", contexto)
 
 
@@ -521,14 +574,18 @@ def misActividades(request):
 
 
 def perfil(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista o que necesitaremos en las vistas
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-
+    # Para saber si el usuario quiere editar algún campo creamos una variable para cada campo que será iniciada a False y 
+    # si pulsa en editar un campo se pondrá a True
     editarNombre = False
     editarApellidos = False
     editarComunicaciones = False
@@ -538,143 +595,224 @@ def perfil(request):
     editarDireccionPostal = False
     editarEmpresa = False
     editarContraseña = False
+    # Creamos una lista para almacenar los errores que pueda hacer el usuario a la hora de editar un campo
     errores = []
+    # Si el usuario ha pulsado un botón de editar
     if(request.method == 'POST'):
-        # Editar el nombre:
+        # Editar el nombre
         if('editarNombrePerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar el nombre se pone a True la variable para mostrar la vista con la opción
+            # de editarlo
             editarNombre = True
         elif('guardarNombrePerfil.x' in request.POST):
+            # Si se ha pulsado en guardar el nuevo nombre, lo guardamos en una variable para analizarlo
             nuevoNombre = request.POST['inputNuevoNombre']
             if(nuevoNombre == ''):
+                # Si el nombre está vacío añadimos el error a la lista
                 errores.append('Debe introducir un nombre')
             else:
+                # En caso de que no haya errores cambiamos el nombre por el nuevo
                 modelos.Usuario.objects.filter(usuario = usuario).update(nombre = nuevoNombre)
+                # Decimos que ya no estamos editando el nombre y limpiamos la lista de errores por si hay alguno almacenado
                 editarNombre = False
                 errores.clear()
         elif('cancelarNombrePerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando el nombre
             editarNombre = False
-        # Editar los apellidos:
+        # Editar los apellidos
         elif('editarApellidosPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar los apellidos se pone a True la variable para mostrar la vista con la opción
+            # de editarlos
             editarApellidos = True
         elif('guardarApellidosPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar los nuevos apellidos, los guardamos en una variable para analizarlos
             nuevosApellidos = request.POST['inputNuevosApellidos']
             if(nuevosApellidos == ''):
+                # Si los apellidos están vacíos añadimos el error a la lista
                 errores.append('Debe introducir unos apellidos')
             else:
+                # En caso de que no haya errores cambiamos los apellidos por los nuevos
                 modelos.Usuario.objects.filter(usuario = usuario).update(apellidos = nuevosApellidos)
+                # Decimos que ya no estamos editando los apellidos y limpiamos la lista de errores por si hay alguno almacenado
                 editarApellidos = False
                 errores.clear()
         elif('cancelarApellidosPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando los apellidos
             editarApellidos = False
-        # Editar la cuenta bancaria:
+        # Editar la cuenta bancaria
         elif('editarCuentaBancariaPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar la cuenta bancaria se pone a True la variable para mostrar 
+            # la vista con la opción de editarla
             editarCuentaBancaria = True
         elif('guardarCuentaBancariaPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar la nueva cuenta bancaria, la guardamos en una variable para analizarla
             nuevaCuentaBancaria = request.POST['inputNuevaCuentaBancaria']
             if(nuevaCuentaBancaria == ''):
+                # Si la cuenta bancaria está vacía añadimos el error a la lista
                 errores.append('Debe introducir una cuenta bancaria')
             elif(not nuevaCuentaBancaria.startswith('ES')):
+                # Si la cuenta bancaria no empieza por ES añadimos el error a la lista
                 errores.append('La cuenta bancaria debe empezar por ES')
             else:
+                # En caso de que no haya errores cambiamos la cuenta bancaria por la nueva
                 modelos.Usuario.objects.filter(usuario = usuario).update(cuentaBancaria = nuevaCuentaBancaria)
+                # Decimos que ya no estamos editando la cuenta bancaria y limpiamos la lista de errores por si hay 
+                # alguno almacenado
                 editarCuentaBancaria = False
                 errores.clear()
         elif('cancelarCuentaBancariaPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando la cuenta bancaria
             editarCuentaBancaria = False
-        # Editar el email:
+        # Editar el email
         elif('editarEmailPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar el email se pone a True la variable para mostrar la vista con la opción
+            # de editarlo
             editarEmail = True
         elif('guardarEmailPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar el nuevo email, lo guardamos en una variable para analizarlo
             nuevoEmail = request.POST['inputNuevoEmail']
             if(nuevoEmail == ''):
-                errores.append('Introduzca el nuevo email')
-            elif('@' not in nuevoEmail):
+                # Si el email está vacío añadimos el error a la lista
+                errores.append('Debe introducir el nuevo email')
+            elif(not validate_email(email_address=nuevoEmail)):
+                # Con esta librería de Python comprobamos que el email existe y si no existe añadimos el error a la lista
                 errores.append('Introduzca un formato de email válido')
             else:
+                # En caso de que no haya errores cambiamos el email por el nuevo
                 modelos.Usuario.objects.filter(usuario = usuario).update(email = nuevoEmail)
+                # Decimos que ya no estamos editando el email y limpiamos la lista de errores por si hay alguno almacenado
                 editarEmail = False
                 errores.clear()
         elif('cancelarEmailPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando el email
             editarEmail = False
-        # Editar el telefono:
+        # Editar el telefono
         elif('editarTelefonoPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar el teléfono se pone a True la variable para mostrar la vista con la opción
+            # de editarlo
             editarTelefono = True
         elif('guardarTelefonoPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar el nuevo teléfono, lo guardamos en una variable para analizarlo
             nuevoTelefono = request.POST['inputNuevoTelefono']
             if(nuevoTelefono == ''):
+                # Si el teléfono está vacío añadimos el error a la lista
                 errores.append('Introduzca el nuevo teléfono')
             elif((not nuevoTelefono.startswith('6')) and (not nuevoTelefono.startswith('7'))):
+                # Si el teléfono no empieza por 6 o por 7 añadimos el error a la lista
                 errores.append('El teléfono debe empezar por 6 o por 7')
             else:
+                # En caso de que no haya errores cambiamos el teléfono por el nuevo
                 modelos.Usuario.objects.filter(usuario = usuario).update(telefono = nuevoTelefono)
+                # Decimos que ya no estamos editando el teléfono y limpiamos la lista de errores por si hay alguno almacenado
                 editarTelefono = False
                 errores.clear()
         elif('cancelarTelefonoPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando el teléfono
             editarDireccionPostal = False
         # Editar la dirección
         elif('editarDireccionPostalPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar la dirección postal se pone a True la variable para mostrar la vista 
+            # con la opción de editarla
             editarDireccionPostal = True
         elif('guardarDireccionPostalPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar la nueva dirección postal, la guardamos en una variable para analizarla
             nuevaDireccionPostal = request.POST['inputNuevaDireccionPostal']
             if(nuevaDireccionPostal == ''):
+                # Si la dirección postal está vacía añadimos el error a la lista
                 errores.append('Introduce la nueva dirección postal')
             else:
+                # En caso de que no haya errores cambiamos la dirección postal por la nueva
                 modelos.Usuario.objects.filter(usuario = usuario).update(direccionPostal = nuevaDireccionPostal)
+                # Decimos que ya no estamos editando la dirección postal y limpiamos la lista de errores por si 
+                # hay alguno almacenado
                 editarDireccionPostal = False
                 errores.clear()
         elif('cancelarDireccionPostalPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando la dirección postal
             editarTelefono = False
-        # Editar empresa:
+        # Editar la empresa
         if('editarEmpresaPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar la empresa se pone a True la variable para mostrar la vista con la opción
+            # de editarla
             editarEmpresa = True
         elif('guardarEmpresaPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar la nueva empresa, la guardamos en una variable para analizarla
             nuevaEmpresa = request.POST['inputNuevaEmpresa']
             if(nuevaEmpresa == ''):
+                # Si la empresa está vacía añadimos el error a la lista
                 errores.append('Introduce la nueva empresa')
             else:
+                # En caso de que no haya errores cambiamos la empresa por la nueva
                 modelos.Usuario.objects.filter(usuario = usuario).update(empresa = nuevaEmpresa)
+                # Decimos que ya no estamos editando la empresa y limpiamos la lista de errores por si hay alguno almacenado
                 editarEmpresa = False
                 errores.clear()
         elif('cancelarEmpresaPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando la empresa
             editarEmpresa = False
-        # Editar las comunicaciones:
+        # Editar las comunicaciones
         elif('editarComunicacionesPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de editar las comunicaciones se pone a True la variable para mostrar la vista 
+            # con la opción de editarlo
             editarComunicaciones = True
         elif('guardarComunicacionesPerfil.x' in request.POST):
+            # Si se ha pulsado en guardar las comunicaciones
             if('inputNuevasComunicaciones' in request.POST):
+                # Si se ha seleccionado que haya comunicaciones cambiamos la opción para que nos lleguen comunicaciones
                 modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = True)
             else:
+                # Si se ha seleccionado que no haya comunicaciones cambiamos la opción para que no nos lleguen
+                # más comunicaciones
                 modelos.Usuario.objects.filter(usuario = usuario).update(comunicaciones = False)
+            # Decimos que ya no estamos editando las comunicaciones
             editarComunicaciones = False
         elif('cancelarComunicacionesPerfil.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando las comunicaciones
             editarComunicaciones = False
-        # Editar la contraseña:
+        # Editar la contraseña
         elif('botonCambiarContraseña' in request.POST):
+            # Si ha pulsado en el botón de editar la contraseña se pone a True la variable para mostrar la vista 
+            # con la opción de editarlo
             editarContraseña = True
         elif('guardarNuevaContraseña.x' in request.POST):
+            # Si se ha pulsado en guardar la nueva contraseña, guardamos la contraseña y la confirmación de la contraseña
+            # para analizarlas
             nuevaContraseña = request.POST['inputNuevaContraseña']
             confirmacionContraseña = request.POST['inputConfirmacionContraseña']
             if(nuevaContraseña != confirmacionContraseña):
+                # Si la contraseña y la confirmación no coinciden añadimos el error a la lista
                 errores.append('La nueva contraseña y su confirmación deben coincidir')
             else:
+                # En el caso de que sean iguales la contraseña y su confirmación analizamos la nueva contraseña
+                # Recuperamos la antigua contraseña que tenía el usuario
                 antiguaContraseña = modelos.Usuario.objects.get(usuario = usuario).contraseña
+                # Vemos si la nueva contraseña contiene al menos una mayúscula y un número con las expresiones regulares
+                # de la librería de Python
                 contieneMayuscula = re.search("[A-Z]", nuevaContraseña)
                 contieneNumero = re.search("[0-9]", nuevaContraseña)
-                if(len(nuevaContraseña) < 8):
-                    errores.append('La nueva contraseña debe contener más de 8 caracteres')
-                elif(nuevaContraseña == antiguaContraseña):
+                if(nuevaContraseña == antiguaContraseña):
+                    # Si la nueva contraseña es igual a la antigua añadimos el error a la lista
                     errores.append('La nueva contraseña no puede ser igual que la anterior')
+                elif(len(nuevaContraseña) < 8):
+                    # Si la nueva contraseña tiene menos de 8 caracteres añadimos el error a la lista
+                    errores.append('La nueva contraseña debe contener más de 8 caracteres')
                 elif(not contieneMayuscula):
+                    # Si la nueva contraseña no contiene al menos una letra mayúscula añadimos el error a la lista
                     errores.append('La nueva contraseña debe contener alguna letra mayúscula')
                 elif(not contieneNumero):
+                    # Si la nueva contraseña no contiene al menos un número añadimos el error a la lista
                     errores.append('La nueva contraseña debe contener algún número')
                 else:
+                    # # En caso de que no haya errores cambiamos la contraseña por la nueva
                     modelos.Usuario.objects.filter(usuario = usuario).update(contraseña = nuevaContraseña)
+                    # Decimos que ya no estamos editando la contraseña y limpiamos la lista de errores por si hay 
+                    # alguno almacenado
                     editarContraseña = False
                     errores.clear()
         elif('cancelarNuevaContraseña.x' in request.POST):
+            # Si ha pulsado en el botón de cancelar el cambio decimos que ya no estamos editando la contraseña
             editarContraseña = False
-
+    # Guardamos en el contexto las variables para saber que campo se está editando
     contexto['editarNombre'] = editarNombre
     contexto['editarApellidos'] = editarApellidos
     contexto['editarComunicaciones'] = editarComunicaciones
@@ -684,12 +822,14 @@ def perfil(request):
     contexto['editarDireccionPostal'] = editarDireccionPostal
     contexto['editarEmpresa'] = editarEmpresa
     contexto['editarContraseña'] = editarContraseña
+    # Guardamos en el contexto la lista de errores. Si está vacía no se mostrará ninguno y si hay alguno se mostrará
     contexto['errores'] = errores
-    
     if(usuario is not None):
+        # Si se ha iniciado sesión guardamos el usuario con el que se ha iniciado sesión
         usuarioLogin = usuario
-        #contexto['inicioSesion'] = True
+        # Guardamos los datos almacenados del usuario en una variable
         usuario = modelos.Usuario.objects.get(usuario = usuarioLogin)
+        # Guardamos en el contexto los elementos del usuario que queremos mostrarle de su perfil
         contexto['nombreUsuario'] = usuario.nombre
         contexto['apellidosUsuario'] = usuario.apellidos
         contexto['dniUsuario'] = usuario.dni
@@ -706,8 +846,7 @@ def perfil(request):
         contexto['empresaUsuario'] = usuario.empresa
         contexto['comunicacionesUsuario'] = usuario.comunicaciones
         contexto['juntaRectoraUsuario'] = usuario.juntaRectora
-    #else:
-        #contexto['inicioSesion'] = False
+    # Renderizamos la página del perfil del usuario
     return render(request, "perfil.html", contexto)
 
 
