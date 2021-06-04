@@ -350,6 +350,20 @@ html, body {
     margin-bottom: 2em;
 }
 
+#botonBorrarseListaEspera{
+    background-color: #980c17;
+    color: white;
+    border: none;
+    border-radius: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.35em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    font-size: 1.2em;
+    margin-bottom: 2em;
+    margin-top: 1em;
+}
+
 
 /* Márgenes de elementos de las páginas "acuerdosEmpresas" y "acuerdoEmpresa" */
 #tituloPaginaAcuerdosEmpresas{

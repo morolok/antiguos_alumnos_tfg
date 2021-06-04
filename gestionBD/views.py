@@ -173,9 +173,23 @@ def enviarCorreoApuntarseActividad(emailUsuario, tituloActividad):
     send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
 
 
+def enviarCorreoBorrarseActividad(emailUsuario, tituloActividad):
+    asunto = "Borrarse de una actividad"
+    cuerpo = "Le enviamos este correo para informarle de que se acaba de borrar de una actividad de la asociación. La actividad de la que se ha borrado es " + tituloActividad
+    emisor = settings.EMAIL_HOST_USER
+    send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
+
+
 def enviarCorreoApuntarseListaEspera(emailUsuario, tituloActividad):
     asunto = "Apuntarse en la lista de espera"
     cuerpo = "Le enviamos este correo para informarle de que se acaba de apuntar a la lista de espera de la actividad " + tituloActividad + ". En cuanto haya una plaza disponible se le apuntará automáticamente."
+    emisor = settings.EMAIL_HOST_USER
+    send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
+
+
+def enviarCorreoBorrarseListaEspera(emailUsuario, tituloActividad):
+    asunto = "Borrarse de la lista de espera"
+    cuerpo = "Le enviamos este correo para informarle de que se acaba de borrar de la lista de espera de la actividad " + tituloActividad
     emisor = settings.EMAIL_HOST_USER
     send_mail(asunto, cuerpo, emisor, [emailUsuario], fail_silently=False, )
 
@@ -188,87 +202,142 @@ def enviarCorreoApuntarseActividadAutomaticamente(emailUsuario, tituloActividad)
 
 
 def actividad(request, titulo):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Creamos la actividad consultando a la base de datos con el título de la actividad y la guardamos en el contexto
     actividadBD = modelos.Actividad.objects.get(titulo = titulo)
     contexto['actividad'] = actividadBD
+    # Nos quedamos con datos de interés de la actividad que serán necesarios para la vista como las plazas totales, 
+    # las ocupadas y las plazas libres
     plazasTotal = actividadBD.numeroPlazas
     plazasOcupadas = modelos.UsuarioActividad.objects.filter(actividad = actividadBD).count()
     plazasLibres = plazasTotal - plazasOcupadas
-    hayPlazasLibres = False
-    if(plazasLibres > 0):
-        hayPlazasLibres = True
+    # Decimos que no hay plazas libres
+    # Guardamos las plazas disponibles en el contexto
     contexto['plazasLibres'] = plazasLibres
-    contexto['hayPlazasLibres'] = hayPlazasLibres
     if(usuario is not None):
+        # Si se ha iniciado sesión
+        # Creamos el usuario consultando la base de datos con el usuario que se ha iniciado sesión
         usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+        # Consultamos si el usuario se ha apuntado a la actividad que se está visitando
         usuarioActividad = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
+        # Consultamos si el usuario se ha apuntado a la lista de esperada de la actividad que se está visitando
         listaEsperaUsuarioActividad = modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
+        # Decimos inicialmente que no está apuntado a la actividad ni a la lista de espera
         apuntado = False
         apuntadoListaEspera = False
         if(usuarioActividad > 0):
+            # Si se ha apuntado a la actividad decimos que lo ha hecho
             apuntado = True
         if(listaEsperaUsuarioActividad > 0):
+            # Si se ha apuntado a la lista de espera de la actividad decimos que lo ha hecho
             apuntadoListaEspera = True
+        # Guardamos en el contexto donde está apuntado el usuario
         contexto['apuntado'] = apuntado
         contexto['apuntadoListaEspera'] = apuntadoListaEspera
     if(request.method == 'POST' and inicioSesion):
+        # Si se ha pulsado en un botón de apuntarse o borrarse de una actividad, apuntarse a la lista de espera y 
+        # se ha iniciado sesión
         if('apuntarseActividad' in request.POST):
+            # Si ha pulsado en el botón para apuntarse a la actividad consultamos si se ha apuntado
             vecesApuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).count()
             if(vecesApuntado == 0):
+                # Si no se ha apuntado a la actividad le apuntamos
                 usuarioActividad = modelos.UsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
                 usuarioActividad.save()
+                # Enviamos un email para notificárselo
                 enviarCorreoApuntarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+                # Le redirigimos a la página de la actividad otra vez y ya le aparecerá que está apuntado
                 return redirect('actividad', titulo = titulo)
             else:
+                # Si ya está apuntado le redirigimos a la página de la actividad otra vez
                 return redirect('actividad', titulo = titulo)
         elif('borrarseActividad' in request.POST):
+            # Si ha pulsado en el botónd de borrarse de la actividad borramos al usario de la actividad y le enviamos un email 
+            # para informale
             modelos.UsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
-            primerUsuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(actividad = actividadBD).order_by('fecha')[0]
-            usuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = primerUsuarioListaEspera.usuario, actividad = primerUsuarioListaEspera.actividad)
-            usuarioActividad = modelos.UsuarioActividad(usuario = primerUsuarioListaEspera.usuario, actividad = actividadBD)
-            usuarioActividad.save()
-            usuarioListaEspera.delete()
-            enviarCorreoApuntarseActividadAutomaticamente(str(primerUsuarioListaEspera.usuario.email), str(actividadBD))
+            enviarCorreoBorrarseActividad(str(usuarioBD.email), str(actividadBD.titulo))
+            # Vemos el número de usuarios apuntados a la lista de espera
+            numUsuariosListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(actividad = actividadBD).count()
+            if(numUsuariosListaEspera > 0):
+                # Si hay usuarios apuntados a la lista de espera vemos quien es el primer usuario apuntado a la lista 
+                # de espera y nos quedamos con ese usuario 
+                primerUsuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(actividad = actividadBD).order_by('fecha')[0]
+                usuarioListaEspera = modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = primerUsuarioListaEspera.usuario, actividad = primerUsuarioListaEspera.actividad)
+                # Apuntamos al usuario a la actividad, le borramos de la lista de espera y le mandamos un email para comunicárselo
+                usuarioActividad = modelos.UsuarioActividad(usuario = primerUsuarioListaEspera.usuario, actividad = actividadBD)
+                usuarioActividad.save()
+                usuarioListaEspera.delete()
+                enviarCorreoApuntarseActividadAutomaticamente(str(primerUsuarioListaEspera.usuario.email), str(actividadBD))
+            # Redirigimos al usuario que se ha borrado de la actividad a la página de la actividad para que vea que se ha borrado
+            # correctamente de la actividad
             return redirect('actividad', titulo = titulo)
         elif('botonApuntarseListaEspera' in request.POST):
+            # Si se ha pulsado en el botón de apuntarse a la lista de espera le apuntamos a la lista de espera
             listaEsperaUsuarioActividad = modelos.ListaEsperaUsuarioActividad(usuario = usuarioBD, actividad = actividadBD)
             listaEsperaUsuarioActividad.save()
+            # Le enviamos un email para notificárselo
             enviarCorreoApuntarseListaEspera(str(usuarioBD.email), str(actividadBD.titulo))
+            # Le redirigimos a la página de la actividad para que vea que ha sido apuntado a la lista de espera
             return redirect('actividad', titulo = titulo)
+        elif('botonBorrarseListaEspera' in request.POST):
+            # Si se ha pulsado el botón de borrarse de la lista de espera de la actividad le borramos
+            modelos.ListaEsperaUsuarioActividad.objects.filter(usuario = usuarioBD, actividad = actividadBD).delete()
+            # Le enviamos un email para notificárselo
+            enviarCorreoBorrarseListaEspera(str(usuarioBD.email), str(actividadBD.titulo))
+            # Le redirigimos a la página de la actividad para que vea que ha sido borrado de la lista de espera
+            return redirect('actividad', titulo = titulo)
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario acceder a alguno de ellos
     contexto['MEDIA_URL'] = MEDIA_URL
+    # Guardamos en el contexto los párrafos de la descripción de la actividad para mostrarlos en la página de la actividad
     lineas = actividadBD.descripcion.splitlines()
     contexto['lineas'] = lineas
+    # Recuperamos de la sesión el diccionario con un índice numérico y las actividades para hacer los enlaces de anterior 
+    # y siguiente
     diccionarioActividades = request.session.get('diccionarioActividades')
+    # Nos quedamos con el índice numérico de la actividad en la que estamos recorriendo el diccionario
     actividadActual = None
     for c, v in diccionarioActividades.items():
         if(v == titulo):
             actividadActual = int(c)
             break
+    # Nos quedamos con el número total de actividades
     totalActividades = len(diccionarioActividades.keys())
     if(actividadActual == totalActividades-1):
+        # Si estamos en la última actividad decimos que no hay siguiente y lo guardamos en el contexto
         haySiguiente = False
         contexto['haySiguiente'] = haySiguiente
     else:
+        # Si no estamos en la última actividad hay siguiente
+        # Nos quedamos con el ínidice de la siguiente, consultamos el título de la siguiente y lo guardamos en el contexto
         actividadSiguiente = actividadActual+1
         tituloSiguiente = diccionarioActividades.get(str(actividadSiguiente))
+        contexto['tituloSiguiente'] = tituloSiguiente
+        # Decimos que hay siguiente y lo guardamos en el contexto
         haySiguiente = True
         contexto['haySiguiente'] = haySiguiente
-        contexto['tituloSiguiente'] = tituloSiguiente
     if(actividadActual == 0):
+        # Si estamos en la primera actividad decimos que no hay una actividad anterior y lo guardamos en el contexto
         hayAnterior = False
         contexto['hayAnterior'] = hayAnterior
     else:
+        # Si no estamos en la primera actividad hay anterior
+        # Nos quedamos el ínidice de la anterior, consultamos el título de la anterior y lo guardamos en el contexto
         actividadAnterior = actividadActual-1
         tituloAnterior = diccionarioActividades.get(str(actividadAnterior))
+        contexto['tituloAnterior'] = tituloAnterior
+        # Decimos que hay anterior y lo guardamos en el contexto
         hayAnterior = True
         contexto['hayAnterior'] = hayAnterior
-        contexto['tituloAnterior'] = tituloAnterior
+    # Renderizamos la página de la actividad
     return render(request, "actividad.html", contexto)
 
 
@@ -560,16 +629,78 @@ def historia(request):
 
 
 def misActividades(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Creamos el objeto usuario de la base de datos con el que se ha iniciado sesión
     usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+    # Con el usuario creado anteriormente nos quedamos con las actividades a las que se ha apuntado el usuario consultado
+    # la tabla Usuario - Actividad que tiene un usuario y la actividad a la que se ha apuntado. Las ordenamos por fecha,
+    # de la más reciente a la más antigua
     actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD).order_by('-actividad__fecha')
-    contexto['actividades_apuntado'] = actividades_apuntado
+    # Determinamos el número de actividades por página
+    objetos_paginacion = 5
+    # Paginamos las actividades por la cantidad determinada anteriormente
+    paginator = Paginator(actividades_apuntado, objetos_paginacion)
+    # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
+    # primera vez que entramos se ven las actividades de la primera página pero no hay un valor de página
+    pagina = request.GET.get('page')
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
+    # Nos quedamos con las actividades de la página en la que estamos y lo guardamos en el contexto
+    mis_actividades_paginadas = paginator.get_page(pagina)
+    contexto['mis_actividades_paginadas'] = mis_actividades_paginadas
+    # Nos quedamos con el número de páginas en total
+    numero_paginas = math.ceil(actividades_apuntado.count()/objetos_paginacion)
+    # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['paginas'] = paginas
+    # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
+    # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
+    tipoInicio = False
+    tipoMedio = False
+    tipoFin = False
+    # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
+    # todas las páginas
+    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
+        # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
+        # que estamos al inicio de las páginas
+        if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
+            tipoInicio = True
+            rango_inicio = [i for i in range(1, 6)]
+            contexto['rango_inicio'] = rango_inicio
+        # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
+        # de las páginas
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+            # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
+            tipoMedio = True
+            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
+            contexto['rango_medio'] = rango_medio
+        # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
+        elif(pagina is not None and int(pagina) >= numero_paginas-3):
+            # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
+            # en el contexto
+            tipoFin = True
+            rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+            contexto['rango_fin'] = rango_fin
+            # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
+            # a una página intermedia
+            pagina_media = math.ceil((rango_fin[0]+1)/2)
+            contexto['pagina_media'] = pagina_media
+    # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
+    contexto['tipoInicio'] = tipoInicio
+    contexto['tipoMedio'] = tipoMedio
+    contexto['tipoFin'] = tipoFin
+    # Renderizamos la página de las actividades a las que está apuntado un usuario paginadas
     return render(request, "misActividades.html", contexto)
 
 

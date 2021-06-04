@@ -19,13 +19,66 @@
 
     {% if inicioSesion %}
 
-        {% for actividad in actividades_apuntado%}
-            <div id="cadaActividadApuntado" class="row">
+        {% for actividad in mis_actividades_paginadas %}
+            <div id="cadaActividadEnActividades" class="row">
                 <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.actividad %}" >
-                    <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.actividad }}</p>
+                    <p id="mostrandoTituloActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {{ actividad.actividad }}
+                    </p>
                 </a>
             </div>
         {% endfor %}
+
+        <div id="paginacion" class="row">
+            <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {% if tipoInicio %}
+                    {% for pagina in rango_inicio %}
+                        {% if paginaActual == None and pagina == 1 %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% elif paginaActual == pagina %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% else %}
+                            <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }}</a>
+            
+                {% elif tipoMedio %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                    {% for pagina in rango_medio %}
+                        {% if paginaActual == pagina %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% else %}
+                            <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }}</a>
+    
+                {% elif tipoFin %}
+                    <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
+                    <a id="enlacePaginaPaginacionActividades" href="?page={{pagina_media}}">{{pagina_media}}</a>...
+                    {% for pagina in rango_fin %}
+                        {% if paginaActual == pagina %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% else %}
+                            <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% endif %}
+                    {% endfor %}
+    
+                {% else %}
+                    {% for pagina in paginas %}
+                        {% if paginaActual == None and pagina == 1 %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% elif paginaActual == pagina %}
+                            <a id="enlacePaginaActualPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% else %}
+                            <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            
+            </p>
+        </div>
 
     {% else %}
 

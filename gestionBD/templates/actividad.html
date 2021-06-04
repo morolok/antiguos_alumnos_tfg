@@ -105,7 +105,7 @@
         
     {% else %}
         {% if inicioSesion %}
-            {% if hayPlazasLibres %}
+            {% if plazasLibres > 0 %}
                 <div id="apuntarse" class="row">
                     <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
                         <button id="botonApuntarseActividad" name="apuntarseActividad" type="submit">Apuntarse</button>
@@ -117,6 +117,11 @@
                         <p id="parrafoApuntadoListaEspera" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             Se ha apuntado a la lista de espera, en cuanto haya una plaza disponible se le apuntará de automáticamente
                         </p>
+                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                            <button id="botonBorrarseListaEspera" name="botonBorrarseListaEspera" type="submit">
+                                Borrarse de la lista de espera
+                            </button>
+                        </form>
                     </div>
                 {% else %}
                     <div id="apuntarseListaEspera" class="row">
@@ -125,7 +130,9 @@
                             disponible se le apuntará automáticamente
                         </p>
                         <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
-                            <button id="botonApuntarseListaEspera" name="botonApuntarseListaEspera" type="submit">Apuntarse a la lista de espera</button>
+                            <button id="botonApuntarseListaEspera" name="botonApuntarseListaEspera" type="submit">
+                                Apuntarse a la lista de espera
+                            </button>
                         </form>
                     </div>
                 {% endif %}
