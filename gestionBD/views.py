@@ -60,13 +60,10 @@ def inicio(request):
     contexto['inicioSesion'] = inicioSesion
     actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
     ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
-    
     noticias = modelos.Noticia.objects.values_list('titulo').order_by('-fecha')
-    #contexto['noticias'] = noticias
     ultimaRevistaIngenio = modelos.RevistaIngenio.objects.order_by('-numero')[0]
     elementosCarrusel = [ultimaRevistaIngenio] + [n[0] for n in noticias]
     contexto['elementosCarrusel'] = elementosCarrusel
-    
     actividades_ofertas = []
     for i in range(3):
         actividades_ofertas.append(actividades[i])
@@ -414,18 +411,25 @@ def noticias(request):
 
 
 def noticia(request, titulo):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos la noticia que el usuario desea ver y la guardamos en el contexto
     noticia = modelos.Noticia.objects.get(titulo = titulo)
-    lineas = noticia.texto.splitlines()
     contexto['noticia'] = noticia
-    contexto['MEDIA_URL'] = MEDIA_URL
+    # Separamos los párrafos del texto de la noticia para mostrarlos y lo guardamos en el contexto
+    lineas = noticia.texto.splitlines()
     contexto['lineas'] = lineas
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
+    contexto['MEDIA_URL'] = MEDIA_URL
+    # Renderizamos la página de la noticia
     return render(request, "noticia.html", contexto)
 
 
@@ -503,18 +507,25 @@ def empleo(request):
 
 
 def ofertaEmpleo(request, titulo):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos la oferta de empleo que el usuario desea ver y la guardamos en el contexto
     ofertaEmpleo = modelos.OfertaEmpleo.objects.get(titulo = titulo)
-    lineas = ofertaEmpleo.texto.splitlines()
     contexto['ofertaEmpleo'] = ofertaEmpleo
-    contexto['MEDIA_URL'] = MEDIA_URL
+    # Separamos los párrafos del texto de la oferta de empleo para mostrarlos y lo guardamos en el contexto
+    lineas = ofertaEmpleo.texto.splitlines()
     contexto['lineas'] = lineas
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
+    contexto['MEDIA_URL'] = MEDIA_URL
+    # Renderizamos la página de la oferta de empleo
     return render(request, "ofertaEmpleo.html", contexto)
 
 
@@ -540,18 +551,25 @@ def acuerdosEmpresas(request):
 
 
 def acuerdoEmpresa(request, nombre):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos el acuerdo con empresa que el usuario desea ver y la guardamos en el contexto
     acuerdo = modelos.AcuerdosEmpresas.objects.get(nombre = nombre)
-    lineas = acuerdo.texto.splitlines()
     contexto['acuerdo'] = acuerdo
-    contexto['MEDIA_URL'] = MEDIA_URL
+    # Separamos los párrafos del texto del acuerdo con empresa para mostrarlos y lo guardamos en el contexto
+    lineas = acuerdo.texto.splitlines()
     contexto['lineas'] = lineas
+    # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
+    contexto['MEDIA_URL'] = MEDIA_URL
+    # Renderizamos la página del acuerdo con empresa
     return render(request, "acuerdoEmpresa.html", contexto)
 
 
@@ -592,28 +610,37 @@ def multimedia(request):
 
 
 def juntaRectora(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Consultamos los datos del presidente, los formateamos para mostrarlos y los guardamos en el contexto
     datosPresidente = modelos.Usuario.objects.get(juntaRectora = 'Presidente')
-    datosVicepresidente = modelos.Usuario.objects.get(juntaRectora = 'Vicepresidente')
-    datosSecretario = modelos.Usuario.objects.get(juntaRectora = 'Secretario')
-    datosTesorero = modelos.Usuario.objects.get(juntaRectora = 'Tesorero')
-    datosVocales = modelos.Usuario.objects.filter(juntaRectora = 'Vocal')
     presidente = 'D. ' + datosPresidente.nombre + ' ' + datosPresidente.apellidos
-    vicepresidente = 'D. ' + datosVicepresidente.nombre + ' ' + datosVicepresidente.apellidos
-    secretario = 'D. ' + datosSecretario.nombre + ' ' + datosSecretario.apellidos
-    tesorero = 'D. ' + datosTesorero.nombre + ' ' + datosTesorero.apellidos
-    vocales = ['D. ' + vocal.nombre + ' ' + vocal.apellidos for vocal in datosVocales]
     contexto['presidente'] = presidente
+    # Consultamos los datos del vicepresidente, los formateamos para mostrarlos y los guardamos en el contexto
+    datosVicepresidente = modelos.Usuario.objects.get(juntaRectora = 'Vicepresidente')
+    vicepresidente = 'D. ' + datosVicepresidente.nombre + ' ' + datosVicepresidente.apellidos
     contexto['vicepresidente'] = vicepresidente
+    # Consultamos los datos del secretario, los formateamos para mostrarlos y los guardamos en el contexto
+    datosSecretario = modelos.Usuario.objects.get(juntaRectora = 'Secretario')
+    secretario = 'D. ' + datosSecretario.nombre + ' ' + datosSecretario.apellidos
     contexto['secretario'] = secretario
+    # Consultamos los datos del tesorero, los formateamos para mostrarlos y los guardamos en el contexto
+    datosTesorero = modelos.Usuario.objects.get(juntaRectora = 'Tesorero')
+    tesorero = 'D. ' + datosTesorero.nombre + ' ' + datosTesorero.apellidos
     contexto['tesorero'] = tesorero
+    # Consultamos los datos de los vocales, los formateamos para mostrarlos y los guardamos en el contexto
+    datosVocales = modelos.Usuario.objects.filter(juntaRectora = 'Vocal')
+    vocales = ['D. ' + vocal.nombre + ' ' + vocal.apellidos for vocal in datosVocales]
     contexto['vocales'] = vocales
+    # Renderizamos la página de la Junta Rectora
     return render(request, "juntaRectora.html", contexto)
 
 
@@ -982,41 +1009,51 @@ def perfil(request):
 
 
 def login(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Vemos si el usuario ha pulsado el botón de iniciar sesión
     if(request.method == 'POST'):
+        # Si lo ha pulsado guardamos los datos del formulario
         formulario = request.POST
+        # Nos quedamos con el usuario introducido
         usuarioFormulario = formulario['usuario']
+        # Hacemos un try para ver si el usuario introducido es correcto. Si no lo es lanzamos el error en la página de login
         try:
             usuarioBD = modelos.Usuario.objects.get(usuario=usuarioFormulario)
         except ObjectDoesNotExist:
             error = "El usuario es incorrecto"
             contexto['error'] = error
             return render(request, "login.html", contexto)
+        # Nos quedamos con la contraseña introducida en el formulario
         contraseña = formulario['contraseña']
         if(not (contraseña == usuarioBD.contraseña)):
+            # Si la contraseña no es igual a la almacenada guardamos el error en el contexto y lanzamos el error en 
+            # la página de login
             error = "La contraseña es incorrecta"
             contexto['error'] = error
+            return render(request, "login.html", contexto)
         else:
+            # Si no ha habido errores guardamos en la sesión que se ha iniciado sesión y el usuario
             inicioSesion = True
             request.session['inicioSesion'] = inicioSesion
             request.session['usuario'] = usuarioBD.usuario
             if(str(usuarioBD.tipo)=='Administrador'):
+                # Si el usuario es administrados guardamos en la sesión que es administrador
                 request.session['esAdministrador'] = True
             else:
+                # Si el usuario no es administrados guardamos en la sesión que no es administrador
                 request.session['esAdministrador'] = False
-            usuario = request.session.get('usuario')
-            esAdministrador = request.session.get('esAdministrador')
-            inicioSesion = request.session.get('inicioSesion')
-            contexto['usuario'] = usuario
-            contexto['esAdministrador'] = esAdministrador
-            contexto['inicioSesion'] = inicioSesion
+            # Al haber ido todo bien redirigimos al usuario a la página de éxito para que sepa que ha ido todo bien
             return redirect('exitoLogin')
+    # Renderizamos la página de login
     return render(request, "login.html", contexto)
 
 
@@ -1032,52 +1069,70 @@ def exitoLogin(request):
 
 
 def recuperarContraseña(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-
+    # Vemos si el usuario ha pulsado en enviar los datos para recuperar la contraseña
     if(request.method == 'POST'):
+        # Si lo ha pulsado guardamos los datos del formulario
         formulario = request.POST
+        # Nos quedamos con el usuario introducido
         usuarioFormulario = formulario['inputUsuario']
+        # Hacemos un try para ver si el usuario introducido es correcto. Si no lo es lanzamos el error en la página
         try:
             usuarioBD = modelos.Usuario.objects.get(usuario=usuarioFormulario)
         except ObjectDoesNotExist:
             error = "El usuario es incorrecto"
             contexto['error'] = error
             return render(request, "recuperarContraseña.html", contexto)
+        # Guardamos la nueva contraseña y la confirmación de esta que se ha introducido
         nuevaContraseña = request.POST['inputNuevaContraseña']
         confirmacionContraseña = request.POST['inputConfirmacionContraseña']
         if(nuevaContraseña != confirmacionContraseña):
+            # Si las contraseñas no coinciden guardamos el error y lo mostramos en la página
             error = "La nueva contraseña y su confirmación deben coincidir"
             contexto['error'] = error
             return render(request, "recuperarContraseña.html", contexto)
         else:
+            # Si las contraseñas coinciden consultamos la antigua contraseña y la guardamos
             antiguaContraseña = modelos.Usuario.objects.get(usuario = usuarioFormulario).contraseña
+            # Vemos si la nueva contraseña contiene al menos una mayúscula y un numero mediante la librería de expresiones
+            # regulares
             contieneMayuscula = re.search("[A-Z]", nuevaContraseña)
             contieneNumero = re.search("[0-9]", nuevaContraseña)
             if(len(nuevaContraseña) < 8):
+                # Si la longitud de la nueva contraseña es menor que 8 almacenamos el error y lo mostramos en la página
                 error = 'La nueva contraseña debe contener más de 8 caracteres'
                 contexto['error'] = error
                 return render(request, "recuperarContraseña.html", contexto)
             elif(nuevaContraseña == antiguaContraseña):
+                # Si la nueva contraseña es igual a la anterior almacenamos el error y lo mostramos en la página
                 error = 'La nueva contraseña no puede ser igual que la anterior'
                 contexto['error'] = error
                 return render(request, "recuperarContraseña.html", contexto)
             elif(not contieneMayuscula):
+                # Si la nueva contraseña no contiene al menos una mayúscula almacenamos el error y lo mostramos en la página
                 error = 'La nueva contraseña debe contener alguna letra mayúscula'
                 contexto['error'] = error
                 return render(request, "recuperarContraseña.html", contexto)
             elif(not contieneNumero):
+                # Si la nueva contraseña no contiene al menos un número almacenamos el error y lo mostramos en la página
                 error = 'La nueva contraseña debe contener algún número'
                 contexto['error'] = error
                 return render(request, "recuperarContraseña.html", contexto)
             else:
+                # Si no ha habido ningún error actualizamos la contraseña con la nueva y redirigimos a la página de éxito
+                # para decir al usuario que ha ido todo bien
                 modelos.Usuario.objects.filter(usuario = usuarioFormulario).update(contraseña = nuevaContraseña)
                 return redirect('exitoRecuperarContraseña')
+    # Renderizamos la página para recuperar la contraseña
     return render(request, "recuperarContraseña.html", contexto)
 
 
@@ -1093,16 +1148,21 @@ def exitoRecuperarContraseña(request):
 
 
 def logout(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos en la sesión que el usuario es None y si es administrador y si ha iniciado sesión como False
     request.session['usuario'] = None
     request.session['esAdministrador'] = False
     request.session['inicioSesion'] = False
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión con los nuevos valores en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Renderizamos la página de que se ha cerrado la sesión
     return render(request, "logout.html", contexto)
 
 
