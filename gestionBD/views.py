@@ -39,13 +39,19 @@ def busqueda(request):
     if(request.method=='POST'):
         # Si se ha pulsado el botón de buscar guardamos lo que se ha introducido en la búsqueda
         palabra = request.POST.get('buscar')
-        # Buscamos noticias y actividades con lo que se ha introducido
-        noticias = modelos.Noticia.objects.filter(titulo__unaccent__icontains=palabra)
-        actividades = modelos.Actividad.objects.filter(titulo__unaccent__icontains=palabra)
-        # Guardamos en el contexto lo que se ha introducido, y las noticias y actividades encontradas
-        contexto['palabra'] = palabra
-        contexto['noticias'] = noticias
-        contexto['actividades'] = actividades
+        if(palabra == ""):
+            # Si el usuario no ha introducido ninguna palabra y solo ha pulsado el icono de pulsar declaramos el error para 
+            # mostrarlo en la página
+            error = "Introduzca una palabra para realizar la búsqueda"
+            contexto['error'] = error
+        else:
+            # Si ha introducido un término buscamos noticias y actividades con lo que se ha introducido
+            noticias = modelos.Noticia.objects.filter(titulo__unaccent__icontains=palabra)
+            actividades = modelos.Actividad.objects.filter(titulo__unaccent__icontains=palabra)
+            # Guardamos en el contexto lo que se ha introducido, y las noticias y actividades encontradas
+            contexto['palabra'] = palabra
+            contexto['noticias'] = noticias
+            contexto['actividades'] = actividades
     # Renderizamos la página de búsqueda con los resultados
     return render(request, "busqueda.html", contexto)
 

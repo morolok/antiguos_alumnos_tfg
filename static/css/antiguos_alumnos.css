@@ -11,6 +11,16 @@ html, body {
 }
 
 
+/* Pie de página */
+footer{
+    text-align: center;
+}
+
+#divParaElPie{
+    margin-bottom: 20em;
+}
+
+
 /* Márgenes para el contenido de cada página */
 #cuerpo{
     margin-left: 5%;
@@ -280,7 +290,7 @@ html, body {
     color: #980c17;
 }
 
-#tituloYFechaActividad, #descripcionActividad, #tipoActividad, #plazasActividad, #fechasActividad, #adjuntosActividad{
+#tituloYFechaActividad, #descripcionActividad, #estadoActividad, #tipoActividad, #plazasActividad, #fechasActividad, #adjuntosActividad{
     margin-bottom: 2em;
 }
 
@@ -288,7 +298,7 @@ html, body {
     font-style: italic;
 }
 
-#parrafoTipoActividad, #parrafoPlazasActividad, #parrafoFechasActividades, #parrafoAdjuntosActividad{
+#parrafoEstadoActividad, #parrafoTipoActividad, #parrafoPlazasActividad, #parrafoFechasActividades, #parrafoAdjuntosActividad{
     font-weight: bold;
 }
 
@@ -521,6 +531,11 @@ html, body {
     font-weight: bold;
 }
 
+#usuario, #contraseña{
+    margin-left: 1em;
+    vertical-align: middle;
+}
+
 
 /* Visualización de la página "recuperarContraseña" */
 #erroresRecuperarContraseña{
@@ -546,6 +561,9 @@ html, body {
     margin-bottom: 2em;
 }
 
+#usuarioRecuperarContraseña, #contraseñaRecuperarContraseña, #confirmacionRecuperarContraseña{
+    font-weight: bold;
+}
 
 
 /* Visualización de la página "revistaIngenio" */
@@ -646,6 +664,35 @@ html, body {
     font-size: 1.2em;
 }
 
+/* Visualización de la página "multimedia" */
+#tituloPaginaMultimedia{
+    margin-bottom: 2em;
+}
+
+
+/* Visualización de la página "historia" */
+#tituloPaginaHistoria{
+    margin-bottom: 2em;
+}
+
+
+/* Visualización de la página "busqueda" */
+#tituloPaginaBusqueda{
+    margin-bottom: 2em;
+}
+
+#cadaNoticiaEnNoticias{
+    margin-bottom: 2em;
+}
+
+#cadaActividadEnActividades{
+    margin-bottom: 2em;
+}
+
+#parrafoErroresBusqueda{
+    color: red;
+}
+
 
 /* FORMULARIOS */
 
@@ -695,10 +742,4 @@ html, body {
 #etiquetaFormularioAltaActividad, #etiquetaFormularioAltaAcuerdoEmpresa, #etiquetaFormularioAltaNoticia, 
 #etiquetaFormularioAltaOfertaEmpleo, #etiquetaFormularioAltaRevistaIngenio, #etiquetaFormularioAltaUsuario{
     font-weight: bold;
-}
-
-
-/* Pie de página */
-footer{
-    text-align: center;
 }

@@ -37,6 +37,17 @@ class TipoActividad(models.Model):
         return self.tipo
 
 
+class EstadoActividad(models.Model):
+    estado = models.CharField(max_length=50, primary_key=True, verbose_name='Estado de la actividad')
+
+    class Meta:
+        verbose_name = 'Estado de la actividad'
+        verbose_name_plural = 'Estados de las actividades'
+
+    def __str__(self):
+        return self.estado
+
+
 class TipoUsuario(models.Model):
     tipo = models.CharField(max_length=50, primary_key=True, verbose_name='Tipo de usuario')
 
@@ -93,7 +104,7 @@ class Noticia(models.Model):
 
 class Actividad(models.Model):
     titulo = models.CharField(max_length=1024, primary_key=True, verbose_name='Título')
-    descripcion = models.TextField(verbose_name='Descripción')  #Se envia a los usuarios que esten inscritos
+    descripcion = models.TextField(verbose_name='Descripción')
     textoReseña = models.TextField(null=True, blank=True, verbose_name='Texto de reseña')
     imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
     fecha = models.DateField(verbose_name='Fecha de la actividad')
@@ -103,6 +114,7 @@ class Actividad(models.Model):
     fechaSolicitudesInicio = models.DateField(verbose_name='Fecha de inicio de las solicitudes')
     fechaSolicitudesFin = models.DateField(verbose_name='Fecha de fin de las solicitudes')
     fichero = models.FileField(upload_to='files', blank=True, verbose_name='Fichero')
+    estadoActividad = models.ForeignKey(EstadoActividad, on_delete=models.CASCADE, verbose_name='Estado de la actividad')
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
     class Meta:

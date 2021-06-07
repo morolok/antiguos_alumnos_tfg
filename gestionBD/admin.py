@@ -6,6 +6,7 @@ import gestionBD.models as modelos
 admin.site.register(modelos.JuntaRectora)
 admin.site.register(modelos.Titulacion)
 admin.site.register(modelos.TipoActividad)
+admin.site.register(modelos.EstadoActividad)
 admin.site.register(modelos.TipoUsuario)
 admin.site.register(modelos.Usuario)
 admin.site.register(modelos.Noticia)

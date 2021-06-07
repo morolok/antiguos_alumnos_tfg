@@ -133,7 +133,7 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'busqueda' %}">{% csrf_token %}
-                        <input id="buscar" name="buscar" class="form-control mr-sm-2" type="text" placeholder="Buscar">
+                        <input id="buscar" name="buscar" class="form-control mr-sm-2" type="search" placeholder="Buscar">
                         <input id="iconoLupa" type="image" name="botonBuscar" src="{% static 'images/icono_lupa.svg' %}" alt="Buscar" />
                     </form>
                 </div>

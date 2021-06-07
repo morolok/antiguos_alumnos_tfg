@@ -30,19 +30,19 @@
         <form id="formularioRecuperarContraseña" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
             <div id="contenedorRecuperarContraseña" class="row">
                 <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoUsuario">
-                    <label for="usuario"><strong>Introduzca su usuario: </strong></label>
+                    <label for="usuario" id="usuarioRecuperarContraseña">Introduzca su usuario:</label>
                     <input id="inputUsuario" name="inputUsuario" type="text" autofocus required>
                 </p>
                 <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
 
                 <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoNuevaContraseña">
-                    <label for="contraseña"><strong>Introduzca la nueva contraseña: </strong></label>
+                    <label for="contraseña" id="contraseñaRecuperarContraseña">Introduzca la nueva contraseña:</label>
                     <input id="inputNuevaContraseña" name="inputNuevaContraseña" type="password" required>
                 </p>
                 <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
 
                 <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" id="parrafoConfirmacionContraseña">
-                    <label for="confirmacionContraseña"><strong>Confirme la nueva contraseña: </strong></label>
+                    <label for="confirmacionContraseña" id="confirmacionRecuperarContraseña">Confirme la nueva contraseña:</label>
                     <input id="inputConfirmacionContraseña" name="inputConfirmacionContraseña" type="password" required>
                 </p>
                 <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>

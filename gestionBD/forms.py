@@ -89,7 +89,7 @@ class FormularioAltaActividad(forms.ModelForm):
     class Meta:
         model = modelos.Actividad
         fields = ['titulo', 'descripcion', 'imagen', 'fecha', 'hora', 'numeroPlazas', 'fechaSolicitudesInicio', 
-            'fechaSolicitudesFin', 'fichero', 'tipoActividad']
+            'fechaSolicitudesFin', 'fichero', 'estadoActividad', 'tipoActividad']
 
     def clean(self):
         actividad = self.cleaned_data
