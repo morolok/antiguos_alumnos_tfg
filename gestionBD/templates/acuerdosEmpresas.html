@@ -25,9 +25,23 @@
     {% for acuerdo in acuerdos %}
         <div id="cadaAcuerdoConEmpresaEnAcuerdosEmpresas" class="row">
             {% if not acuerdo.texto and acuerdo.fichero %}
-                <a id="enlaceAcuerdos" href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank"><p id="mostrandoNombreAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ acuerdo.nombre }}</p></a>
+                <a id="enlaceAcuerdos" href="{{MEDIA_URL}}{{acuerdo.fichero}}" target="_blank">
+                    <p id="mostrandoNombreAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {{ acuerdo.nombre }}
+                    </p>
+                </a>
+            {% elif not acuerdo.texto and acuerdo.imagen %}
+                <a id="enlaceAcuerdos" href="{{MEDIA_URL}}{{acuerdo.imagen}}" target="_blank">
+                    <p id="mostrandoNombreAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {{ acuerdo.nombre }}
+                    </p>
+                </a>
             {% elif acuerdo.texto %}
-                <a id="enlaceAcuerdos"  href="{% url 'acuerdoEmpresa' nombre=acuerdo.nombre %}"><p id="mostrandoNombreAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ acuerdo.nombre }}</p></a>
+                <a id="enlaceAcuerdos"  href="{% url 'acuerdoEmpresa' nombre=acuerdo.nombre %}">
+                    <p id="mostrandoNombreAcuerdoEmpresa" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {{ acuerdo.nombre }}
+                    </p>
+                </a>
             {% endif %}
         </div>
     {% endfor %}

@@ -305,7 +305,15 @@ def actividad(request, titulo):
     contexto['lineas'] = lineas
     # Recuperamos de la sesión el diccionario con un índice numérico y las actividades para hacer los enlaces de anterior 
     # y siguiente
-    diccionarioActividades = request.session.get('diccionarioActividades')
+    if(not request.session.get('diccionarioActividades')):
+        # Si no está en la sesión lo creamos de nuevo
+        diccionarioActividades = {}
+        actividades = modelos.Actividad.objects.order_by('-fecha')
+        for i in range(0, len(actividades)):
+            diccionarioActividades[i] = str(actividades[i].titulo)
+    else:
+        # Si está en la sesión lo recuperamos
+        diccionarioActividades = request.session.get('diccionarioActividades')
     # Nos quedamos con el índice numérico de la actividad en la que estamos recorriendo el diccionario
     actividadActual = None
     for c, v in diccionarioActividades.items():

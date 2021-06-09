@@ -176,6 +176,7 @@ class AcuerdosEmpresas(models.Model):
     nombre = models.CharField(max_length=1024, primary_key=True, verbose_name='Nombre')
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
     fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
+    imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
 
     class Meta:
         verbose_name = 'Acuerdos con empresas'
