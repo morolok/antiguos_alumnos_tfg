@@ -11,9 +11,7 @@
 
 <div id="cuerpo">
 
-
     <div class="row" id="enlacesAnteriorSiguiente">
-
         {% if hayAnterior %}
             <p class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1">
                 <a href="{% url 'actividad' titulo=tituloAnterior %}" id="enlaceAnteriorActividad">&laquo; Anterior</a>
@@ -21,9 +19,7 @@
         {% else %}
             <p class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1">&laquo; Anterior</p>
         {% endif %}
-
         <p class="col-4 col-sm-10 col-md-10 col-lg-10 col-xl-10"></p>
-
         {% if haySiguiente %}
             <p class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1">
                 <a href="{% url 'actividad' titulo=tituloSiguiente %}" id="enlaceSiguienteActividad">Siguiente &raquo;</a>
@@ -31,18 +27,13 @@
         {% else %}
             <p class="col-4 col-sm-1 col-md-1 col-lg-1 col-xl-1">Siguiente &raquo;</p>
         {% endif %}
-        
     </div>
-    
-
     <div id="tituloYFechaActividad" class="row">
         <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.titulo }}</h4>
         <p id="parrafoFechaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             Fecha de la actividad: {{ actividad.fecha }} a las {{ actividad.hora }}
         </p>
     </div>
-
-
     <div id="descripcionActividad">
         {% for linea in lineas %}
             <div class="row">
@@ -50,45 +41,41 @@
             </div>
         {% endfor %}
     </div>
-
-
     <div id="tipoActividad" class="row">
         <p id="parrafoTipoActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Tipo de actividad:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.tipoActividad }}</p>
     </div>
-
     <div id="estadoActividad" class="row">
         <p id="parrafoEstadoActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Estado de la actividad:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.estadoActividad }}</p>
     </div>
-
-
     <div id="plazasActividad" class="row">
         <p id="parrafoPlazasActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Número de plazas:</p>
         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.numeroPlazas }}</p>
-        <p id="parrafoPlazasDisponibles" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Plazas disponibles: {{plazasLibres}}</p>
+        <p id="parrafoPlazasDisponibles" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            Plazas disponibles: {{plazasLibres}}
+        </p>
     </div>
-
-
     <div id="fechasActividad" class="row">
         <p id="parrafoFechasActividades" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de solicitudes:</p>
         {% if actividad.fechaSolicitudesInicio == actividad.fechaSolicitudesFin %}
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ actividad.fechaSolicitudesInicio }}</p>
         {% else %}
-            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}</p>
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Del {{ actividad.fechaSolicitudesInicio }} al {{ actividad.fechaSolicitudesFin }}
+            </p>
         {% endif %}
     </div>
-
-
     {% if actividad.fichero %}
         <div id="adjuntosActividad" class="row">
             <p id="parrafoAdjuntosActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos:</p>
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <a id="enlaceAColor" href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">Fichero adjunto</a>
+                <a id="enlaceAColor" href="{{MEDIA_URL}}{{actividad.fichero}}" type="application/pdf" target="_blank">
+                    Fichero adjunto
+                </a>
             </p>
         </div>
     {% endif %}
-
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="compartirRedesSociales">
         <p>Compartir en redes sociales:</p>
         <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
@@ -98,21 +85,18 @@
         <a class="a2a_button_telegram"></a>
     </div>
     <script async src="https://static.addtoany.com/menu/page.js"></script>
-
-
     {% if apuntado %}
         <div id="apuntado" class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ya se ha apuntado a esta actividad</p>
-            <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+            <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> {% csrf_token %}
                 <button id="botonBorrarseActividad" name="borrarseActividad" type="submit">Borrarse</button>
             </form>
         </div>
-        
     {% else %}
         {% if inicioSesion %}
             {% if plazasLibres > 0 %}
                 <div id="apuntarse" class="row">
-                    <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                    <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> {% csrf_token %}
                         <button id="botonApuntarseActividad" name="apuntarseActividad" type="submit">Apuntarse</button>
                     </form>
                 </div>
@@ -122,7 +106,7 @@
                         <p id="parrafoApuntadoListaEspera" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             Se ha apuntado a la lista de espera, en cuanto haya una plaza disponible se le apuntará de automáticamente
                         </p>
-                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> {% csrf_token %}
                             <button id="botonBorrarseListaEspera" name="botonBorrarseListaEspera" type="submit">
                                 Borrarse de la lista de espera
                             </button>
@@ -134,7 +118,7 @@
                             Todas las plazas están ocupadas, si lo desea se puede apuntar a la lista de espera y en cuanto haya una plaza 
                             disponible se le apuntará automáticamente
                         </p>
-                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{% csrf_token %}
+                        <form method="POST" action="." enctype="multipart/form-data" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> {% csrf_token %}
                             <button id="botonApuntarseListaEspera" name="botonApuntarseListaEspera" type="submit">
                                 Apuntarse a la lista de espera
                             </button>
@@ -144,7 +128,6 @@
             {% endif %}
         {% endif %}
     {% endif %}
-
 
 </div>
 

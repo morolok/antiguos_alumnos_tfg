@@ -11,19 +11,15 @@
 
 <div id="cuerpo">
 
-
     <div id="tituloPaginaBusqueda" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Búsqueda</h5>
     </div>
-
 
     {% if error %}
         <div class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoErroresBusqueda">{{ error }}</p>
         </div>
     {% endif %}
-
-
     {% if actividades%}
         {% for actividad in actividades %}
             <div id="cadaActividadEnActividades" class="row">
@@ -51,8 +47,6 @@
             </div>
         {% endif %}
     {% endif %}
-    
-
     <div id="divParaElPie">
     </div>
 

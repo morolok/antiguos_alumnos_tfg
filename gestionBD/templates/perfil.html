@@ -12,33 +12,28 @@
 
 <div id="cuerpo">
 
-	<div id="datosPerfilUsuario">
-		
-		<div id="tituloPaginaPerfil" class="row">
-			<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-			<h3 class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">Perfil</h3>
-		</div>
+	<div id="tituloPaginaPerfil" class="row">
+		<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+		<h5 class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">Perfil</h5>
+	</div>
 
-		<div id="enlaceAMisActividades" class="row">
-			<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-			<p class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">
-				<a href="{% url 'misActividades' %}" id="enlaceMisActividades">Actividades a las que estoy apuntado</a>
-			</p>
-		</div>
-
-		{% if errores %}
-                {% for error in errores %}
-                    <div class="row" id="contedorErrorEditarPerfil">
-						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-                        <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >{{ error }}</p>
-                    </div>
-                {% endfor %}
-        {% endif %}
-
+	<div id="datosPerfilUsuario">	
 		{% if inicioSesion %}
-			
-			<form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
-
+			<div id="enlaceAMisActividades" class="row">
+				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+				<p class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">
+					<a href="{% url 'misActividades' %}" id="enlaceMisActividades">Actividades a las que estoy apuntado</a>
+				</p>
+			</div>
+			{% if errores %}
+					{% for error in errores %}
+						<div class="row" id="contedorErrorEditarPerfil">
+							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
+							<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8" >{{ error }}</p>
+						</div>
+					{% endfor %}
+			{% endif %}
+			<form method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarNombre %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -56,7 +51,6 @@
 						</p>
 					{% endif %}
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarApellidos %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -73,23 +67,19 @@
 							<input id="iconoEditar" type="image" name="editarApellidosPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
 						</p>
 					{% endif %}
-					
 				</div>
-		
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Dni:</strong> {{dniUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Fecha de nacimiento:</strong> {{fechaNacimientoUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarCuentaBancaria %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -107,7 +97,6 @@
 						</p>
 					{% endif %}
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarEmail %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -124,9 +113,7 @@
 							<input id="iconoEditar" type="image" name="editarEmailPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
 						</p>
 					{% endif %}
-					
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarTelefono %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -143,9 +130,7 @@
 							<input id="iconoEditar" type="image" name="editarTelefonoPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
 						</p>
 					{% endif %}
-					
 				</div>
-				
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarDireccionPostal %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -154,7 +139,9 @@
 						</label>
 						<p class="col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3"></p>
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-						<textarea id="inputNuevaDireccionPostal" name="inputNuevaDireccionPostal" cols="40" rows="10" autofocus>{{direccionPostalUsuario}}</textarea>
+						<textarea id="inputNuevaDireccionPostal" name="inputNuevaDireccionPostal" cols="40" rows="10" autofocus>
+							{{direccionPostalUsuario}}
+						</textarea>
 						<input id="iconoGuardar" type="image" name="guardarDireccionPostalPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 						<input id="iconoCancelar" type="image" name="cancelarDireccionPostalPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
 					{% else %}
@@ -164,44 +151,37 @@
 							<input id="iconoEditar" type="image" name="editarDireccionPostalPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
 						</p>
 					{% endif %}
-					
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Usuario:</strong> {{usuarioUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Tipo de usuario:</strong> {{tipoUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Titulación:</strong> {{titulacionUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Promoción:</strong> {{promocionUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Año de finalización:</strong> {{añoFinalizacionUsuario}}
 					</p>
 				</div>
-
 				<div id="contenedorElementoPerfil" class="row">
 					{% if editarEmpresa %}
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -218,11 +198,8 @@
 							<input id="iconoEditar" type="image" name="editarEmpresaPerfil" src="{% static 'images/icono_editar.svg' %}" alt="Editar" />
 						</p>
 					{% endif %}
-					
 				</div>
-
 				{% if comunicacionesUsuario %}
-
 					{% if editarComunicaciones %}
 						<div id="contenedorElementoPerfil" class="row">
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -242,9 +219,7 @@
 							</p>
 						</div>
 					{% endif %}
-					
 				{% else %}
-					
 					{% if editarComunicaciones %}
 						<div id="contenedorElementoPerfil" class="row">
 							<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -264,17 +239,13 @@
 							</p>
 						</div>
 					{% endif %}
-
 				{% endif %}
-
 				<div id="contenedorElementoPerfil" class="row">
 					<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 					<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
 						<strong>Junta rectora:</strong> {{juntaRectoraUsuario}}
 					</p>
 				</div>
-			
-				
 				{% if editarContraseña %}
 					<div id="contenedorCambiarContraseña" class="row">
 						<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
@@ -301,20 +272,19 @@
 						</p>
 					</div>
 				{% endif %}
-			
 			</form>
-
 		{% else %}
-
 			<div class="row">
 				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
 				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-					Para ver el perfil necesita iniciar sesión. Pinche <a href="{% url 'login' %}">aquí</a> para iniciar sesión
+					Para ver el perfil necesita iniciar sesión. Pinche 
+					<a href="{% url 'login' %}" id="enlaceLogin">aquí</a> 
+					para iniciar sesión
 				</p>
 			</div>
-
+			<div id="divParaElPie">
+			</div>
 		{% endif %}
-
 	</div>
 
 </div>

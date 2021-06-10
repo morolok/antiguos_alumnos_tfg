@@ -11,21 +11,20 @@
 
 <div id="cuerpo">
 
-
     <div id="tituloPaginaEmpleo" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Ofertas de empleo</h5>
     </div>
 
-
     {% for ofertaEmpleo in ofertasEmpleo_paginadas %}
         <div id="cadaOfertaEmpleo" class="row">
             <a id="enlaceOfertasEmpleo" href="{% url 'ofertaEmpleo' titulo=ofertaEmpleo.titulo %}" >
-                <p id="mostrandoTituloOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.titulo }}</p>
+                <p id="mostrandoTituloOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    {{ ofertaEmpleo.titulo }}
+                </p>
             </a>
 			<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.texto|slice:"0:75" }}...</p>
         </div>
     {% endfor %}
-
 	<div id="paginacion" class="row">
         <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {% if tipoInicio %}
@@ -36,30 +35,21 @@
                         <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% endif %}
                 {% endfor %}
-                    ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">{{ ofertasEmpleo_paginadas.paginator.num_pages }}</a>
-        
+                    ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">
+                        {{ ofertasEmpleo_paginadas.paginator.num_pages }}
+                    </a>
             {% elif tipoMedio %}
                 <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=1">1</a>...
-                {% if no_puntos_suspensivos %}
-                    {% for pagina in rango_medio %}
-                        {% if paginaActual == pagina %}
-                            <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
-                        {% else %}
-                            <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=6">6</a>
-                {% else %}
-                    {% for pagina in rango_medio %}
-                        {% if paginaActual == pagina %}
-                            <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
-                        {% else %}
-                            <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">{{ ofertasEmpleo_paginadas.paginator.num_pages }}</a>
-                {% endif %}
-
+                {% for pagina in rango_medio %}
+                    {% if paginaActual == pagina %}
+                        <a id="enlacePaginaActualPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% else %}
+                        <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
+                    {% endif %}
+                {% endfor %}
+                ...<a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ ofertasEmpleo_paginadas.paginator.num_pages }}">
+                    {{ ofertasEmpleo_paginadas.paginator.num_pages }}
+                </a>
             {% elif tipoFin %}
                 <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page=1">1</a>...
                 <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{pagina_media}}">{{pagina_media}}</a>...
@@ -70,7 +60,6 @@
                         <a id="enlacePaginaPaginacionOfertasEmpleo" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% endif %}
                 {% endfor %}
-
             {% else %}
                 {% for pagina in paginas %}
                     {% if paginaActual == None and pagina == 1 %}
@@ -82,12 +71,8 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            
         </p>
     </div>
-
-
-
 
 </div>
 

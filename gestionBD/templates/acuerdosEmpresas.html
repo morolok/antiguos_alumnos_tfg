@@ -10,18 +10,16 @@
 {% block content %}  
 
 <div id="cuerpo">
-
     
     <div id="tituloPaginaAcuerdosEmpresas" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Acuerdos con empresas</h5>
     </div>
 
-
     <div id="parrafoPaginaAcuerdosEmpresas" class="row">
-        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Actualmente la Asociación tiene firmados los siguientes acuerdos:</p>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            Actualmente la Asociación tiene firmados los siguientes acuerdos:
+        </p>
     </div>
-
-
     {% for acuerdo in acuerdos %}
         <div id="cadaAcuerdoConEmpresaEnAcuerdosEmpresas" class="row">
             {% if not acuerdo.texto and acuerdo.fichero %}
@@ -45,16 +43,18 @@
             {% endif %}
         </div>
     {% endfor %}
-
-
     <div id="parrafoFinal1PaginaAcuerdosEmpresas" class="row">
-        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">A partir de este momento ya puedes beneficiarte de estos acuerdos, haciendo uso de ellos mediante la presentación de la tarjeta de asociado, posteriormente iremos añadido nuevos acuerdos que se vayan firmando.</p>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            A partir de este momento ya puedes beneficiarte de estos acuerdos, haciendo uso de ellos mediante la presentación 
+            de la tarjeta de asociado, posteriormente iremos añadido nuevos acuerdos que se vayan firmando.
+        </p>
     </div>
-
     <div id="parrafoFinal2PaginaAcuerdosEmpresas" class="row">
-        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Si estás interesado en conconer más en detalle aspectos del acuerdo firmado te rogamos que contactes con nosotros mediante correo electrónico.</p>
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            Si estás interesado en conconer más en detalle aspectos del acuerdo firmado te rogamos que contactes con nosotros 
+            mediante correo electrónico.
+        </p>
     </div>
-
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="compartirRedesSociales">
         <p>Compartir en redes sociales:</p>
         <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
@@ -65,7 +65,6 @@
     </div>
     <script async src="https://static.addtoany.com/menu/page.js"></script>
 
-    
 </div>
 
 {% endblock %}

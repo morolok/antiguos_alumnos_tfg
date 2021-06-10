@@ -21,12 +21,12 @@
                 <p id="mostrandoTituloNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.titulo }}</p>
             </a>
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ noticia.texto|slice:"0:75" }}...</p>
-			<p id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la noticia: {{ noticia.fecha }}</p>
+			<p id="parrafoFechaNoticia" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Fecha de la noticia: {{ noticia.fecha }}
+            </p>
         </div>
     {% endfor %}
-
 	<div id="paginacion" class="row">
-
         <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             {% if tipoInicio %}
                 {% for pagina in rango_inicio %}
@@ -38,8 +38,9 @@
                         <a id="enlacePaginaPaginacionNoticias" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% endif %}
                 {% endfor %}
-                    ...<a id="enlacePaginaPaginacionNoticias" href="?page={{ noticias_paginadas.paginator.num_pages }}">{{ noticias_paginadas.paginator.num_pages }}</a>
-        
+                    ...<a id="enlacePaginaPaginacionNoticias" href="?page={{ noticias_paginadas.paginator.num_pages }}">
+                        {{ noticias_paginadas.paginator.num_pages }}
+                    </a>
             {% elif tipoMedio %}
                 <a id="enlacePaginaPaginacionNoticias" href="?page=1">1</a>...
                 {% for pagina in rango_medio %}
@@ -49,8 +50,9 @@
                         <a id="enlacePaginaPaginacionNoticias" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% endif %}
                 {% endfor %}
-                ...<a id="enlacePaginaPaginacionNoticias" href="?page={{ noticias_paginadas.paginator.num_pages }}">{{ noticias_paginadas.paginator.num_pages }}</a>
-
+                ...<a id="enlacePaginaPaginacionNoticias" href="?page={{ noticias_paginadas.paginator.num_pages }}">
+                    {{ noticias_paginadas.paginator.num_pages }}
+                </a>
             {% elif tipoFin %}
                 <a id="enlacePaginaPaginacionNoticias" href="?page=1">1</a>...
                 <a id="enlacePaginaPaginacionNoticias" href="?page={{pagina_media}}">{{pagina_media}}</a>...
@@ -61,7 +63,6 @@
                         <a id="enlacePaginaPaginacionNoticias" href="?page={{ pagina }}">{{ pagina }}</a>
                     {% endif %}
                 {% endfor %}
-
             {% else %}
                 {% for pagina in paginas %}
                     {% if paginaActual == None and pagina == 1 %}
@@ -73,10 +74,8 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            
         </p>
     </div>
-
 
 </div>
 

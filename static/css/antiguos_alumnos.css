@@ -571,6 +571,10 @@ footer{
     margin-bottom: 1.5em;
 }
 
+#enlaceEnviarCorreo{
+    text-decoration: none;
+}
+
 #logoPdfTablaRI{
     width: 20px;
     height: 20px;
