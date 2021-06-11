@@ -40,7 +40,7 @@
                 <!-- <img id="logoBarraNavegacion" src="{% static 'images/antalumnos_icono.ico' %}"> -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if 'asociacion' in request.path or 'historia' in request.path or 'juntaRectora' in request.path or 'acuerdosEmpresas' in request.path %}active{% endif %}">
@@ -54,19 +54,19 @@
                                 <a class="dropdown-item" href="{% url 'acuerdosEmpresas' %}">Acuerdos con empresas</a>
                             </div>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'noticias' %}">Noticias</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/admin/' %}active{% endif %}">
@@ -81,7 +81,7 @@
                                 <a class="dropdown-item" href="{% url 'formularioAltaActividad' %}">Formulario alta actividad</a>
                                 <a class="dropdown-item" href="{% url 'formularioAltaAcuerdoEmpresa' %}">Formulario alta acuerdo con empresa</a>
                                 <a class="dropdown-item" href="{% url 'formularioAltaDatosDeContacto' %}">Formulario alta datos de contacto</a>
-                                <a class="dropdown-item" href="{% url 'formularioAltaNoticia' %}">Formulario alta noticia</a>
+                                <a class="dropdown-item" href="{% url 'formularioAltaNoticia' %}">Formulario alta de noticia</a>
                                 <a class="dropdown-item" href="{% url 'formularioAltaOfertaEmpleo' %}">Formulario alta oferta de empleo</a>
                                 <a class="dropdown-item" href="{% url 'formularioAltaRevistaIngenio' %}">Formulario alta revista ingenio</a>
                                 <a class="dropdown-item" href="{% url 'formularioAltaUsuario' %}">Formulario alta usuario</a>
@@ -99,10 +99,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <!-- <img id="logoBarraNavegacion" src="{% static 'images/antalumnos_icono.ico' %}"> -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                         </li>
                         <li id="enlaceBarraNavegacion" class="nav-item {% if 'asociacion' in request.path or 'historia' in request.path or 'juntaRectora' in request.path or 'acuerdosEmpresas' in request.path %}active{% endif %}">
@@ -116,19 +115,19 @@
                                 <a class="dropdown-item" href="{% url 'acuerdosEmpresas' %}">Acuerdos con empresas</a>
                             </div>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/actividades' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'actividades' %}">Actividades</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/noticias' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'noticias' %}">Noticias</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/empleo' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'empleo' %}">Empleo</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/revistaIngenio' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'revistaIngenio' %}">Revista Ingenio</a>
                         </li>
-                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia/' %}active{% endif %}">
+                        <li id="enlaceBarraNavegacion" class="nav-item {% if request.path == '/antalumnos/multimedia' %}active{% endif %}">
                             <a class="nav-link" href="{% url 'multimedia' %}">Multimedia</a>
                         </li>
                     </ul>
@@ -140,7 +139,6 @@
             </nav>
         {% endif %}
     
-
         <div class="row" id="enlacesPerfil">
             {% if inicioSesion %}
                 <p class="col-3 col-sm-10 col-md-10 col-lg-10 col-xl-10"></p>

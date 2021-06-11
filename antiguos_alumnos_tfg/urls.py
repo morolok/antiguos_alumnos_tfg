@@ -29,14 +29,13 @@ from gestionBD import views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-    #path('media/<path>', static2.serve, {'document_root': settings.MEDIA_ROOT,}),
     path('antalumnos/', views.inicio, name='inicio'),
     path('antalumnos/busqueda/', views.busqueda, name='busqueda'),
     path('antalumnos/asociacion/', views.asociacion, name='asociacion'),
     path('antalumnos/actividades/', views.actividades, name='actividades'),
     path('antalumnos/actividad/<titulo>/', views.actividad, name='actividad'),
     path('antalumnos/noticias/', views.noticias, name='noticias'),
-    path('antalumnos/noticia/<titulo>', views.noticia, name='noticia'),
+    path('antalumnos/noticia/<titulo>/', views.noticia, name='noticia'),
     path('antalumnos/empleo/', views.empleo, name='empleo'),
     path('antalumnos/ofertaEmpleo/<titulo>/', views.ofertaEmpleo, name='ofertaEmpleo'),
     path('antalumnos/acuerdosEmpresas/', views.acuerdosEmpresas, name='acuerdosEmpresas'),
@@ -59,12 +58,12 @@ urlpatterns = [
     path('antalumnos/formularioAltaAcuerdoEmpresa/', views.formularioAltaAcuerdoEmpresa, name='formularioAltaAcuerdoEmpresa'),
     path('antalumnos/exitoAltaRevistaIngenio/<numero>/', views.exitoAltaRevistaIngenio, name='exitoAltaRevistaIngenio'),
     path('antalumnos/exitoAltaUsuario/<nombre>/<apellidos>/', views.exitoAltaUsuario, name='exitoAltaUsuario'),
-    path('antalumnos/exitoAltaActividad/<titulo>', views.exitoAltaActividad, name='exitoAltaActividad'),
-    path('antalumnos/exitoAltaNoticia/<titulo>', views.exitoAltaNoticia, name='exitoAltaNoticia'),
-    path('antalumnos/exitoAltaOfertaEmpleo/<titulo>', views.exitoAltaOfertaEmpleo, name='exitoAltaOfertaEmpleo'),
+    path('antalumnos/exitoAltaActividad/<titulo>/', views.exitoAltaActividad, name='exitoAltaActividad'),
+    path('antalumnos/exitoAltaNoticia/<titulo>/', views.exitoAltaNoticia, name='exitoAltaNoticia'),
+    path('antalumnos/exitoAltaOfertaEmpleo/<titulo>/', views.exitoAltaOfertaEmpleo, name='exitoAltaOfertaEmpleo'),
     path('antalumnos/exitoAltaAcuerdoEmpresa/<nombre>/', views.exitoAltaAcuerdoEmpresa, name='exitoAltaAcuerdoEmpresa'),
-    path('antalumnos/exitoLogin', views.exitoLogin, name='exitoLogin'),
-    path('antalumnos/exitoRecuperarContraseña', views.exitoRecuperarContraseña, name='exitoRecuperarContraseña'),
+    path('antalumnos/exitoLogin/', views.exitoLogin, name='exitoLogin'),
+    path('antalumnos/exitoRecuperarContraseña/', views.exitoRecuperarContraseña, name='exitoRecuperarContraseña'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

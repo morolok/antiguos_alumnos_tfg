@@ -22,12 +22,10 @@
             </p>
         </div>
     {% else %}
+        {% if error %}
+            <p id="erroresLogin">{{ error }}</p>
+        {% endif %}
         <form id="formularioLogin" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
-
-            {% if error %}
-                <p id="erroresLogin">{{ error }}</p>
-            {% endif %}
-
             <div id="campoUsuarioLogin" class="row">
                 <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <label for="formularioLogin" id="etiquetaUsuarioLogin">Usuario:</label>
@@ -35,8 +33,6 @@
                 </p>
                 <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
             </div>
-
-
             <div id="campoContraseñaLogin" class="row">
                 <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
                     <label for="formularioLogin" id="etiquetaContraseñaLogin">Contraseña:</label>
@@ -44,16 +40,12 @@
                 </p>
                 <p class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4"></p>
             </div>
-            
-            
             <div class="row">
                 <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <button id="botonEnviarFormulario" type="submit">Enviar</button>
                 </p>
             </div>
-
         </form>
-
         <div class="row" id="recuperarContraseña">
             <a id="enlaceRecuperarContraseña" href="{% url 'recuperarContraseña' %}">
                 <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
