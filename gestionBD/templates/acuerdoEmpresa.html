@@ -16,13 +16,11 @@
         <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Acuerdo {{ acuerdo.nombre }}</h4>
     </div>
 
-
-    {% for linea in lineas %}
-        <div class="row">
+    <div class="row" id="textoAcuerdoEmpresa">
+        {% for linea in lineas %}
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
-        </div>
-    {% endfor %}
-
+        {% endfor %}
+    </div>
 
     {% if acuerdo.fichero %}
         <div id="adjuntosAcuerdoEmpresa" class="row">

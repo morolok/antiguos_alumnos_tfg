@@ -30,6 +30,13 @@ footer{
 }
 
 
+/* Que se vea en negrita lo de las redes sociales */
+#compartirRedesSociales{
+    margin-bottom: 3em;
+    font-weight: bold;
+}
+
+
 /* Visiualización del logo y el nombre de la web en la página "base" */
 #cabecera{
     padding-top: 1em;
@@ -306,10 +313,6 @@ footer{
     font-style: italic;
 }
 
-#compartirRedesSociales{
-    margin-bottom: 3em;
-}
-
 #apuntado{
     margin-bottom: 2em;
 }
@@ -406,8 +409,8 @@ footer{
     color: #303B89;
 }
 
-#compartirRedesSociales{
-    margin-bottom: 3em;
+#textoAcuerdoEmpresa{
+    margin-bottom: 1.5em;
 }
 
 
