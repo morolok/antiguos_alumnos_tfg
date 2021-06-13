@@ -177,7 +177,9 @@
 					{% if editarComunicaciones %}
 						<div id="contenedorElementoPerfil" class="row">
 							<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<label for="comunicaciones"><strong>Desamarque para no recibir más comunicaciones: </strong></label>
+								<label for="comunicaciones">
+									<strong>Desamarque para no recibir más comunicaciones: </strong>
+								</label>
 								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" checked autofocus>
 								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
@@ -195,7 +197,9 @@
 					{% if editarComunicaciones %}
 						<div id="contenedorElementoPerfil" class="row">
 							<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<label for="comunicaciones"><strong>Marque para recibir comunicaciones: </strong></label>
+								<label for="comunicaciones">
+									<strong>Marque para recibir comunicaciones: </strong>
+								</label>
 								<input id="inputNuevasComunicaciones" name="inputNuevasComunicaciones" type="checkbox" autofocus>
 								<input id="iconoGuardar" type="image" name="guardarComunicacionesPerfil" src="{% static 'images/icono_guardar.svg' %}" alt="Guardar"/>
 								<input id="iconoCancelar" type="image" name="cancelarComunicacionesPerfil" src="{% static 'images/icono_cancelar.svg' %}" alt="Cancelar"/>
@@ -238,8 +242,7 @@
 			</form>
 		{% else %}
 			<div class="row">
-				<p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-				<p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+				<p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 					Para ver el perfil necesita iniciar sesión. Pinche 
 					<a href="{% url 'login' %}" id="enlaceLogin">aquí</a> 
 					para iniciar sesión

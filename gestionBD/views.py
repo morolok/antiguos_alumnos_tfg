@@ -680,67 +680,68 @@ def misActividades(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
-    # Creamos el objeto usuario de la base de datos con el que se ha iniciado sesión
-    usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
-    # Con el usuario creado anteriormente nos quedamos con las actividades a las que se ha apuntado el usuario consultado
-    # la tabla Usuario - Actividad que tiene un usuario y la actividad a la que se ha apuntado. Las ordenamos por fecha,
-    # de la más reciente a la más antigua
-    actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD).order_by('-actividad__fecha')
-    # Determinamos el número de actividades por página
-    objetos_paginacion = 5
-    # Paginamos las actividades por la cantidad determinada anteriormente
-    paginator = Paginator(actividades_apuntado, objetos_paginacion)
-    # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
-    # primera vez que entramos se ven las actividades de la primera página pero no hay un valor de página
-    pagina = request.GET.get('page')
-    if(pagina is not None):
-        contexto['paginaActual'] = int(pagina)
-    # Nos quedamos con las actividades de la página en la que estamos y lo guardamos en el contexto
-    mis_actividades_paginadas = paginator.get_page(pagina)
-    contexto['mis_actividades_paginadas'] = mis_actividades_paginadas
-    # Nos quedamos con el número de páginas en total
-    numero_paginas = math.ceil(actividades_apuntado.count()/objetos_paginacion)
-    # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
-    paginas = [i for i in range(1, numero_paginas+1)]
-    contexto['paginas'] = paginas
-    # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
-    # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
-    tipoInicio = False
-    tipoMedio = False
-    tipoFin = False
-    # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
-    # todas las páginas
-    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
-        # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
-        # que estamos al inicio de las páginas
-        if((pagina is None) or (pagina is not None and int(pagina) < 5)):
-            # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
-            tipoInicio = True
-            rango_inicio = [i for i in range(1, 6)]
-            contexto['rango_inicio'] = rango_inicio
-        # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
-        # de las páginas
-        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
-            # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
-            # en el contexto
-            tipoMedio = True
-            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
-            contexto['rango_medio'] = rango_medio
-        # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
-        elif(pagina is not None and int(pagina) >= numero_paginas-3):
-            # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
-            # en el contexto
-            tipoFin = True
-            rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
-            contexto['rango_fin'] = rango_fin
-            # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
-            # a una página intermedia
-            pagina_media = math.ceil((rango_fin[0]+1)/2)
-            contexto['pagina_media'] = pagina_media
-    # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
-    contexto['tipoInicio'] = tipoInicio
-    contexto['tipoMedio'] = tipoMedio
-    contexto['tipoFin'] = tipoFin
+    if(usuario is not None):
+        # Si hay un usuario con el que se ha iniciado sesión creamos el objeto usuario de la base de datos con el que se ha iniciado sesión
+        usuarioBD = modelos.Usuario.objects.get(usuario = usuario)
+        # Con el usuario creado anteriormente nos quedamos con las actividades a las que se ha apuntado el usuario consultado
+        # la tabla Usuario - Actividad que tiene un usuario y la actividad a la que se ha apuntado. Las ordenamos por fecha,
+        # de la más reciente a la más antigua
+        actividades_apuntado = modelos.UsuarioActividad.objects.filter(usuario = usuarioBD).order_by('-actividad__fecha')
+        # Determinamos el número de actividades por página
+        objetos_paginacion = 5
+        # Paginamos las actividades por la cantidad determinada anteriormente
+        paginator = Paginator(actividades_apuntado, objetos_paginacion)
+        # Nos quedamos con la página en la que estamos y guardamos en el contexto la página. La página puede ser None ya que la
+        # primera vez que entramos se ven las actividades de la primera página pero no hay un valor de página
+        pagina = request.GET.get('page')
+        if(pagina is not None):
+            contexto['paginaActual'] = int(pagina)
+        # Nos quedamos con las actividades de la página en la que estamos y lo guardamos en el contexto
+        mis_actividades_paginadas = paginator.get_page(pagina)
+        contexto['mis_actividades_paginadas'] = mis_actividades_paginadas
+        # Nos quedamos con el número de páginas en total
+        numero_paginas = math.ceil(actividades_apuntado.count()/objetos_paginacion)
+        # Creamos una lista con el número de páginas que hay y lo guardamos en el contexto
+        paginas = [i for i in range(1, numero_paginas+1)]
+        contexto['paginas'] = paginas
+        # Para hacer la paginación vemos si la página que estamos viendo es de las primeras, de las intermedias o de las finales
+        # a fin de dar un formato u otro a la hora de mostrar la página en cada uno de esos intervalos
+        tipoInicio = False
+        tipoMedio = False
+        tipoFin = False
+        # Si hay más de 5 páginas y una difencia de más de 2 páginas con la quinta haremos paginación. En caso mostramos 
+        # todas las páginas
+        if(numero_paginas > 5 and (numero_paginas - 5) > 2):
+            # Si estamos en una página inferior a 5 o es la primera vez que entramos en las actividades consideramos 
+            # que estamos al inicio de las páginas
+            if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+                # Marcamos que estamos al inicio, creamos un lista con el rango de las páginas y lo guardamos en el contexto
+                tipoInicio = True
+                rango_inicio = [i for i in range(1, 6)]
+                contexto['rango_inicio'] = rango_inicio
+            # Si estamos en una página mayor a 5 y quedan más de 3 páginas por ver consideramos que estamos en una zona media
+            # de las páginas
+            elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+                # Marcamos que estamos en la zona media, creamos un lista con el rango de las páginas y lo guardamos 
+                # en el contexto
+                tipoMedio = True
+                rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
+                contexto['rango_medio'] = rango_medio
+            # Si estamos en una de las 4 últimas páginas consideramos que estamos en la zona final de las páginas
+            elif(pagina is not None and int(pagina) >= numero_paginas-3):
+                # Marcamos que estamos en la zona final, creamos un lista con el rango de las páginas y lo guardamos 
+                # en el contexto
+                tipoFin = True
+                rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+                contexto['rango_fin'] = rango_fin
+                # Nos quedamos con la página de la mitad entre la primera del rango final y la primera página. Así hay un enlace
+                # a una página intermedia
+                pagina_media = math.ceil((rango_fin[0]+1)/2)
+                contexto['pagina_media'] = pagina_media
+        # Guardamos en el contexto las variables para saber en que zona de las páginas estamos
+        contexto['tipoInicio'] = tipoInicio
+        contexto['tipoMedio'] = tipoMedio
+        contexto['tipoFin'] = tipoFin
     # Renderizamos la página de las actividades a las que está apuntado un usuario paginadas
     return render(request, "misActividades.html", contexto)
 

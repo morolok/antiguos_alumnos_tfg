@@ -12,13 +12,11 @@
 
 <div id="cuerpo">
 
-
     <div id="tituloPaginaMisActividades" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Mis actividades</h5>
     </div>
 
     {% if inicioSesion %}
-
         {% for actividad in mis_actividades_paginadas %}
             <div id="cadaActividadEnActividades" class="row">
                 <a id="enlaceActividades" href="{% url 'actividad' titulo=actividad.actividad %}" >
@@ -28,7 +26,6 @@
                 </a>
             </div>
         {% endfor %}
-
         <div id="paginacion" class="row">
             <p id="enlacesPaginacion" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {% if tipoInicio %}
@@ -41,8 +38,9 @@
                             <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
                         {% endif %}
                     {% endfor %}
-                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }}</a>
-            
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">
+                        {{ actividades_paginadas.paginator.num_pages }}
+                    </a>
                 {% elif tipoMedio %}
                     <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
                     {% for pagina in rango_medio %}
@@ -52,8 +50,9 @@
                             <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
                         {% endif %}
                     {% endfor %}
-                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">{{ actividades_paginadas.paginator.num_pages }}</a>
-    
+                    ...<a id="enlacePaginaPaginacionActividades" href="?page={{ actividades_paginadas.paginator.num_pages }}">
+                        {{ actividades_paginadas.paginator.num_pages }}
+                    </a>
                 {% elif tipoFin %}
                     <a id="enlacePaginaPaginacionActividades" href="?page=1">1</a>...
                     <a id="enlacePaginaPaginacionActividades" href="?page={{pagina_media}}">{{pagina_media}}</a>...
@@ -64,7 +63,6 @@
                             <a id="enlacePaginaPaginacionActividades" href="?page={{ pagina }}">{{ pagina }}</a>
                         {% endif %}
                     {% endfor %}
-    
                 {% else %}
                     {% for pagina in paginas %}
                         {% if paginaActual == None and pagina == 1 %}
@@ -76,19 +74,15 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-            
             </p>
         </div>
-
     {% else %}
-
         <div class="row">
-            <p class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></p>
-            <p class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                Para ver el perfil necesita iniciar sesión. Pinche <a href="{% url 'login' %}">aquí</a> para iniciar sesión
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Para ver las actividades a las que se ha apuntado necesita iniciar sesión. 
+                Pinche <a href="{% url 'login' %}">aquí</a> para iniciar sesión
             </p>
         </div>
-
     {% endif %}
 
 </div>
