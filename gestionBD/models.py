@@ -126,18 +126,21 @@ class Actividad(models.Model):
 
 
 class DatosDeContacto(models.Model):
-    telefono = models.CharField(max_length=9, verbose_name='Teléfono')
+    telefono = models.CharField(max_length=9, primary_key=True, verbose_name='Teléfono')
     email = models.EmailField(verbose_name='Email')
     horario = models.TextField(verbose_name='Horario')
     horarioEspecial = models.TextField(verbose_name='Horario especial')
-    ubicacion = models.CharField(max_length=100, null=True, blank=True, verbose_name='Ubicación')
-    facebook = models.CharField(max_length=256, null=True, blank=True, verbose_name='Facebook')
-    twitter = models.CharField(max_length=256, null=True, blank=True, verbose_name='Twitter')
-    instagram = models.CharField(max_length=256, null=True, blank=True, verbose_name='Instagram')
+    ubicacion = models.CharField(max_length=200, verbose_name='Ubicación')
+    facebook = models.URLField(null=True, blank=True, verbose_name='Facebook', validators=[URLValidator()])
+    twitter = models.URLField(null=True, blank=True, verbose_name='Twitter', validators=[URLValidator()])
+    instagram = models.URLField(null=True, blank=True, verbose_name='Instagram', validators=[URLValidator()])
 
     class Meta:
         verbose_name = 'Datos de contacto'
         verbose_name_plural = 'Datos de contactos'
+    
+    def __str__(self):
+        return self.telefono + ' - ' + self.email
 
 
 class OfertaEmpleo(models.Model):

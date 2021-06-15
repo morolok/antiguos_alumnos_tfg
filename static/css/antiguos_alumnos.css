@@ -740,13 +740,15 @@ footer{
 #tituloPaginaFormularioAltaActividad, #campoDelFormularioAltaActividad,  
 #tituloPaginaFormularioAltaAcuerdoEmpresa, #campoDelFormularioAltaAcuerdoEmpresa,
 #tituloPaginaFormularioAltaNoticia, #campoDelFormularioAltaNoticia, 
-#tituloPaginaFormularioAltaAcuerdoEmpleo, #campoDelFormularioAltaOfertaEmpleo, 
+#tituloPaginaFormularioAltaOfertaEmpleo, #campoDelFormularioAltaOfertaEmpleo, 
 #tituloPaginaFormularioAltaRevistaIngenio, #campoDelFormularioAltaRevistaIngenio, 
-#tituloPaginaFormularioAltaUsuario, #campoDelFormularioAltaUsuario{
+#tituloPaginaFormularioAltaUsuario, #campoDelFormularioAltaUsuario, 
+#tituloPaginaFormularioAltaDatosContacto, #campoDelFormularioAltaDatosContacto{
     margin-bottom: 1em;
 }
 
 #etiquetaFormularioAltaActividad, #etiquetaFormularioAltaAcuerdoEmpresa, #etiquetaFormularioAltaNoticia, 
-#etiquetaFormularioAltaOfertaEmpleo, #etiquetaFormularioAltaRevistaIngenio, #etiquetaFormularioAltaUsuario{
+#etiquetaFormularioAltaOfertaEmpleo, #etiquetaFormularioAltaRevistaIngenio, #etiquetaFormularioAltaUsuario, 
+#etiquetaFormularioAltaDatosContacto{
     font-weight: bold;
 }

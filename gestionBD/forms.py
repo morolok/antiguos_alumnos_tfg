@@ -176,6 +176,24 @@ class FormularioAltaAcuerdoEmpresa(forms.ModelForm):
         return acuerdoEmpresa
 
 
+class FormularioAltaDatosContacto(forms.ModelForm):
+    telefono = forms.CharField(label='Teléfono', widget=forms.TextInput(attrs={'patterns': '^[6-7]{1}[0-9]{8}', 'placeholder': '654732897', 'max_length': '9'}), required=True)
+    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'placeholder': 'usuario@dominio.extension'}), required=True)
 
+    class Meta:
+        model = modelos.DatosDeContacto
+        fields = ['telefono', 'email', 'horario', 'horarioEspecial', 'ubicacion', 'facebook', 'twitter', 'instagram']
+    
+    def clean(self):
+        datosContacto = self.cleaned_data
+        errores = []
+        telefono = datosContacto.get('telefono')
+        datosContactos = modelos.DatosDeContacto.objects.filter(telefono=telefono)
+        if(datosContactos.exists()):
+            errores.append('Ya existe un dato de contacto con el teléfono ' + telefono)
+        if(len(errores) != 0):
+            raise forms.ValidationError(errores)
+        return datosContacto
+        
 
 

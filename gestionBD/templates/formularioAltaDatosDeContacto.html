@@ -11,49 +11,56 @@
 
 <div id="cuerpo">
 
-    <h1>Alta de datos de contacto:</h1>
+    <div id="tituloPaginaFormularioAltaDatosContacto" class="row">
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de datos de contacto</h5>
+    </div>
     
-    <form id="formularioAltaDatosDeContacto" method="POST">
-
-        <label for="telefono">Teléfono: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="email">Email: </label>
-        <input type="email">
-
-        <br>
-
-        <label for="horario">Horario</label>
-        <input type="text">
-
-        <br>
-
-        <label for="horarioEspecial">Horario especial:</label>
-        <input type="text">
-
-        <br>
-
-        <label for="ubicacion">Ubicación: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="facebook">Facebook: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="twitter">Twitter: </label>
-        <input type="text">
-
-        <br>
-
-        <label for="instagram">Instagram: </label>
-        <input type="text">
-
-    </form>
+    {% if esAdministrador %}
+        {% if errores %}
+            {% for error in errores %}
+                <div class="row">
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoErroresFormulario">
+                        {{ error }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form id="formularioAltaDatosDeContacto" method="POST">{% csrf_token %}
+            {% for campo in formDatosContacto %}
+                {% if campo.id_for_label == 'id_telefono' or campo.id_for_label == 'id_email' or campo.id_for_label == 'id_horario' or campo.id_for_label == 'id_horarioEspecial' or campo.id_for_label == 'id_ubicacion'%}
+                    <div id="campoDelFormularioAltaDatosContacto" class="row">
+                        <label for="formularioAltaDatosContacto" id="etiquetaFormularioAltaDatosContacto" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> 
+                        </label>
+                        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                    </div>
+                {% else %}
+                    <div id="campoDelFormularioAltaDatosContacto" class="row">
+                        <label for="formularioAltaDatosContacto" id="etiquetaFormularioAltaDatosContacto" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            {{ campo.label }}
+                        </label>
+                        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div id="parrafoAvisoCamposObligatorios" class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
+            </div>
+            <div class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button id="botonEnviarFormulario" type="submit">Enviar</button>
+                </p>
+            </div>
+        </form>
+    {% else %}
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Para ver esta página debe ser administrador.
+            </p>
+        </div>
+        <div id="divParaElPie">
+        </div>
+    {% endif %}
 
 </div>
 

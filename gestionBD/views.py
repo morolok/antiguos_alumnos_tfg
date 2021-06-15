@@ -1367,7 +1367,7 @@ def formularioAltaOfertaEmpleo(request):
             ofertaEmpleo = formOfertaEmpleo.save(commit=False)
             # Nos quedamos el título de la oferta de empleo
             titulo = ofertaEmpleo.titulo
-            # Guardamos la actividad en la base de datos y ponemos el formulario en blanco
+            # Guardamos la oferta en la base de datos y ponemos el formulario en blanco
             formOfertaEmpleo.save()
             formOfertaEmpleo = formularios.FormularioAltaOfertaEmpleto()
             # Redirigimos a la página de éxito pues ha ido todo bien
@@ -1385,13 +1385,45 @@ def formularioAltaOfertaEmpleo(request):
 
 
 def formularioAltaDatosDeContacto(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
     contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
     usuario = request.session.get('usuario')
     esAdministrador = request.session.get('esAdministrador')
     inicioSesion = request.session.get('inicioSesion')
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formDatosContacto = formularios.FormularioAltaDatosContacto(request.POST, request.FILES or None)
+    contexto['formDatosContacto'] = formDatosContacto
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
+    if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
+        formDatosContacto = formularios.FormularioAltaDatosContacto(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
+        if(formDatosContacto.is_valid()):
+            # Si es valido creamos el objeto datos de contacto
+            datosContacto = formDatosContacto.save(commit=False)
+            # Nos quedamos el teléfono y el email de los datos
+            telefono = datosContacto.telefono
+            email = datosContacto.email
+            # Guardamos los datos en la base de datos y ponemos el formulario en blanco
+            formDatosContacto.save()
+            formDatosContacto = formularios.FormularioAltaDatosContacto()
+            # Redirigimos a la página de éxito pues ha ido todo bien
+            return redirect('exitoAltaDatosContacto', telefono = telefono, email = email)
+        else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
+            if('__all__' in formDatosContacto.errors.keys()):
+                errores = [error for error in formDatosContacto.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formDatosContacto.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaDatosDeContacto.html", contexto)
 
 
@@ -1418,9 +1450,9 @@ def formularioAltaRevistaIngenio(request):
         if(formRevistaIngenio.is_valid()):
             # Si es valido creamos el objeto revista
             revista = formRevistaIngenio.save(commit=False)
-            # Nos quedamos el número de la actividad
+            # Nos quedamos el número de la revista
             numero = revista.numero
-            # Guardamos la actividad en la base de datos y ponemos el formulario en blanco
+            # Guardamos la revista en la base de datos y ponemos el formulario en blanco
             formRevistaIngenio.save()
             formRevistaIngenio = formularios.FormularioAltaRevistaIngenio()
             # Redirigimos a la página de éxito pues ha ido todo bien
@@ -1550,3 +1582,16 @@ def exitoAltaAcuerdoEmpresa(request, nombre):
     contexto['inicioSesion'] = inicioSesion
     contexto['nombre'] = nombre
     return render(request, "exitoAltaAcuerdoEmpresa.html", contexto)
+
+
+def exitoAltaDatosContacto(request, telefono, email):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    contexto['telefono'] = telefono
+    contexto['email'] = email
+    return render(request, "exitoAltaDatosContacto.html", contexto)

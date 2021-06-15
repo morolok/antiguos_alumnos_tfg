@@ -11,7 +11,7 @@
 <div id="cuerpo">
 
 
-    <div id="tituloPaginaFormularioAltaAcuerdoEmpleo" class="row">
+    <div id="tituloPaginaFormularioAltaOfertaEmpleo" class="row">
         <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de oferta de empleo</h5>
     </div>
 
@@ -26,15 +26,15 @@
         <form id="formularioAltaOfertaEmpleo" method="POST" action="." enctype="multipart/form-data"> {% csrf_token %}
             {% for campo in formOfertaEmpleo %}
                 {% if campo.id_for_label == 'id_titulo' %}
-                    <div id="campoDelFormularioAltaActividad" class="row">
-                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div id="campoDelFormularioAltaOfertaEmpleo" class="row">
+                        <label for="formularioAltaOfertaEmpleo" id="etiquetaFormularioAltaOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span>
                         </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
                     </div>
                 {% elif campo.id_for_label == 'id_fecha' %}
-                    <div id="campoDelFormularioAltaActividad" class="row">
-                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div id="campoDelFormularioAltaOfertaEmpleo" class="row">
+                        <label for="formularioAltaOfertaEmpleo" id="etiquetaFormularioAltaOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             {{ campo.label }}
                         </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -42,8 +42,8 @@
                         </p>
                     </div>
                 {% else %}
-                    <div id="campoDelFormularioAltaActividad" class="row">
-                        <label for="formularioAltaActividad" id="etiquetaFormularioAltaActividad" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div id="campoDelFormularioAltaOfertaEmpleo" class="row">
+                        <label for="formularioAltaOfertaEmpleo" id="etiquetaFormularioAltaOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                             {{ campo.label }}
                         </label>
                         <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
@@ -54,7 +54,9 @@
                 <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
             </div>
             <div class="row">
-                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"><button id="botonEnviarFormulario" type="submit">Enviar</button></p>
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button id="botonEnviarFormulario" type="submit">Enviar</button>
+                </p>
             </div>
         </form>
     {% else %}
