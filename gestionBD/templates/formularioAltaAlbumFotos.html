@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Alta álbum de fotos
+{% endblock %}
+
+
+{% block content %}
+
+<div id="cuerpo">
+
+    <div id="tituloPaginaFormularioAltaAlbumFotos" class="row">
+        <h5 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Alta de álbum de fotos</h5>
+    </div>
+    
+    {% if esAdministrador %}
+        {% if errores %}
+            {% for error in errores %}
+                <div class="row">
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="parrafoErroresFormulario">
+                        {{ error }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form id="formularioAltaAlbumFotos" method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
+            {% for campo in formAlbum %}
+                <div id="campoDelFormularioAltaAlbumFotos" class="row">
+                    <label for="formularioAltaAlbumFotos" id="etiquetaFormularioAltaAlbumFotos" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        {{ campo.label }} <span id="asteriscoCampoOblogatorioFormulario">*</span> 
+                    </label>
+                    <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ campo }}</p>
+                </div>
+            {% endfor %}
+            <div id="parrafoAvisoCamposObligatorios" class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Los campos con asterisco son obligatorios</p>
+            </div>
+            <div class="row">
+                <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <button id="botonEnviarFormulario" type="submit">Enviar</button>
+                </p>
+            </div>
+        </form>
+    {% else %}
+        <div class="row">
+            <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                Para ver esta página debe ser administrador.
+            </p>
+        </div>
+        <div id="divParaElPie">
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

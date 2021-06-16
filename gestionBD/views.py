@@ -620,6 +620,38 @@ def multimedia(request):
     contexto['usuario'] = usuario
     contexto['esAdministrador'] = esAdministrador
     contexto['inicioSesion'] = inicioSesion
+    enlaces = modelos.AlbumFotos.objects.order_by('-fecha')
+    objetos_paginacion = 5
+    paginator = Paginator(enlaces, objetos_paginacion)
+    pagina = request.GET.get('page')
+    if(pagina is not None):
+        contexto['paginaActual'] = int(pagina)
+    enlaces_paginados = paginator.get_page(pagina)
+    contexto['enlaces_paginados'] = enlaces_paginados
+    numero_paginas = math.ceil(enlaces.count()/objetos_paginacion)
+    paginas = [i for i in range(1, numero_paginas+1)]
+    contexto['paginas'] = paginas
+    tipoInicio = False
+    tipoMedio = False
+    tipoFin = False
+    if(numero_paginas > 5 and (numero_paginas - 5) > 2):
+        if((pagina is None) or (pagina is not None and int(pagina) < 5)):
+            tipoInicio = True
+            rango_inicio = [i for i in range(1, 6)]
+            contexto['rango_inicio'] = rango_inicio
+        elif(pagina is not None and int(pagina) >= 5 and int(pagina) < numero_paginas-3):
+            tipoMedio = True
+            rango_medio = [i for i in range(int(pagina)-1, int(pagina)+2)]
+            contexto['rango_medio'] = rango_medio
+        elif(pagina is not None and int(pagina) >= numero_paginas-3):
+            tipoFin = True
+            rango_fin = [i for i in range(numero_paginas-3, numero_paginas+1)]
+            contexto['rango_fin'] = rango_fin
+            pagina_media = math.ceil((rango_fin[0]+1)/2)
+            contexto['pagina_media'] = pagina_media
+    contexto['tipoInicio'] = tipoInicio
+    contexto['tipoMedio'] = tipoMedio
+    contexto['tipoFin'] = tipoFin
     return render(request, "multimedia.html", contexto)
 
 
@@ -1494,7 +1526,7 @@ def formularioAltaAcuerdoEmpresa(request):
             acuerdoEmpresa = formAcuerdo.save(commit=False)
             # Nos quedamos el nombre del acuerdo
             nombre = acuerdoEmpresa.nombre
-            # Guardamos al acuerdo en la base de datos y ponemos el formulario en blanco
+            # Guardamos el acuerdo en la base de datos y ponemos el formulario en blanco
             formAcuerdo.save()
             formAcuerdo = formularios.FormularioAltaAcuerdoEmpresa()
             # Redirigimos a la página de éxito pues ha ido todo bien
@@ -1509,6 +1541,48 @@ def formularioAltaAcuerdoEmpresa(request):
                 contexto['errores'] = errores
     # Renderizamos la página del formulario con este en blanco o con los errores que haya
     return render(request, "formularioAltaAcuerdoEmpresa.html", contexto)
+
+
+def formularioAltaAlbumFotos(request):
+    # Creamos el 'contexto' (Diccionario Python) de la vista en donde almacenaremos aquellos elementos que queramos mostrar
+    # en la vista
+    contexto = {}
+    # Guardamos el usuario, si es administrador y si ha iniciado sesión en el contexto
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    # Creamos la variable del formulario con el tipo de formulario que es y lo guardamos en el contexto
+    formAlbum = formularios.FormularioAltaAlbumFotos(request.POST, request.FILES or None)
+    contexto['formAlbum'] = formAlbum
+    # Vemos si se ha recibido en la request el Post del formulario, en caso afirmativo es que se han enviado los datos con el
+    # botón de enviar
+    if(request.method == 'POST'):
+        # Guardamos los datos y los archivos recibidos en la variable del formulario creada anteriormente
+        formAlbum = formularios.FormularioAltaAlbumFotos(request.POST, request.FILES)
+        # Preguntamos si es válido con la comprobación que se hace en el fichero 'forms.py'
+        if(formAlbum.is_valid()):
+            # Si es valido creamos el objeto álbum de fotos
+            albumFotos = formAlbum.save(commit=False)
+            # Nos quedamos el nombre del álbum
+            nombre = albumFotos.nombre
+            # Guardamos el álbum en la base de datos y ponemos el formulario en blanco
+            formAlbum.save()
+            formAlbum = formularios.FormularioAltaAlbumFotos()
+            # Redirigimos a la página de éxito pues ha ido todo bien
+            return redirect('exitoAltaAlbumFotos', nombre = nombre)
+        else:
+            # En caso contrario vemos los errores que hay y los guardamos en el contexto para mostrarlos en la vista
+            if('__all__' in formAlbum.errors.keys()):
+                errores = [error for error in formAlbum.errors['__all__']]
+                contexto['errores'] = errores
+            else:
+                errores = [error for lsErrores in formAlbum.errors.values() for error in lsErrores]
+                contexto['errores'] = errores
+    # Renderizamos la página del formulario con este en blanco o con los errores que haya
+    return render(request, "formularioAltaAlbumFotos.html", contexto)
 
 
 def exitoAltaRevistaIngenio(request, numero):
@@ -1595,3 +1669,15 @@ def exitoAltaDatosContacto(request, telefono, email):
     contexto['telefono'] = telefono
     contexto['email'] = email
     return render(request, "exitoAltaDatosContacto.html", contexto)
+
+
+def exitoAltaAlbumFotos(request, nombre):
+    contexto = {}
+    usuario = request.session.get('usuario')
+    esAdministrador = request.session.get('esAdministrador')
+    inicioSesion = request.session.get('inicioSesion')
+    contexto['usuario'] = usuario
+    contexto['esAdministrador'] = esAdministrador
+    contexto['inicioSesion'] = inicioSesion
+    contexto['nombre'] = nombre
+    return render(request, "exitoAltaAlbumFotos.html", contexto)

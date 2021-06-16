@@ -676,6 +676,16 @@ footer{
     margin-bottom: 2em;
 }
 
+#enlaceAlbumes{
+    text-decoration: none;
+    color: #303B89;
+    font-weight: bold;
+}
+
+#cadaEnlaceEnEnlaces{
+    margin-bottom: 2em;
+}
+
 
 /* Visualización de la página "historia" */
 #tituloPaginaHistoria{
@@ -743,12 +753,13 @@ footer{
 #tituloPaginaFormularioAltaOfertaEmpleo, #campoDelFormularioAltaOfertaEmpleo, 
 #tituloPaginaFormularioAltaRevistaIngenio, #campoDelFormularioAltaRevistaIngenio, 
 #tituloPaginaFormularioAltaUsuario, #campoDelFormularioAltaUsuario, 
-#tituloPaginaFormularioAltaDatosContacto, #campoDelFormularioAltaDatosContacto{
+#tituloPaginaFormularioAltaDatosContacto, #campoDelFormularioAltaDatosContacto, 
+#tituloPaginaFormularioAltaAlbumFotos, #campoDelFormularioAltaAlbumFotos{
     margin-bottom: 1em;
 }
 
 #etiquetaFormularioAltaActividad, #etiquetaFormularioAltaAcuerdoEmpresa, #etiquetaFormularioAltaNoticia, 
 #etiquetaFormularioAltaOfertaEmpleo, #etiquetaFormularioAltaRevistaIngenio, #etiquetaFormularioAltaUsuario, 
-#etiquetaFormularioAltaDatosContacto{
+#etiquetaFormularioAltaDatosContacto, #etiquetaFormularioAltaAlbumFotos{
     font-weight: bold;
 }

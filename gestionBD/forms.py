@@ -196,4 +196,23 @@ class FormularioAltaDatosContacto(forms.ModelForm):
         return datosContacto
         
 
+class FormularioAltaAlbumFotos(forms.ModelForm):
 
+    class Meta:
+        model = modelos.AlbumFotos
+        fields = ['nombre', 'enlace',]
+    
+    def clean(self):
+        enlaceAlbum = self.cleaned_data
+        errores = []
+        nombreEnlace = enlaceAlbum.get('nombre')
+        enlaceEnlace = enlaceAlbum.get('enlace')
+        enlaces = modelos.AlbumFotos.objects.filter(nombre = nombreEnlace)
+        enlaces2 = modelos.AlbumFotos.objects.filter(enlace = enlaceEnlace)
+        if(enlaces.exists()):
+            errores.append('Ya existe un enlace con ese nombre')
+        if(enlaces2.exists()):
+            errores.append('Ya existe un enlace con ese enlace')
+        if(len(errores) != 0):
+            raise forms.ValidationError(errores)
+        return enlaceAlbum

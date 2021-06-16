@@ -109,7 +109,7 @@ class Actividad(models.Model):
     imagen = models.ImageField(upload_to='images', null=True, blank=True, verbose_name='Imagen')
     fecha = models.DateField(verbose_name='Fecha de la actividad')
     hora = models.TimeField(null=True, blank=True, verbose_name='Hora de la actividad')
-    enlaceAlbum = models.URLField(null=True, blank=True, verbose_name='Enlace al album', validators=[URLValidator()])
+    enlaceAlbum = models.URLField(null=True, blank=True, verbose_name='Enlace al álbum', validators=[URLValidator()])
     numeroPlazas = models.IntegerField(verbose_name='Número de plazas')
     fechaSolicitudesInicio = models.DateField(verbose_name='Fecha de inicio de las solicitudes')
     fechaSolicitudesFin = models.DateField(verbose_name='Fecha de fin de las solicitudes')
@@ -184,6 +184,19 @@ class AcuerdosEmpresas(models.Model):
     class Meta:
         verbose_name = 'Acuerdos con empresas'
         verbose_name_plural = 'Acuerdos con empresas'
+    
+    def __str__(self):
+        return self.nombre
+
+
+class AlbumFotos(models.Model):
+    nombre = models.CharField(max_length=1024, primary_key=True, verbose_name='Nombre')
+    enlace = models.URLField(verbose_name='Enlace', validators=[URLValidator()])
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Álbum de fotos'
+        verbose_name_plural = 'Álbumes de fotos'
     
     def __str__(self):
         return self.nombre
