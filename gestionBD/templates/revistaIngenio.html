@@ -22,6 +22,37 @@
             <a href="mailto:aa@esi.us.es" id="enlaceEnviarCorreo">aa@esi.us.es</a>. Tu aportación será bienvenida.
         </p>
     </div>
+    <div id="contenedorTablaUltimoNumero">
+        <table class="table table-striped" id="tablaUltimoNumero">
+            <thead>
+                <tr>
+                    <th scope="col">Número</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Revista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ultimaRevista.numero}}</td>
+                    <td>{{ultimaRevista.fecha}}</td>
+                    <td>
+                        <img id="logoPdfTablaRI" src="{% static 'images/icono_pdf.ico' %}">
+                        <a href="{{MEDIA_URL}}{{ultimaRevista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                            Revista Ingenio {{ultimaRevista.numero}}
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% if imagenUltimoNumero %}
+            <p id="parrafoAnuncioRevistaIngenio">
+                <img id="imagenAnuncioRevistaIngenio" src="{{MEDIA_URL}}{{imagenUltimoNumero}}">
+            </p>
+        {% endif %}
+    </div>
+    <div class="row" id="parrafoNumerosAnteriores">
+        <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Números anteriores:</p>
+    </div>
     <div id="tablaPaginaRevistaIngenio">
         <table class="table table-striped">
             <thead>
@@ -33,18 +64,7 @@
             </thead>
             <tbody>
                 {% for revista in revistas %}
-                    {% if revista.numero == mayorNumero %}
-                        <tr>
-                            <td id="mayorNumero">{{revista.numero}}</td>
-                            <td id="mayorNumero">{{revista.fecha}}</td>
-                            <td>
-                                <img id="logoPdfTablaRI" src="{% static 'images/icono_pdf.ico' %}">
-                                <a href="{{MEDIA_URL}}{{revista.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
-                                    Revista Ingenio {{revista.numero}}
-                                </a>
-                            </td>
-                        </tr>
-                    {% else %}
+                    {% if revista.numero != mayorNumero %}
                         <tr>
                             <td>{{revista.numero}}</td>
                             <td>{{revista.fecha}}</td>

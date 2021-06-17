@@ -578,10 +578,28 @@ footer{
     text-decoration: none;
 }
 
+#parrafoPaginaRevistaIngenio{
+    margin-bottom: 3em;
+}
+
 #logoPdfTablaRI{
     width: 20px;
     height: 20px;
     vertical-align: center;
+}
+
+#parrafoNumerosAnteriores{
+    margin-top: 2em;
+}
+
+#contenedorTablaUltimoNumero{
+    margin-top: 2em;
+    margin-bottom: 4em;
+}
+
+#tablaUltimoNumero{
+    width: 50%;
+    margin-bottom: 2em;
 }
 
 #tablaPaginaRevistaIngenio{

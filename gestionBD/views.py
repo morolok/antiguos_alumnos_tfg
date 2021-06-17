@@ -602,10 +602,15 @@ def revistaIngenio(request):
     # más recientes primero y las guardamos en el contexto
     revistas = modelos.RevistaIngenio.objects.order_by('-numero')
     contexto['revistas'] = revistas
-    # Guardamos el número de revista mayor, pues será la revista más reciente, a fin de destacarla en la vista para 
-    # que sea más fácil de ver para los usuarios
+    # Guardamos el número de revista mayor, pues será la revista más reciente, a fin de no mostrarla en la tabla de los numeros
+    # anteriores
     mayorNumero = revistas[0].numero
     contexto['mayorNumero'] = mayorNumero
+    # Nos quedamos con la imagen de la portada si la hay para mostrarla en la página
+    if(revistas[0].imagen):
+        contexto['imagenUltimoNumero'] = revistas[0].imagen
+    # Guardamos el último numero para mostrarlo aparte a los usuarios
+    contexto['ultimaRevista'] = revistas[0]
     # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
     contexto['MEDIA_URL'] = MEDIA_URL
     # Renderizamos la página de la Revista Ingenio
