@@ -66,7 +66,7 @@ def inicio(request):
     contexto['inicioSesion'] = inicioSesion
     actividades = modelos.Actividad.objects.order_by('-fecha')[:3]
     ofertas_empleo = modelos.OfertaEmpleo.objects.order_by('-fecha')[:3]
-    noticias = modelos.Noticia.objects.values_list('titulo').order_by('-fecha')
+    noticias = modelos.Noticia.objects.values_list('titulo').order_by('-fecha')[:5]
     ultimaRevistaIngenio = modelos.RevistaIngenio.objects.order_by('-numero')[0]
     elementosCarrusel = [ultimaRevistaIngenio] + [n[0] for n in noticias]
     contexto['elementosCarrusel'] = elementosCarrusel
@@ -537,6 +537,7 @@ def ofertaEmpleo(request, titulo):
     # Separamos los párrafos del texto de la oferta de empleo para mostrarlos y lo guardamos en el contexto
     lineas = ofertaEmpleo.texto.splitlines()
     contexto['lineas'] = lineas
+    print(ofertaEmpleo.titulaciones)
     # Guardamos en el contexto la url de los archivos multimedia por si es necesario consultar alguno en la vista
     contexto['MEDIA_URL'] = MEDIA_URL
     # Renderizamos la página de la oferta de empleo

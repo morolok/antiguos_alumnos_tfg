@@ -21,16 +21,24 @@
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ linea }}</p>
         {% endfor %}
     </div>
-
-    {% if acuerdo.fichero %}
+    {% if acuerdo.fichero or acuerdo.imagen %}
         <div id="adjuntosAcuerdoEmpresa" class="row">
             <strong><p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p></strong>
-            <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
-                <p>Fichero adjunto</p>
-            </a>
         </div>
+        {% if acuerdo.fichero %}
+            <div id="adjuntosAcuerdoEmpresa" class="row">
+                <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{acuerdo.fichero}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                    <p>Fichero adjunto</p>
+                </a>
+            </div>
+        {% elif acuerdo.imagen %}
+            <div id="adjuntosAcuerdoEmpresa" class="row">
+                <a class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" href="{{MEDIA_URL}}{{acuerdo.imagen}}" type="application/pdf" target="_blank" id="enlaceAColor">
+                    <p>Imagen adjunta</p>
+                </a>
+            </div>
+        {% endif %}
     {% endif %}
-
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="compartirRedesSociales">
         <p>Compartir en redes sociales:</p>
         <a class="a2a_dd" href="https://www.addtoany.com/share"></a>

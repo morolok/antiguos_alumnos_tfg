@@ -198,10 +198,6 @@ footer{
     margin-bottom: 2em;
 }
 
-#imagenAnuncioRevistaIngenio{
-    width: 214px;
-}
-
 #parrafoNumeroRevistaIngenio{
     font-style: italic;
 }
@@ -464,6 +460,14 @@ footer{
     margin-bottom: 1.5em;
 }
 
+#parrafoTitulacion{
+    font-weight: bold;
+}
+
+#parrafoSepararTitulaciones{
+    margin-bottom: 2em;
+}
+
 
 /* Visualización de las páginas "noticias" y "noticia" */
 #tituloPaginaNoticias{
@@ -595,6 +599,10 @@ footer{
 #contenedorTablaUltimoNumero{
     margin-top: 2em;
     margin-bottom: 4em;
+}
+
+#imagenAnuncioRevistaIngenio{
+    width: 214px;
 }
 
 #tablaUltimoNumero{

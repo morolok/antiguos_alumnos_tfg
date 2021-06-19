@@ -16,14 +16,11 @@
         <h4 class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{ ofertaEmpleo.titulo }}</h4>
     </div>
 
-
     {% if ofertaEmpleo.fecha %}
         <div id="cadaElementoOfertaEmpleo" class="row">
             <p id="parrafoFechaOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Fecha de la oferta: {{ ofertaEmpleo.fecha }}</p>
         </div>
     {% endif %}
-
-
     <div id="cadaElementoOfertaEmpleo">
         {% for linea in lineas %}
             <div class="row">
@@ -31,15 +28,24 @@
             </div>
         {% endfor %}
     </div>
-
-    
     {% if ofertaEmpleo.contacto %}
         <div id="cadaElementoOfertaEmpleo" class="row">
             <p class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Envía en C. V. a: {{ ofertaEmpleo.contacto }}</p>
         </div>
     {% endif %}
-
-
+    {% if ofertaEmpleo.titulaciones %}
+        <div class="row">
+            <p id="parrafoTitulacion" class="col-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">Titulaciones:</p>
+        </div>
+        <ul>
+            {% for titulacion in ofertaEmpleo.titulaciones.all %}
+                <div class="row">
+                    <li id="titulacionEnTitulaciones" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{titulacion}}</li>
+                </div>
+            {% endfor %}
+        </ul>
+        <div id="parrafoSepararTitulaciones"></div>
+    {% endif %}
     {% if ofertaEmpleo.fichero %}
         <div id="cadaElementoOfertaEmpleo" class="row">
             <p id="parrafoAdjuntosOfertaEmpleo" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">Adjuntos: </p>
@@ -48,7 +54,6 @@
             </a>
         </div>
     {% endif %}
-
     <div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="compartirRedesSociales">
         <p>Compartir en redes sociales:</p>
         <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
@@ -58,7 +63,6 @@
         <a class="a2a_button_telegram"></a>
     </div>
     <script async src="https://static.addtoany.com/menu/page.js"></script>
-
 
 </div>
 
