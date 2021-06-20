@@ -96,9 +96,10 @@ class FormularioAltaActividad(forms.ModelForm):
         errores = []
 
         tituloActividad = actividad.get('titulo')
-        actividades = modelos.Actividad.objects.filter(titulo=tituloActividad)
+        fechaActividad = actividad.get('fecha')
+        actividades = modelos.Actividad.objects.filter(titulo=tituloActividad, fecha=fechaActividad)
         if(actividades.exists()):
-            errores.append('Ya hay una actividad con ese título')
+            errores.append('Ya hay una actividad con ese título y esa fecha')
         
         if(len(errores) != 0):
             raise forms.ValidationError(errores)
@@ -119,9 +120,10 @@ class FormularioAltaNoticia(forms.ModelForm):
         errores = []
 
         tituloNoticia = noticia.get('titulo')
-        noticias = modelos.Noticia.objects.filter(titulo=tituloNoticia)
+        fechaNoticia = noticia.get('fecha')
+        noticias = modelos.Noticia.objects.filter(titulo=tituloNoticia, fecha=fechaNoticia)
         if(noticias.exists()):
-            errores.append('Ya hay una noticia con ese título')
+            errores.append('Ya hay una noticia con ese título y esa fecha')
 
         if(len(errores) != 0):
             raise forms.ValidationError(errores)
@@ -145,9 +147,10 @@ class FormularioAltaOfertaEmpleto(forms.ModelForm):
         errores = []
 
         tituloOferta = ofertaEmpleo.get('titulo')
-        ofertasEmpleo = modelos.OfertaEmpleo.objects.filter(titulo = tituloOferta)
+        fechaOferta = ofertaEmpleo.get('fecha')
+        ofertasEmpleo = modelos.OfertaEmpleo.objects.filter(titulo=tituloOferta, fecha=fechaOferta)
         if(ofertasEmpleo.exists()):
-            errores.append('Ya hay una oferta de empleo con ese título')
+            errores.append('Ya hay una oferta de empleo con ese título y esa fecha')
 
         if(len(errores) != 0):
             raise forms.ValidationError(errores)

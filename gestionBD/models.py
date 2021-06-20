@@ -95,6 +95,7 @@ class Noticia(models.Model):
     imagen = models.ImageField(upload_to='images', blank=True, verbose_name='Imagen')
 
     class Meta:
+        unique_together = (('titulo', 'fecha'),)
         verbose_name = 'Noticia'
         verbose_name_plural = 'Noticias'
 
@@ -118,6 +119,7 @@ class Actividad(models.Model):
     tipoActividad = models.ForeignKey(TipoActividad, on_delete=models.CASCADE, verbose_name='Tipo de actividad')
 
     class Meta:
+        unique_together = (('titulo', 'fecha'),)
         verbose_name = 'Actividad'
         verbose_name_plural = 'Actividades'
 
@@ -148,11 +150,12 @@ class OfertaEmpleo(models.Model):
     texto = models.TextField(null=True, blank=True, verbose_name='Texto')
     contacto = models.EmailField(null=True, blank=True, verbose_name='Contacto')
     perfil = models.CharField(max_length=1024, null=True, blank=True, verbose_name='Perfil')
-    fecha = models.DateField(null=True, blank=True, verbose_name='Fecha')
+    fecha = models.DateField(verbose_name='Fecha')
     titulaciones = models.ManyToManyField(Titulacion, blank=True, verbose_name='Titulaciones')
     fichero = models.FileField(upload_to='files', null=True, blank=True, verbose_name='Fichero')
 
     class Meta:
+        unique_together = (('titulo', 'fecha'),)
         verbose_name = 'Oferta de empleo'
         verbose_name_plural = 'Ofertas de empleo'
 
